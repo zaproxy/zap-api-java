@@ -17,6 +17,11 @@ jar {
     }
 }
 
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
     classifier "sources"
@@ -35,7 +40,7 @@ task uberJar(type: Jar) {
     with jar
 }
 
-artifacts { archives sourcesJar }
+artifacts { archives sourcesJar, javadocJar }
 
 signing { sign configurations.archives }
 
