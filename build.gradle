@@ -1,0 +1,20 @@
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
+apply from: "gradle/compile.gradle"
+apply from: "gradle/idea.gradle"
+apply from: "gradle/eclipse.gradle"
+
+allprojects {
+    apply plugin: 'java'
+    group = 'org.zaproxy'
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    sourceCompatibility = 1.7
+    targetCompatibility = 1.7
+}

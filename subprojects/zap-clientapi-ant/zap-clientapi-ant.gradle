@@ -1,0 +1,17 @@
+
+version '1.0.0'
+
+dependencies {
+    compile project(':zap-clientapi')
+    compileOnly 'org.apache.ant:ant:1.9.7'
+}
+
+sourceSets { examples }
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'OWASP ZAP Ant API Client',
+        'Implementation-Version': version,
+        'Create-Date': new Date().format("yyyy-MM-dd")
+    }
+}
