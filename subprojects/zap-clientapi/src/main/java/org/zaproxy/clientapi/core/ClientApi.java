@@ -192,19 +192,19 @@ public class ClientApi {
             for (ApiResponse resp : alertList.getItems()) {
             	ApiResponseSet alertSet = (ApiResponseSet)resp;
                 alerts.add(new Alert(
-                		alertSet.getAttribute("alert"),
-                        alertSet.getAttribute("url"),
-                        Risk.valueOf(alertSet.getAttribute("risk")),
-                        Confidence.valueOf(alertSet.getAttribute("confidence")),
-                        alertSet.getAttribute("param"),
-                        alertSet.getAttribute("other"),
-                        alertSet.getAttribute("attack"),
-                        alertSet.getAttribute("description"),
-                        alertSet.getAttribute("reference"),
-                        alertSet.getAttribute("solution"),
-                        alertSet.getAttribute("evidence"),
-                        Integer.parseInt(alertSet.getAttribute("cweid")),
-                        Integer.parseInt(alertSet.getAttribute("wascid"))));
+                		alertSet.getValue("alert"),
+                        alertSet.getValue("url"),
+                        Risk.valueOf(alertSet.getValue("risk")),
+                        Confidence.valueOf(alertSet.getValue("confidence")),
+                        alertSet.getValue("param"),
+                        alertSet.getValue("other"),
+                        alertSet.getValue("attack"),
+                        alertSet.getValue("description"),
+                        alertSet.getValue("reference"),
+                        alertSet.getValue("solution"),
+                        alertSet.getValue("evidence"),
+                        Integer.parseInt(alertSet.getValue("cweid")),
+                        Integer.parseInt(alertSet.getValue("wascid"))));
             }
         }
     	return alerts;

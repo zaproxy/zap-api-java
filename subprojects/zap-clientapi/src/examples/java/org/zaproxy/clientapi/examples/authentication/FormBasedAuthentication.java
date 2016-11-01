@@ -79,8 +79,8 @@ public class FormBasedAuthentication {
 
 			for (ApiResponse r : configParamsList.getItems()) {
 				ApiResponseSet set = (ApiResponseSet) r;
-				System.out.println("'" + methodName + "' config param: " + set.getAttribute("name") + " ("
-						+ (set.getAttribute("mandatory").equals("true") ? "mandatory" : "optional") + ")");
+				System.out.println("'" + methodName + "' config param: " + set.getValue("name") + " ("
+						+ (set.getValue("mandatory").equals("true") ? "mandatory" : "optional") + ")");
 			}
 		}
 	}
@@ -95,8 +95,8 @@ public class FormBasedAuthentication {
 		StringBuilder sb = new StringBuilder("Users' config params: ");
 		for (ApiResponse r : configParamsList.getItems()) {
 			ApiResponseSet set = (ApiResponseSet) r;
-			sb.append(set.getAttribute("name")).append(" (");
-			sb.append((set.getAttribute("mandatory").equals("true") ? "mandatory" : "optional"));
+			sb.append(set.getValue("name")).append(" (");
+			sb.append((set.getValue("mandatory").equals("true") ? "mandatory" : "optional"));
 			sb.append("), ");
 		}
 		System.out.println(sb.deleteCharAt(sb.length() - 2).toString());
