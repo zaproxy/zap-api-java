@@ -40,6 +40,8 @@ task sourcesJar(type: Jar) {
 }
 
 task uberJar(type: Jar) {
+    group 'build'
+    description 'Assembles a jar archive containing the main jar and its dependencies.'
     baseName 'zap-api'
     manifest.from jar.manifest
     from {
