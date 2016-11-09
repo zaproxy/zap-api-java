@@ -54,7 +54,11 @@ task uberJar(type: Jar) {
 
 artifacts { archives sourcesJar, javadocJar }
 
-signing { sign configurations.archives }
+signing {
+    if (project.hasProperty('signing.keyId')) {
+        sign configurations.archives
+    }
+}
 
 uploadArchives {
     repositories {
