@@ -49,6 +49,7 @@ import org.zaproxy.clientapi.core.Alert.Confidence;
 import org.zaproxy.clientapi.core.Alert.Risk;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
+import org.zaproxy.clientapi.gen.AlertFilter;
 import org.zaproxy.clientapi.gen.Ascan;
 import org.zaproxy.clientapi.gen.Authentication;
 import org.zaproxy.clientapi.gen.Authorization;
@@ -85,6 +86,7 @@ public class ClientApi {
 	// Note that any new API implementations added have to be added here manually
 	public Acsrf acsrf = new Acsrf(this);
 	public AjaxSpider ajaxSpider = new AjaxSpider(this);
+	public AlertFilter alertFilter = new AlertFilter(this);
 	public Ascan ascan = new Ascan(this);
 	public Authentication authentication = new Authentication(this);
 	public Authorization authorization = new Authorization(this);
