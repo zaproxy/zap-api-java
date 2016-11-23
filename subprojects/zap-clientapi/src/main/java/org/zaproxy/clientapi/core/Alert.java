@@ -29,8 +29,9 @@ public class Alert {
 	 */
 	@Deprecated
 	public enum Reliability {Suspicious, Warning};
-	public enum Confidence {Low, Medium, High, Confirmed};
+	public enum Confidence {FalsePositive, Low, Medium, High, Confirmed};
 	
+	private String id;
 	private String alert;
 	private Risk risk;
 	/**
@@ -50,7 +51,35 @@ public class Alert {
     private String solution;
     private int cweId;
     private int wascId;
+    private String messageId;
+    private String pluginId;
 	
+    /**
+     * Constructs an {@code Alert} from the given {@code ApiResponseSet}.
+     *
+     * @param apiResponseSet the {@code ApiResponseSet} returned from an alert related ZAP API call.
+     * @since TODO add version
+     */
+    public Alert(ApiResponseSet apiResponseSet) {
+        super();
+        this.id = apiResponseSet.getValue("id");
+        this.pluginId = apiResponseSet.getValue("pluginId");
+        this.alert = apiResponseSet.getValue("alert");
+        this.description = apiResponseSet.getValue("description");
+        this.risk = stringToRisk(apiResponseSet.getValue("risk"));
+        this.confidence = stringToConfidence(apiResponseSet.getValue("confidence"));
+        this.url = apiResponseSet.getValue("url");
+        this.other = apiResponseSet.getValue("other");
+        this.param = apiResponseSet.getValue("param");
+        this.attack = apiResponseSet.getValue("attack");
+        this.evidence = apiResponseSet.getValue("evidence");
+        this.reference = apiResponseSet.getValue("reference");
+        this.cweId = stringToInt(apiResponseSet.getValue("cweid"), 0);
+        this.wascId = stringToInt(apiResponseSet.getValue("wascid"), 0);
+        this.solution = apiResponseSet.getValue("solution");
+        this.messageId = apiResponseSet.getValue("messageId");
+    }
+
     public Alert(String alert, String url, String riskStr, String confidenceStr,
                  String param, String other) {
         super();
@@ -58,12 +87,8 @@ public class Alert {
         this.url = url;
         this.other = other;
         this.param = param;
-        if (riskStr != null) {
-            this.risk = Risk.valueOf(riskStr);
-        }
-        if (confidenceStr != null) {
-            this.confidence = Confidence.valueOf(confidenceStr);
-        }
+        this.risk = stringToRisk(riskStr);
+        this.confidence = stringToConfidence(confidenceStr);
     }
 	
 	public Alert(String alert, String url, Risk risk, Confidence confidence, 
@@ -108,6 +133,87 @@ public class Alert {
 		super();
 		this.alert = alert;
 		this.url = url;
+	}
+
+	/**
+	 * Converts the given {@code string} to an {@code int}.
+	 * <p>
+	 * If the given {@code string} is {@code null} or not a valid {@code int}, the default value is returned.
+	 *
+	 * @param string the string to be converted to {@code int}.
+	 * @param defaultValue the value to return in case the {@code string} is {@code null} or not an {@code int}.
+	 * @return the {@code int} converted from the {@code string}, or the default value if {@code string} is {@code null} or not
+	 *		 an {@code int}.
+	 */
+	private static int stringToInt(String string, int defaultValue) {
+		if (string == null) {
+			return defaultValue;
+		}
+		try {
+			return Integer.parseInt(string);
+		} catch (NumberFormatException e) {
+			// Ignore.
+		}
+		return defaultValue;
+	}
+
+	/**
+	 * Converts the given {@code string} to a {@link Risk} value.
+	 *
+	 * @param string the string to be converted to a {@link Risk} value.
+	 * @return the {@code Risk} value converted from the {@code string}, or null if {@code string} is {@code null}.
+	 */
+	private static Risk stringToRisk(String string) {
+		if (string == null) {
+			return null;
+		}
+		return Risk.valueOf(string);
+	}
+
+	/**
+	 * Converts the given {@code string} to a {@link Confidence} value.
+	 *
+	 * @param string the string to be converted to a {@link Confidence} value.
+	 * @return the {@code Confidence} value converted from the {@code string}, or null if {@code string} is {@code null}.
+	 */
+	private static Confidence stringToConfidence(String string) {
+		if (string == null) {
+			return null;
+		}
+		if ("False Positive".equalsIgnoreCase(string)) {
+			return Confidence.FalsePositive;
+		}
+		return Confidence.valueOf(string);
+	}
+
+	/**
+	 * Gets the ID of the alert.
+	 *
+	 * @return the ID of the alert.
+	 * @since TODO add version
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * Gets the ID of the plugin/scanner that raised the alert.
+	 *
+	 * @return the ID of the plugin/scanner that raised the alert.
+	 * @since TODO add version
+	 */
+	public String getPluginId() {
+		return pluginId;
+	}
+
+	/**
+	 * Gets the ID of the HTTP message of the alert.
+	 *
+	 * @return the ID of the HTTP message.
+	 * @since TODO add version
+	 */
+	public String getMessageId() {
+		return messageId;
 	}
 
 	public String getAlert() {
