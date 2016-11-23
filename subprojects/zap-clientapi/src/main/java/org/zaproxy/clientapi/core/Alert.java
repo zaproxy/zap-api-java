@@ -32,7 +32,7 @@ public class Alert {
 	public enum Confidence {FalsePositive, Low, Medium, High, Confirmed};
 	
 	private String id;
-	private String alert;
+	private String name;
 	private Risk risk;
 	/**
 	 * @deprecated (2.4.0) Replaced by {@link Confidence}.
@@ -64,7 +64,12 @@ public class Alert {
         super();
         this.id = apiResponseSet.getValue("id");
         this.pluginId = apiResponseSet.getValue("pluginId");
-        this.alert = apiResponseSet.getValue("alert");
+        String name = apiResponseSet.getValue("name");
+        if (name == null) {
+            // TODO Remove once alert attribute is no longer supported.
+            name = apiResponseSet.getValue("alert");
+        }
+        this.name = name;
         this.description = apiResponseSet.getValue("description");
         this.risk = stringToRisk(apiResponseSet.getValue("risk"));
         this.confidence = stringToConfidence(apiResponseSet.getValue("confidence"));
@@ -80,10 +85,10 @@ public class Alert {
         this.messageId = apiResponseSet.getValue("messageId");
     }
 
-    public Alert(String alert, String url, String riskStr, String confidenceStr,
+    public Alert(String name, String url, String riskStr, String confidenceStr,
                  String param, String other) {
         super();
-        this.alert = alert;
+        this.name = name;
         this.url = url;
         this.other = other;
         this.param = param;
@@ -91,11 +96,11 @@ public class Alert {
         this.confidence = stringToConfidence(confidenceStr);
     }
 	
-	public Alert(String alert, String url, Risk risk, Confidence confidence, 
+	public Alert(String name, String url, Risk risk, Confidence confidence, 
 			String param, String other, String attack, String description, String reference, String solution,
 			String evidence, int cweId, int wascId) {
 		super();
-		this.alert = alert;
+		this.name = name;
 		this.risk = risk;
 		this.confidence = confidence;
 		this.url = url;
@@ -110,10 +115,10 @@ public class Alert {
         this.wascId = wascId;
 	}
 
-    public Alert(String alert, String url, Risk risk, Confidence confidence,
+    public Alert(String name, String url, Risk risk, Confidence confidence,
                  String param, String other) {
         super();
-        this.alert = alert;
+        this.name = name;
         this.risk = risk;
         this.confidence = confidence;
         this.url = url;
@@ -121,17 +126,17 @@ public class Alert {
         this.param = param;
     }
 	
-	public Alert(String alert, String url, Risk risk, Confidence confidence) {
+	public Alert(String name, String url, Risk risk, Confidence confidence) {
 		super();
-		this.alert = alert;
+		this.name = name;
 		this.risk = risk;
 		this.confidence = confidence;
 		this.url = url;
 	}
 
-	public Alert(String alert, String url) {
+	public Alert(String name, String url) {
 		super();
-		this.alert = alert;
+		this.name = name;
 		this.url = url;
 	}
 
@@ -216,11 +221,45 @@ public class Alert {
 		return messageId;
 	}
 
-	public String getAlert() {
-		return alert;
+	/**
+	 * Gets the name of the alert.
+	 *
+	 * @return the name of the alert
+	 * @since TODO add version
+	 */
+	public String getName() {
+		return name;
 	}
-	public void setAlert(String alert) {
-		this.alert = alert;
+
+	/**
+	 * Sets the name of the alert.
+	 *
+	 * @param name the name of the alert
+	 * @since TODO add version
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * Gets the name of the alert.
+	 *
+	 * @return the name of the alert
+	 * @deprecated (TODO add version) Use {@link #getName()} instead.
+	 */
+	@Deprecated
+	public String getAlert() {
+		return name;
+	}
+	/**
+	 * Sets the name of the alert.
+	 *
+	 * @param name the name of the alert
+	 * @deprecated (TODO add version) Use {@link #setName(String)} instead.
+	 */
+	@Deprecated
+	public void setAlert(String name) {
+		this.name = name;
 	}
 	public Risk getRisk() {
 		return risk;
@@ -316,7 +355,7 @@ public class Alert {
 
 	public boolean matches (Alert alertFilter) {
 		boolean matches = true;
-		if (alertFilter.getAlert() != null && ! alertFilter.getAlert().equals(alert) ) {
+		if (alertFilter.getName() != null && ! alertFilter.getName().equals(name) ) {
 			matches = false;
 		}
 		if (alertFilter.getRisk() != null && ! alertFilter.getRisk().equals(risk) ) {
@@ -333,7 +372,7 @@ public class Alert {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((alert == null) ? 0 : alert.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((attack == null) ? 0 : attack.hashCode());
 		result = prime * result + cweId;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
@@ -361,11 +400,11 @@ public class Alert {
 			return false;
 		}
 		Alert otherAlert = (Alert) object;
-		if (alert == null) {
-			if (otherAlert.alert != null) {
+		if (name == null) {
+			if (otherAlert.name != null) {
 				return false;
 			}
-		} else if (!alert.equals(otherAlert.alert)) {
+		} else if (!name.equals(otherAlert.name)) {
 			return false;
 		}
 		if (attack == null) {

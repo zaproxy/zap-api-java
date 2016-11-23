@@ -63,8 +63,11 @@ public class AlertsFile {
 
     private static void createAlertXMLElements(Element alertsFound, Alert alert) {
         Element alertElement = new Element("alert");
-        if (alert.getAlert() != null)
-            alertElement.setAttribute("alert", alert.getAlert());
+        if (alert.getName() != null) {
+            alertElement.setAttribute("name", alert.getName());
+            // TODO Remove once alert attribute is no longer supported.
+            alertElement.setAttribute("alert", alert.getName());
+        }
         if (alert.getRisk() != null)
             alertElement.setAttribute("risk", alert.getRisk().name());
         if (alert.getUrl() != null)
@@ -93,8 +96,13 @@ public class AlertsFile {
         @SuppressWarnings("unchecked")
         List<Element> alertElements = alertsDoc.getRootElement().getChildren(alertType);
         for (Element element: alertElements){
+            String name = element.getAttributeValue("name");
+            if (name == null) {
+                // TODO Remove once alert attribute is no longer supported.
+                name = element.getAttributeValue("alert");
+            }
             Alert alert = new Alert(
-                    element.getAttributeValue("alert"),
+                    name,
                     element.getAttributeValue("url"),
                     element.getAttributeValue("risk"),
                     element.getAttributeValue("confidence"),
