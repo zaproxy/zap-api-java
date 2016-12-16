@@ -45,8 +45,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
-import org.zaproxy.clientapi.core.Alert.Confidence;
-import org.zaproxy.clientapi.core.Alert.Risk;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
 import org.zaproxy.clientapi.gen.AlertFilter;
@@ -192,21 +190,7 @@ public class ClientApi {
         if (response != null && response instanceof ApiResponseList) {
             ApiResponseList alertList = (ApiResponseList)response;
             for (ApiResponse resp : alertList.getItems()) {
-            	ApiResponseSet alertSet = (ApiResponseSet)resp;
-                alerts.add(new Alert(
-                		alertSet.getValue("alert"),
-                        alertSet.getValue("url"),
-                        Risk.valueOf(alertSet.getValue("risk")),
-                        Confidence.valueOf(alertSet.getValue("confidence")),
-                        alertSet.getValue("param"),
-                        alertSet.getValue("other"),
-                        alertSet.getValue("attack"),
-                        alertSet.getValue("description"),
-                        alertSet.getValue("reference"),
-                        alertSet.getValue("solution"),
-                        alertSet.getValue("evidence"),
-                        Integer.parseInt(alertSet.getValue("cweid")),
-                        Integer.parseInt(alertSet.getValue("wascid"))));
+                alerts.add(new Alert((ApiResponseSet) resp));
             }
         }
     	return alerts;
