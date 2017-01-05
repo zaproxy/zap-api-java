@@ -22,7 +22,7 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.Task;
 
 public class AlertTask extends Task {
-	private String alert;
+	private String name;
 	private String risk;
 	/**
 	 * @deprecated
@@ -35,11 +35,46 @@ public class AlertTask extends Task {
 	private String other;
 	private String param;
 	
-	public String getAlert() {
-		return alert;
+	/**
+	 * Gets the name of the alert.
+	 *
+	 * @return the name of the alert
+	 * @since TODO add version
+	 */
+	public String getName() {
+		return name;
 	}
-	public void setAlert(String alert) {
-		this.alert = alert;
+
+	/**
+	 * Sets the name of the alert.
+	 *
+	 * @param name the name of the alert
+	 * @since TODO add version
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Gets the name of the alert.
+	 *
+	 * @return the name of the alert
+	 * @deprecated (TODO add version) Use {@link #getName()} instead.
+	 */
+	@Deprecated
+	public String getAlert() {
+		return name;
+	}
+
+	/**
+	 * Sets the name of the alert.
+	 *
+	 * @param name the name of the alert
+	 * @deprecated (TODO add version) Use {@link #setName(String)} instead.
+	 */
+	@Deprecated
+	public void setAlert(String name) {
+		this.name = name;
 	}
 	public String getRisk() {
 		return risk;
