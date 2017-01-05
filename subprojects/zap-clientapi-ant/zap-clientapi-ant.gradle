@@ -1,6 +1,4 @@
 
-version '1.0.1-SNAPSHOT'
-
 dependencies {
     compile project(':zap-clientapi')
     compileOnly 'org.apache.ant:ant:1.9.7'
