@@ -39,6 +39,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Returns the current path to ChromeDriver
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse optionChromeDriverPath() throws ClientApiException {
@@ -46,6 +48,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Returns the current path to Firefox binary
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse optionFirefoxBinaryPath() throws ClientApiException {
@@ -53,6 +57,17 @@ public class Selenium {
 	}
 
 	/**
+	 * Returns the current path to Firefox driver (geckodriver)
+	 * <p>
+	 * This component is optional and therefore the API will only work if it is installed
+	 */
+	public ApiResponse optionFirefoxDriverPath() throws ClientApiException {
+		return api.callApi("selenium", "view", "optionFirefoxDriverPath", null);
+	}
+
+	/**
+	 * Returns the current path to IEDriverServer
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse optionIeDriverPath() throws ClientApiException {
@@ -60,6 +75,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Returns the current path to PhantomJS binary
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse optionPhantomJsBinaryPath() throws ClientApiException {
@@ -67,6 +84,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Sets the current path to ChromeDriver
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse setOptionChromeDriverPath(String apikey, String string) throws ClientApiException {
@@ -79,6 +98,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Sets the current path to Firefox binary
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse setOptionFirefoxBinaryPath(String apikey, String string) throws ClientApiException {
@@ -91,6 +112,22 @@ public class Selenium {
 	}
 
 	/**
+	 * Sets the current path to Firefox driver (geckodriver)
+	 * <p>
+	 * This component is optional and therefore the API will only work if it is installed
+	 */
+	public ApiResponse setOptionFirefoxDriverPath(String apikey, String string) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		if (apikey != null) {
+			map.put("apikey", apikey);
+		}
+		map.put("String", string);
+		return api.callApi("selenium", "action", "setOptionFirefoxDriverPath", map);
+	}
+
+	/**
+	 * Sets the current path to IEDriverServer
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse setOptionIeDriverPath(String apikey, String string) throws ClientApiException {
@@ -103,6 +140,8 @@ public class Selenium {
 	}
 
 	/**
+	 * Sets the current path to PhantomJS binary
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse setOptionPhantomJsBinaryPath(String apikey, String string) throws ClientApiException {
