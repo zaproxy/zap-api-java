@@ -36,9 +36,11 @@ import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -74,12 +76,17 @@ public class ClientApi {
 
 	private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;
 
+	private static final String ZAP_API_KEY_HEADER = "X-ZAP-API-Key";
+	private static final String ZAP_API_KEY_PARAM = "apikey";
+
 	private Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8090));
 	private boolean debug = false;
 	private PrintStream debugStream = System.out;
 
 	private final String zapAddress;
 	private final int zapPort;
+
+	private final String apiKey;
 
 	// Note that any new API implementations added have to be added here manually
 	public Acsrf acsrf = new Acsrf(this);
@@ -110,12 +117,41 @@ public class ClientApi {
 	public ClientApi (String zapAddress, int zapPort) {
 		this(zapAddress, zapPort, false);
 	}
+
+	/**
+	 * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to be sent with all API
+	 * requests.
+	 *
+	 * @param zapAddress ZAP's address
+	 * @param zapPort ZAP's listening port
+	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
+	 * @since TODO add version
+	 */
+	public ClientApi(String zapAddress, int zapPort, String apiKey) {
+		this(zapAddress, zapPort, apiKey, false);
+	}
 	
 	public ClientApi (String zapAddress, int zapPort, boolean debug) {
+		this(zapAddress, zapPort, null, debug);
+	}
+
+	/**
+	 * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to be sent with all API
+	 * requests. Also, sets whether or not client API debug information should be written to the
+	 * {@link #setDebugStream(PrintStream) debug stream} (by default the standard output stream).
+	 *
+	 * @param zapAddress ZAP's address
+	 * @param zapPort ZAP's listening port
+	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
+	 * @param debug {@code true} if debug information should be written to debug stream, {@code false} otherwise.
+	 * @since TODO add version
+	 */
+	public ClientApi(String zapAddress, int zapPort, String apiKey, boolean debug) {
 		proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
 		this.debug = debug;
 		this.zapAddress = zapAddress;
 		this.zapPort = zapPort;
+		this.apiKey = apiKey;
 	}
 	
 	public void setDebugStream(PrintStream debugStream) {
@@ -279,23 +315,26 @@ public class ClientApi {
 	private Document callApiDom (String component, String type, String method,
 			Map<String, String> params) throws ClientApiException {
 		try {
-			URL url = buildZapRequestUrl("xml", component, type, method, params);
+			HttpRequest request = buildZapRequest("xml", component, type, method, params);
 			if (debug) {
-				debugStream.println("Open URL: " + url);
+				debugStream.println("Open URL: " + request.getRequestUri());
 			}
 			//get the factory
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			//Using factory get an instance of document builder
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			//parse using builder to get DOM representation of the XML file
-			return db.parse(getConnectionInputStream(url));
+			return db.parse(getConnectionInputStream(request));
 		} catch (Exception e) {
 			throw new ClientApiException(e);
 		}
 	}
 
-	private InputStream getConnectionInputStream(URL url) throws IOException {
-		HttpURLConnection uc = (HttpURLConnection) url.openConnection(proxy);
+	private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
+		HttpURLConnection uc = (HttpURLConnection) request.getRequestUri().openConnection(proxy);
+		for (Entry<String, String> header : request.getHeaders().entrySet()) {
+			uc.setRequestProperty(header.getKey(), header.getValue());
+		}
 		uc.connect();
 		if (uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
 			return uc.getErrorStream();
@@ -306,11 +345,11 @@ public class ClientApi {
 	public byte[] callApiOther (String component, String type, String method,
 			Map<String, String> params) throws ClientApiException {
 		try {
-			URL url = buildZapRequestUrl("other", component, type, method, params);
+			HttpRequest request = buildZapRequest("other", component, type, method, params);
 			if (debug) {
-				debugStream.println("Open URL: " + url);
+				debugStream.println("Open URL: " + request.getRequestUri());
 			}
-			InputStream in = getConnectionInputStream(url);
+			InputStream in = getConnectionInputStream(request);
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			byte[] buffer = new byte[8 * 1024];
 			try {
@@ -329,7 +368,7 @@ public class ClientApi {
 		}
 	}
 
-    private static URL buildZapRequestUrl(
+    private HttpRequest buildZapRequest(
             String format,
             String component,
             String type,
@@ -346,6 +385,10 @@ public class ClientApi {
         sb.append(method);
         sb.append('/');
         if (params != null) {
+            if (apiKey != null && !apiKey.isEmpty()) {
+                params.put(ZAP_API_KEY_PARAM, apiKey);
+            }
+
             sb.append('?');
             for (Map.Entry<String, String> p : params.entrySet()) {
                 sb.append(encodeQueryParam(p.getKey()));
@@ -357,7 +400,11 @@ public class ClientApi {
             }
         }
 
-        return new URL(sb.toString());
+        HttpRequest request = new HttpRequest(new URL(sb.toString()));
+        if (apiKey != null && !apiKey.isEmpty()) {
+            request.addHeader(ZAP_API_KEY_HEADER, apiKey);
+        }
+        return request;
     }
 
     private static String encodeQueryParam(String param) {
@@ -489,5 +536,52 @@ public class ClientApi {
 
     private static ClientApiException newTimeoutConnectionToZap(int timeoutInSeconds) {
         return new ClientApiException("Unable to connect to ZAP's proxy after " + timeoutInSeconds + " seconds.");
+    }
+
+    /**
+     * A simple HTTP request.
+     * <p>
+     * Contains the request URI and headers.
+     */
+    private static class HttpRequest {
+
+        private final URL requestUri;
+        private final Map<String, String> headers;
+
+        public HttpRequest(URL url) {
+            this.requestUri = url;
+            this.headers = new HashMap<>();
+        }
+
+        /**
+         * Gets the request URI of the request.
+         *
+         * @return the request URI.
+         */
+        public URL getRequestUri() {
+            return requestUri;
+        }
+
+        /**
+         * Adds a header with the given name and value.
+         * <p>
+         * If a header with the given name already exists it is replaced with the new value.
+         *
+         * @param name the name of the header.
+         * @param value the value of the header.
+         */
+        public void addHeader(String name, String value) {
+            headers.put(name, value);
+        }
+
+        /**
+         * Gets the headers of the HTTP request. An unmodifiable {@code Map} containing the headers (the keys correspond to the
+         * header names and the values for its contents).
+         *
+         * @return an unmodifiable {@code Map} containing the headers.
+         */
+        public Map<String, String> getHeaders() {
+            return Collections.unmodifiableMap(headers);
+        }
     }
 }
