@@ -29,7 +29,7 @@ import org.w3c.dom.Node;
 public class ApiResponseSet extends ApiResponse {
 	
 	private String[] attributes = null;
-	private final Map<String, String> valuesMap;
+	private final Map<String, ApiResponse> valuesMap;
 
 	/**
 	 * Constructs an {@code ApiResponseSet} with the given name and attributes.
@@ -45,7 +45,7 @@ public class ApiResponseSet extends ApiResponse {
 		this.valuesMap = Collections.emptyMap();
 	}
 
-	public ApiResponseSet(String name, Map<String, String> values) {
+	public ApiResponseSet(String name, Map<String, ApiResponse> values) {
 		super(name);
 		this.valuesMap = Collections.unmodifiableMap(new HashMap<>(values));
 	}
@@ -53,10 +53,10 @@ public class ApiResponseSet extends ApiResponse {
 	public ApiResponseSet(Node node) throws ClientApiException {
 		super(node.getNodeName());
 		Node child = node.getFirstChild();
-		Map<String, String> values = new HashMap<>();
+		Map<String, ApiResponse> values = new HashMap<>();
 		while (child != null) {
-			ApiResponseElement elem = (ApiResponseElement) ApiResponseFactory.getResponse(child);
-			values.put(elem.getName(), elem.getValue());
+			ApiResponse elem = ApiResponseFactory.getResponse(child);
+			values.put(elem.getName(), elem);
 			child = child.getNextSibling();
 		}
 		this.valuesMap = Collections.unmodifiableMap(values);
@@ -79,11 +79,11 @@ public class ApiResponseSet extends ApiResponse {
 	 *
 	 * @param key the key of the value
 	 * @return the value, or {@code null} if no value exists for the given {@code key}.
-	 * @deprecated (TODO add version) Use {@link #getValue(String)} instead.
+	 * @deprecated (TODO add version) Use {@link #getStringValue(String)} or {@link #getValue(String)} instead.
 	 */
 	@Deprecated
 	public String getAttribute(String key) {
-		return getValue(key);
+		return getStringValue(key);
 	}
 
 	/**
@@ -93,9 +93,30 @@ public class ApiResponseSet extends ApiResponse {
 	 * @return the value, or {@code null} if no value exists for the given {@code key}.
 	 * @since TODO add version
 	 * @see #getKeys()
+	 * @see #getStringValue(String)
 	 */
-	public String getValue(String key) {
+	public ApiResponse getValue(String key) {
 		return valuesMap.get(key);
+	}
+
+	/**
+	 * Gets the value for the given {@code key} as {@code String}.
+	 * <p>
+	 * For {@link ApiResponseElement}s it returns {@link ApiResponseElement#getValue() its value}, for other {@link ApiResponse}
+	 * types it returns the conversion to {@code String}.
+	 *
+	 * @param key the key of the value
+	 * @return the value, or {@code null} if no value exists for the given {@code key}.
+	 * @since TODO add version
+	 * @see #getKeys()
+	 * @see #getValue(String)
+	 */
+	public String getStringValue(String key) {
+		ApiResponse value = valuesMap.get(key);
+		if (value instanceof ApiResponseElement) {
+			return ((ApiResponseElement) value).getValue();
+		}
+		return value != null ? value.toString() : null;
 	}
 
 	/**
@@ -107,7 +128,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * @return the map with the keys/values, never {@code null}.
 	 * @since TODO add version
 	 */
-	public Map<String, String> getValuesMap() {
+	public Map<String, ApiResponse> getValuesMap() {
 		return valuesMap;
 	}
 
@@ -120,6 +141,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * @return the keys, never {@code null}.
 	 * @since TODO add version
 	 * @see #getValue(String)
+	 * @see #getStringValue(String)
 	 * @see #getValues()
 	 * @see #getValuesMap()
 	 */
@@ -136,8 +158,9 @@ public class ApiResponseSet extends ApiResponse {
 	 * @return the values, never {@code null}.
 	 * @since TODO add version
 	 * @see #getValue(String)
+	 * @see #getStringValue(String)
 	 */
-	public Collection<String> getValues() {
+	public Collection<ApiResponse> getValues() {
 		return valuesMap.values();
 	}
 
@@ -150,13 +173,18 @@ public class ApiResponseSet extends ApiResponse {
 		sb.append("ApiResponseSet ");
 		sb.append(this.getName());
 		sb.append(" : [\n");
-		for (Entry<String, String> val  : valuesMap.entrySet()) {
+		for (Entry<String, ApiResponse> val  : valuesMap.entrySet()) {
 			for (int i=0 ; i < indent+1; i++) {
 				sb.append("\t");
 			}
 			sb.append(val.getKey());
 			sb.append(" = ");
-			sb.append(val.getValue());
+			if (val.getValue() instanceof ApiResponseElement) {
+				sb.append(val.getValue());
+			} else {
+				sb.append('\n');
+				sb.append(val.getValue().toString(indent + 2));
+			}
 			sb.append("\n");
 		}
 		for (int i=0 ; i < indent; i++) {
