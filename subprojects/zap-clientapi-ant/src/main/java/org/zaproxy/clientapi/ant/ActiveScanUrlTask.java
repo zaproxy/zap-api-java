@@ -24,12 +24,11 @@ import org.apache.tools.ant.BuildException;
 public class ActiveScanUrlTask extends ZapTask {
 	
 	private String url;
-	private String apikey;
 
 	@Override
 	public void execute() throws BuildException {
 		try {
-			this.getClientApi().ascan.scan(apikey, url, "false", "false", "", "", "");
+			this.getClientApi().ascan.scan(null, url, "false", "false", "", "", "");
 			
 		} catch (Exception e) {
 			throw new BuildException(e);
@@ -42,13 +41,5 @@ public class ActiveScanUrlTask extends ZapTask {
 
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	public String getApikey() {
-		return apikey;
-	}
-
-	public void setApikey(String apikey) {
-		this.apikey = apikey;
 	}
 }
