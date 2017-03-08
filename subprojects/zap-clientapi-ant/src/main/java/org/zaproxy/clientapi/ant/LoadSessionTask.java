@@ -28,7 +28,7 @@ public class LoadSessionTask extends ZapTask {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			this.getClientApi().core.loadSession(null, name);
+			this.getClientApi().core.loadSession(name);
 			
 		} catch (Exception e) {
 			throw new BuildException(e);

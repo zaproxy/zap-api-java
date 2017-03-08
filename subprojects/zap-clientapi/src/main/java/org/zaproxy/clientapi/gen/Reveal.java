@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Reveal {
+@SuppressWarnings("javadoc")
+public class Reveal extends org.zaproxy.clientapi.gen.deprecated.RevealDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Reveal(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,19 +44,14 @@ public class Reveal {
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse reveal() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("reveal", "view", "reveal", map);
+		return api.callApi("reveal", "view", "reveal", null);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setReveal(String apikey, String reveal) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setReveal(String reveal) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("reveal", reveal);
 		return api.callApi("reveal", "action", "setReveal", map);
 	}

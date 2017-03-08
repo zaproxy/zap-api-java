@@ -30,6 +30,7 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
+@SuppressWarnings("javadoc")
 public class AlertFilter {
 
 	private final ClientApi api;
@@ -52,11 +53,8 @@ public class AlertFilter {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse addAlertFilter(String apikey, String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
+	public ApiResponse addAlertFilter(String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("contextId", contextid);
 		map.put("ruleId", ruleid);
 		map.put("newLevel", newlevel);
@@ -78,11 +76,8 @@ public class AlertFilter {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse removeAlertFilter(String apikey, String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
+	public ApiResponse removeAlertFilter(String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("contextId", contextid);
 		map.put("ruleId", ruleid);
 		map.put("newLevel", newlevel);

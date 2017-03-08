@@ -43,7 +43,7 @@ public class SimpleExample {
             // Start spidering the target
             System.out.println("Spider : " + TARGET);
             // It's not necessary to pass the ZAP API key again, already set when creating the ClientApi.
-            ApiResponse resp = api.spider.scan(null, TARGET, null, null, null, null);
+            ApiResponse resp = api.spider.scan(TARGET, null, null, null, null);
             String scanid;
             int progress;
 
@@ -65,7 +65,7 @@ public class SimpleExample {
             Thread.sleep(2000);
 
             System.out.println("Active scan : " + TARGET);
-            resp = api.ascan.scan(null, TARGET, "True", "False", null, null, null);
+            resp = api.ascan.scan(TARGET, "True", "False", null, null, null);
 
             // The scan now returns a scan id to support concurrent scanning
             scanid = ((ApiResponseElement) resp).getValue();
@@ -82,7 +82,7 @@ public class SimpleExample {
             System.out.println("Active Scan complete");
 
             System.out.println("Alerts:");
-            System.out.println(new String(api.core.xmlreport(null)));
+            System.out.println(new String(api.core.xmlreport()));
 
         } catch (Exception e) {
             System.out.println("Exception : " + e.getMessage());

@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class HttpSessions {
+@SuppressWarnings("javadoc")
+public class HttpSessions extends org.zaproxy.clientapi.gen.deprecated.HttpSessionsDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public HttpSessions(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,8 +44,7 @@ public class HttpSessions {
 	 * Gets the sessions of the given site. Optionally returning just the session with the given name.
 	 */
 	public ApiResponse sessions(String site, String session) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		if (session != null) {
 			map.put("session", session);
@@ -55,8 +56,7 @@ public class HttpSessions {
 	 * Gets the name of the active session for the given site.
 	 */
 	public ApiResponse activeSession(String site) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		return api.callApi("httpSessions", "view", "activeSession", map);
 	}
@@ -65,8 +65,7 @@ public class HttpSessions {
 	 * Gets the names of the session tokens for the given site.
 	 */
 	public ApiResponse sessionTokens(String site) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		return api.callApi("httpSessions", "view", "sessionTokens", map);
 	}
@@ -74,12 +73,8 @@ public class HttpSessions {
 	/**
 	 * Creates an empty session for the given site. Optionally with the given name.
 	 */
-	public ApiResponse createEmptySession(String apikey, String site, String session) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse createEmptySession(String site, String session) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		if (session != null) {
 			map.put("session", session);
@@ -90,12 +85,8 @@ public class HttpSessions {
 	/**
 	 * Removes the session from the given site.
 	 */
-	public ApiResponse removeSession(String apikey, String site, String session) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeSession(String site, String session) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("session", session);
 		return api.callApi("httpSessions", "action", "removeSession", map);
@@ -104,12 +95,8 @@ public class HttpSessions {
 	/**
 	 * Sets the given session as active for the given site.
 	 */
-	public ApiResponse setActiveSession(String apikey, String site, String session) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setActiveSession(String site, String session) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("session", session);
 		return api.callApi("httpSessions", "action", "setActiveSession", map);
@@ -118,12 +105,8 @@ public class HttpSessions {
 	/**
 	 * Unsets the active session of the given site.
 	 */
-	public ApiResponse unsetActiveSession(String apikey, String site) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse unsetActiveSession(String site) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		return api.callApi("httpSessions", "action", "unsetActiveSession", map);
 	}
@@ -131,12 +114,8 @@ public class HttpSessions {
 	/**
 	 * Adds the session token to the given site.
 	 */
-	public ApiResponse addSessionToken(String apikey, String site, String sessiontoken) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse addSessionToken(String site, String sessiontoken) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("sessionToken", sessiontoken);
 		return api.callApi("httpSessions", "action", "addSessionToken", map);
@@ -145,12 +124,8 @@ public class HttpSessions {
 	/**
 	 * Removes the session token from the given site.
 	 */
-	public ApiResponse removeSessionToken(String apikey, String site, String sessiontoken) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeSessionToken(String site, String sessiontoken) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("sessionToken", sessiontoken);
 		return api.callApi("httpSessions", "action", "removeSessionToken", map);
@@ -159,12 +134,8 @@ public class HttpSessions {
 	/**
 	 * Sets the value of the session token of the given session for the given site.
 	 */
-	public ApiResponse setSessionTokenValue(String apikey, String site, String session, String sessiontoken, String tokenvalue) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setSessionTokenValue(String site, String session, String sessiontoken, String tokenvalue) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("session", session);
 		map.put("sessionToken", sessiontoken);
@@ -175,12 +146,8 @@ public class HttpSessions {
 	/**
 	 * Renames the session of the given site.
 	 */
-	public ApiResponse renameSession(String apikey, String site, String oldsessionname, String newsessionname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse renameSession(String site, String oldsessionname, String newsessionname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("site", site);
 		map.put("oldSessionName", oldsessionname);
 		map.put("newSessionName", newsessionname);

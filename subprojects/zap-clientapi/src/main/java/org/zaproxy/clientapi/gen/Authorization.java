@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Authorization {
+@SuppressWarnings("javadoc")
+public class Authorization extends org.zaproxy.clientapi.gen.deprecated.AuthorizationDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Authorization(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,8 +44,7 @@ public class Authorization {
 	 * Obtains all the configuration of the authorization detection method that is currently set for a context.
 	 */
 	public ApiResponse getAuthorizationDetectionMethod(String contextid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		return api.callApi("authorization", "view", "getAuthorizationDetectionMethod", map);
 	}
@@ -51,12 +52,8 @@ public class Authorization {
 	/**
 	 * Sets the authorization detection method for a context as one that identifies un-authorized messages based on: the message's status code or a regex pattern in the response's header or body. Also, whether all conditions must match or just some can be specified via the logicalOperator parameter, which accepts two values: "AND" (default), "OR".  
 	 */
-	public ApiResponse setBasicAuthorizationDetectionMethod(String apikey, String contextid, String headerregex, String bodyregex, String statuscode, String logicaloperator) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setBasicAuthorizationDetectionMethod(String contextid, String headerregex, String bodyregex, String statuscode, String logicaloperator) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		if (headerregex != null) {
 			map.put("headerRegex", headerregex);

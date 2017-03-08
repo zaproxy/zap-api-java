@@ -416,14 +416,48 @@ public class ClientApi {
         return param;
     }
 
+    /**
+     * Adds the given regular expression to the exclusion list of the given context.
+     *
+     * @param apikey the API key, might be {@code null}.
+     * @param contextName the name of the context.
+     * @param regex the regular expression to add.
+     * @throws Exception if an error occurred while calling the API.
+     * @deprecated (TODO add version) Use {@link Context#excludeFromContext(String, String)} instead.
+     * @see #context
+     */
+    @Deprecated
     public void addExcludeFromContext(String apikey, String contextName, String regex) throws Exception {
         context.excludeFromContext(apikey, contextName, regex);
     }
 
+    /**
+     * Adds the given regular expression to the inclusion list of the given context.
+     *
+     * @param apikey the API key, might be {@code null}.
+     * @param contextName the name of the context.
+     * @param regex the regular expression to add.
+     * @throws Exception if an error occurred while calling the API.
+     * @deprecated (TODO add version) Use {@link Context#includeInContext(String, String)} instead.
+     * @see #context
+     */
+    @Deprecated
     public void addIncludeInContext(String apikey, String contextName, String regex) throws Exception {
         context.includeInContext(apikey, contextName, regex);
     }
 
+    /**
+     * Includes just one of the nodes that match the given regular expression in the context with the given name.
+     * <p>
+     * Nodes that do not match the regular expression are excluded.
+     *
+     * @param apikey the API key, might be {@code null}.
+     * @param contextName the name of the context.
+     * @param regex the regular expression to match the node/URL.
+     * @throws Exception if an error occurred while calling the API.
+     * @deprecated (TODO add version) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
+     */
+    @Deprecated
     public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex) throws Exception {
         List<String> sessionUrls = getSessionUrls();
         boolean foundOneMatch = false;
@@ -442,6 +476,32 @@ public class ClientApi {
 
     }
 
+    /**
+     * Includes just one of the nodes that match the given regular expression in the context with the given name.
+     * <p>
+     * Nodes that do not match the regular expression are excluded.
+     *
+     * @param contextName the name of the context.
+     * @param regex the regular expression to match the node/URL.
+     * @throws Exception if an error occurred while calling the API.
+     */
+    public void includeOneMatchingNodeInContext(String contextName, String regex) throws Exception {
+        List<String> sessionUrls = getSessionUrls();
+        boolean foundOneMatch = false;
+        for (String sessionUrl : sessionUrls) {
+            if (sessionUrl.matches(regex)) {
+                if (foundOneMatch) {
+                    context.excludeFromContext(contextName, regex);
+                } else {
+                    foundOneMatch = true;
+                }
+            }
+        }
+        if (!foundOneMatch) {
+            throw new Exception("Unexpected result: No url found in site tree matching regex " + regex);
+        }
+    }
+
     private List<String> getSessionUrls() throws Exception {
         List<String> sessionUrls = new ArrayList<>();
         ApiResponse response = core.urls();
@@ -456,15 +516,45 @@ public class ClientApi {
         return sessionUrls;
     }
 
+    /**
+     * Active scans the given site, that's in scope.
+     * <p>
+     * The method returns only after the scan has finished.
+     * 
+     * @param apikey the API key, might be {@code null}.
+     * @param url the site to scan
+     * @throws Exception if an error occurred while calling the API.
+     * @deprecated (TODO add version) Use {@link #activeScanSiteInScope(String)} instead, the API key should be set using one of
+     *             the {@code ClientApi} constructors.
+     */
+    @Deprecated
     public void activeScanSiteInScope(String apikey, String url) throws Exception {
         ascan.scan(apikey, url, "true", "true", "", "", "");
+        waitForAScanToFinish(url);
+    }
+
+    /**
+     * Active scans the given site, that's in scope.
+     * <p>
+     * The method returns only after the scan has finished.
+     *
+     * @param url the site to scan
+     * @throws Exception if an error occurred while calling the API.
+     * @since TODO add version
+     */
+    public void activeScanSiteInScope(String url) throws Exception {
+        ascan.scan(url, "true", "true", "", "", "");
+        waitForAScanToFinish(url);
+    }
+
+    private void waitForAScanToFinish(String targetUrl) throws ClientApiException {
         // Poll until spider finished
         int status = 0;
         while ( status < 100) {
             status = statusToInt(ascan.status(""));
             if(debug){
                 String format = "Scanning %s Progress: %d%%";
-                System.out.println(String.format(format, url, status));
+                System.out.println(String.format(format, targetUrl, status));
             }try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {

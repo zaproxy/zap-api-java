@@ -30,9 +30,10 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
+@SuppressWarnings("javadoc")
 public class Params {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Params(ClientApi api) {
 		this.api = api;
@@ -42,8 +43,7 @@ public class Params {
 	 * Shows the parameters for the specified site, or for all sites if the site is not specified
 	 */
 	public ApiResponse params(String site) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		if (site != null) {
 			map.put("site", site);
 		}

@@ -56,7 +56,7 @@ public class ClientApiMain {
         try {
             switch(task){
                 case stop:
-                    api.core.shutdown(null);
+                    api.core.shutdown();
                     break;
                 case checkAlerts:
                     if (params.get("alertsFile") == null){
@@ -99,13 +99,13 @@ public class ClientApiMain {
                         showHelp();
                         System.exit(1);
                     }
-                    api.core.saveSession(null, (String)params.get("sessionName"), "true");
+                    api.core.saveSession((String)params.get("sessionName"), "true");
                     break;
                 case newSession:
                     if (params.get("sessionName") == null){
-                        api.core.newSession(null, "", "true");
+                        api.core.newSession("", "true");
                     }else{
-                        api.core.newSession(null, (String)params.get("sessionName"), "true");
+                        api.core.newSession((String)params.get("sessionName"), "true");
                     }
                     break;
                 case activeScanUrl:
@@ -114,27 +114,27 @@ public class ClientApiMain {
                         showHelp();
                         System.exit(1);
                     }else{
-                        api.ascan.scan(null, (String)params.get("url"), "true", "false", "", "", "");
+                        api.ascan.scan((String)params.get("url"), "true", "false", "", "", "");
                     }
                     break;
                 case activeScanSiteInScope:
                     checkForUrlParam();
-                    api.activeScanSiteInScope(null, (String)params.get("url"));
+                    api.activeScanSiteInScope((String)params.get("url"));
                     break;
                 case addExcludeRegexToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.addExcludeFromContext(null, (String)params.get("contextName"), (String)params.get("regex"));
+                    api.context.excludeFromContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
                 case addIncludeRegexToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.addIncludeInContext(null, (String)params.get("contextName"), (String)params.get("regex"));
+                    api.context.includeInContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
                 case addIncludeOneMatchingNodeToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.includeOneMatchingNodeInContext(null, (String)params.get("contextName"), (String)params.get("regex"));
+                    api.includeOneMatchingNodeInContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
             }
         } catch (ConnectException e){

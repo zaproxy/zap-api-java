@@ -30,17 +30,18 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Spider {
+@SuppressWarnings("javadoc")
+public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Spider(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
 	public ApiResponse status(String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		if (scanid != null) {
 			map.put("scanId", scanid);
 		}
@@ -48,8 +49,7 @@ public class Spider {
 	}
 
 	public ApiResponse results(String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		if (scanid != null) {
 			map.put("scanId", scanid);
 		}
@@ -57,144 +57,115 @@ public class Spider {
 	}
 
 	public ApiResponse fullResults(String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
 		return api.callApi("spider", "view", "fullResults", map);
 	}
 
 	public ApiResponse scans() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "scans", map);
+		return api.callApi("spider", "view", "scans", null);
 	}
 
 	public ApiResponse excludedFromScan() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "excludedFromScan", map);
+		return api.callApi("spider", "view", "excludedFromScan", null);
 	}
 
 	public ApiResponse optionDomainsAlwaysInScope() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionDomainsAlwaysInScope", map);
+		return api.callApi("spider", "view", "optionDomainsAlwaysInScope", null);
 	}
 
 	public ApiResponse optionDomainsAlwaysInScopeEnabled() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionDomainsAlwaysInScopeEnabled", map);
+		return api.callApi("spider", "view", "optionDomainsAlwaysInScopeEnabled", null);
 	}
 
 	public ApiResponse optionHandleParameters() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionHandleParameters", map);
+		return api.callApi("spider", "view", "optionHandleParameters", null);
 	}
 
 	public ApiResponse optionMaxDepth() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionMaxDepth", map);
+		return api.callApi("spider", "view", "optionMaxDepth", null);
 	}
 
 	public ApiResponse optionMaxDuration() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionMaxDuration", map);
+		return api.callApi("spider", "view", "optionMaxDuration", null);
 	}
 
 	public ApiResponse optionMaxScansInUI() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionMaxScansInUI", map);
+		return api.callApi("spider", "view", "optionMaxScansInUI", null);
 	}
 
 	public ApiResponse optionRequestWaitTime() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionRequestWaitTime", map);
+		return api.callApi("spider", "view", "optionRequestWaitTime", null);
 	}
 
 	public ApiResponse optionScope() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionScope", map);
+		return api.callApi("spider", "view", "optionScope", null);
 	}
 
 	public ApiResponse optionScopeText() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionScopeText", map);
+		return api.callApi("spider", "view", "optionScopeText", null);
 	}
 
 	public ApiResponse optionSkipURLString() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionSkipURLString", map);
+		return api.callApi("spider", "view", "optionSkipURLString", null);
 	}
 
 	public ApiResponse optionThreadCount() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionThreadCount", map);
+		return api.callApi("spider", "view", "optionThreadCount", null);
 	}
 
 	public ApiResponse optionUserAgent() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionUserAgent", map);
+		return api.callApi("spider", "view", "optionUserAgent", null);
 	}
 
 	public ApiResponse optionHandleODataParametersVisited() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionHandleODataParametersVisited", map);
+		return api.callApi("spider", "view", "optionHandleODataParametersVisited", null);
 	}
 
 	public ApiResponse optionParseComments() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionParseComments", map);
+		return api.callApi("spider", "view", "optionParseComments", null);
 	}
 
 	public ApiResponse optionParseGit() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionParseGit", map);
+		return api.callApi("spider", "view", "optionParseGit", null);
 	}
 
 	public ApiResponse optionParseRobotsTxt() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionParseRobotsTxt", map);
+		return api.callApi("spider", "view", "optionParseRobotsTxt", null);
 	}
 
 	public ApiResponse optionParseSVNEntries() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionParseSVNEntries", map);
+		return api.callApi("spider", "view", "optionParseSVNEntries", null);
 	}
 
 	public ApiResponse optionParseSitemapXml() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionParseSitemapXml", map);
+		return api.callApi("spider", "view", "optionParseSitemapXml", null);
 	}
 
 	public ApiResponse optionPostForm() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionPostForm", map);
+		return api.callApi("spider", "view", "optionPostForm", null);
 	}
 
 	public ApiResponse optionProcessForm() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionProcessForm", map);
+		return api.callApi("spider", "view", "optionProcessForm", null);
 	}
 
 	/**
 	 * Sets whether or not the 'Referer' header should be sent while spidering
 	 */
 	public ApiResponse optionSendRefererHeader() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionSendRefererHeader", map);
+		return api.callApi("spider", "view", "optionSendRefererHeader", null);
 	}
 
 	public ApiResponse optionShowAdvancedDialog() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("spider", "view", "optionShowAdvancedDialog", map);
+		return api.callApi("spider", "view", "optionShowAdvancedDialog", null);
 	}
 
 	/**
 	 * Runs the spider against the given URL (or context). Optionally, the 'maxChildren' parameter can be set to limit the number of children scanned, the 'recurse' parameter can be used to prevent the spider from seeding recursively, the parameter 'contextName' can be used to constrain the scan to a Context and the parameter 'subtreeOnly' allows to restrict the spider under a site's subtree (using the specified 'url').
 	 */
-	public ApiResponse scan(String apikey, String url, String maxchildren, String recurse, String contextname, String subtreeonly) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse scan(String url, String maxchildren, String recurse, String contextname, String subtreeonly) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		if (url != null) {
 			map.put("url", url);
 		}
@@ -216,12 +187,8 @@ public class Spider {
 	/**
 	 * Runs the spider from the perspective of a User, obtained using the given Context ID and User ID. See 'scan' action for more details.
 	 */
-	public ApiResponse scanAsUser(String apikey, String contextid, String userid, String url, String maxchildren, String recurse, String subtreeonly) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse scanAsUser(String contextid, String userid, String url, String maxchildren, String recurse, String subtreeonly) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		if (url != null) {
@@ -239,289 +206,168 @@ public class Spider {
 		return api.callApi("spider", "action", "scanAsUser", map);
 	}
 
-	public ApiResponse pause(String apikey, String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse pause(String scanid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
 		return api.callApi("spider", "action", "pause", map);
 	}
 
-	public ApiResponse resume(String apikey, String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse resume(String scanid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
 		return api.callApi("spider", "action", "resume", map);
 	}
 
-	public ApiResponse stop(String apikey, String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse stop(String scanid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		if (scanid != null) {
 			map.put("scanId", scanid);
 		}
 		return api.callApi("spider", "action", "stop", map);
 	}
 
-	public ApiResponse removeScan(String apikey, String scanid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeScan(String scanid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
 		return api.callApi("spider", "action", "removeScan", map);
 	}
 
-	public ApiResponse pauseAllScans(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("spider", "action", "pauseAllScans", map);
+	public ApiResponse pauseAllScans() throws ClientApiException {
+		return api.callApi("spider", "action", "pauseAllScans", null);
 	}
 
-	public ApiResponse resumeAllScans(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("spider", "action", "resumeAllScans", map);
+	public ApiResponse resumeAllScans() throws ClientApiException {
+		return api.callApi("spider", "action", "resumeAllScans", null);
 	}
 
-	public ApiResponse stopAllScans(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("spider", "action", "stopAllScans", map);
+	public ApiResponse stopAllScans() throws ClientApiException {
+		return api.callApi("spider", "action", "stopAllScans", null);
 	}
 
-	public ApiResponse removeAllScans(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("spider", "action", "removeAllScans", map);
+	public ApiResponse removeAllScans() throws ClientApiException {
+		return api.callApi("spider", "action", "removeAllScans", null);
 	}
 
-	public ApiResponse clearExcludedFromScan(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("spider", "action", "clearExcludedFromScan", map);
+	public ApiResponse clearExcludedFromScan() throws ClientApiException {
+		return api.callApi("spider", "action", "clearExcludedFromScan", null);
 	}
 
-	public ApiResponse excludeFromScan(String apikey, String regex) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse excludeFromScan(String regex) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		return api.callApi("spider", "action", "excludeFromScan", map);
 	}
 
-	public ApiResponse setOptionHandleParameters(String apikey, String string) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionHandleParameters(String string) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
 		return api.callApi("spider", "action", "setOptionHandleParameters", map);
 	}
 
-	public ApiResponse setOptionScopeString(String apikey, String string) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionScopeString(String string) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
 		return api.callApi("spider", "action", "setOptionScopeString", map);
 	}
 
-	public ApiResponse setOptionSkipURLString(String apikey, String string) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionSkipURLString(String string) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
 		return api.callApi("spider", "action", "setOptionSkipURLString", map);
 	}
 
-	public ApiResponse setOptionUserAgent(String apikey, String string) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionUserAgent(String string) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
 		return api.callApi("spider", "action", "setOptionUserAgent", map);
 	}
 
-	public ApiResponse setOptionHandleODataParametersVisited(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionHandleODataParametersVisited(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionHandleODataParametersVisited", map);
 	}
 
-	public ApiResponse setOptionMaxDepth(String apikey, int i) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionMaxDepth(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionMaxDepth", map);
 	}
 
-	public ApiResponse setOptionMaxDuration(String apikey, int i) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionMaxDuration(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionMaxDuration", map);
 	}
 
-	public ApiResponse setOptionMaxScansInUI(String apikey, int i) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionMaxScansInUI(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionMaxScansInUI", map);
 	}
 
-	public ApiResponse setOptionParseComments(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionParseComments(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionParseComments", map);
 	}
 
-	public ApiResponse setOptionParseGit(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionParseGit(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionParseGit", map);
 	}
 
-	public ApiResponse setOptionParseRobotsTxt(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionParseRobotsTxt(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionParseRobotsTxt", map);
 	}
 
-	public ApiResponse setOptionParseSVNEntries(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionParseSVNEntries(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionParseSVNEntries", map);
 	}
 
-	public ApiResponse setOptionParseSitemapXml(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionParseSitemapXml(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionParseSitemapXml", map);
 	}
 
-	public ApiResponse setOptionPostForm(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionPostForm(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionPostForm", map);
 	}
 
-	public ApiResponse setOptionProcessForm(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionProcessForm(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionProcessForm", map);
 	}
 
-	public ApiResponse setOptionRequestWaitTime(String apikey, int i) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionRequestWaitTime(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionRequestWaitTime", map);
 	}
 
-	public ApiResponse setOptionSendRefererHeader(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionSendRefererHeader(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionSendRefererHeader", map);
 	}
 
-	public ApiResponse setOptionShowAdvancedDialog(String apikey, boolean bool) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionShowAdvancedDialog(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionShowAdvancedDialog", map);
 	}
 
-	public ApiResponse setOptionThreadCount(String apikey, int i) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setOptionThreadCount(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionThreadCount", map);
 	}
