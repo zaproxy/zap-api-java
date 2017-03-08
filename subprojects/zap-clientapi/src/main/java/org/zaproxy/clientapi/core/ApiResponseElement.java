@@ -64,4 +64,8 @@ public class ApiResponseElement extends ApiResponse {
 		return sb.toString();
 	}
 
+	@Override
+	public String toString() {
+		return getValue();
+	}
 }

@@ -62,27 +62,27 @@ public class Alert {
      */
     public Alert(ApiResponseSet apiResponseSet) {
         super();
-        this.id = apiResponseSet.getValue("id");
-        this.pluginId = apiResponseSet.getValue("pluginId");
-        String name = apiResponseSet.getValue("name");
+        this.id = apiResponseSet.getStringValue("id");
+        this.pluginId = apiResponseSet.getStringValue("pluginId");
+        String name = apiResponseSet.getStringValue("name");
         if (name == null) {
             // TODO Remove once alert attribute is no longer supported.
-            name = apiResponseSet.getValue("alert");
+            name = apiResponseSet.getStringValue("alert");
         }
         this.name = name;
-        this.description = apiResponseSet.getValue("description");
-        this.risk = stringToRisk(apiResponseSet.getValue("risk"));
-        this.confidence = stringToConfidence(apiResponseSet.getValue("confidence"));
-        this.url = apiResponseSet.getValue("url");
-        this.other = apiResponseSet.getValue("other");
-        this.param = apiResponseSet.getValue("param");
-        this.attack = apiResponseSet.getValue("attack");
-        this.evidence = apiResponseSet.getValue("evidence");
-        this.reference = apiResponseSet.getValue("reference");
-        this.cweId = stringToInt(apiResponseSet.getValue("cweid"), 0);
-        this.wascId = stringToInt(apiResponseSet.getValue("wascid"), 0);
-        this.solution = apiResponseSet.getValue("solution");
-        this.messageId = apiResponseSet.getValue("messageId");
+        this.description = apiResponseSet.getStringValue("description");
+        this.risk = stringToRisk(apiResponseSet.getStringValue("risk"));
+        this.confidence = stringToConfidence(apiResponseSet.getStringValue("confidence"));
+        this.url = apiResponseSet.getStringValue("url");
+        this.other = apiResponseSet.getStringValue("other");
+        this.param = apiResponseSet.getStringValue("param");
+        this.attack = apiResponseSet.getStringValue("attack");
+        this.evidence = apiResponseSet.getStringValue("evidence");
+        this.reference = apiResponseSet.getStringValue("reference");
+        this.cweId = stringToInt(apiResponseSet.getStringValue("cweid"), 0);
+        this.wascId = stringToInt(apiResponseSet.getStringValue("wascid"), 0);
+        this.solution = apiResponseSet.getStringValue("solution");
+        this.messageId = apiResponseSet.getStringValue("messageId");
     }
 
     public Alert(String name, String url, String riskStr, String confidenceStr,
