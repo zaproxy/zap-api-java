@@ -28,7 +28,6 @@ public class StopZapTask extends ZapTask {
 		try {
 			this.getClientApi().core.shutdown(null);
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new BuildException(e);
 		}
 	}
