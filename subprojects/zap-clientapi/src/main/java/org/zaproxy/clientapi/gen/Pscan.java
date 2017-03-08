@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Pscan {
+@SuppressWarnings("javadoc")
+public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Pscan(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,27 +44,21 @@ public class Pscan {
 	 * The number of records the passive scanner still has to scan
 	 */
 	public ApiResponse recordsToScan() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("pscan", "view", "recordsToScan", map);
+		return api.callApi("pscan", "view", "recordsToScan", null);
 	}
 
 	/**
 	 * Lists all passive scanners with its ID, name, enabled state and alert threshold.
 	 */
 	public ApiResponse scanners() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("pscan", "view", "scanners", map);
+		return api.callApi("pscan", "view", "scanners", null);
 	}
 
 	/**
 	 * Sets whether or not the passive scanning is enabled
 	 */
-	public ApiResponse setEnabled(String apikey, String enabled) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setEnabled(String enabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("enabled", enabled);
 		return api.callApi("pscan", "action", "setEnabled", map);
 	}
@@ -70,36 +66,22 @@ public class Pscan {
 	/**
 	 * Enables all passive scanners
 	 */
-	public ApiResponse enableAllScanners(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("pscan", "action", "enableAllScanners", map);
+	public ApiResponse enableAllScanners() throws ClientApiException {
+		return api.callApi("pscan", "action", "enableAllScanners", null);
 	}
 
 	/**
 	 * Disables all passive scanners
 	 */
-	public ApiResponse disableAllScanners(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("pscan", "action", "disableAllScanners", map);
+	public ApiResponse disableAllScanners() throws ClientApiException {
+		return api.callApi("pscan", "action", "disableAllScanners", null);
 	}
 
 	/**
 	 * Enables all passive scanners with the given IDs (comma separated list of IDs)
 	 */
-	public ApiResponse enableScanners(String apikey, String ids) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse enableScanners(String ids) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("ids", ids);
 		return api.callApi("pscan", "action", "enableScanners", map);
 	}
@@ -107,12 +89,8 @@ public class Pscan {
 	/**
 	 * Disables all passive scanners with the given IDs (comma separated list of IDs)
 	 */
-	public ApiResponse disableScanners(String apikey, String ids) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse disableScanners(String ids) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("ids", ids);
 		return api.callApi("pscan", "action", "disableScanners", map);
 	}
@@ -120,12 +98,8 @@ public class Pscan {
 	/**
 	 * Sets the alert threshold of the passive scanner with the given ID, accepted values for alert threshold: OFF, DEFAULT, LOW, MEDIUM and HIGH
 	 */
-	public ApiResponse setScannerAlertThreshold(String apikey, String id, String alertthreshold) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setScannerAlertThreshold(String id, String alertthreshold) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("alertThreshold", alertthreshold);
 		return api.callApi("pscan", "action", "setScannerAlertThreshold", map);

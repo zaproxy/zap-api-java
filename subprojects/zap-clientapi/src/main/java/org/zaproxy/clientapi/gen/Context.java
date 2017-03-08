@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Context {
+@SuppressWarnings("javadoc")
+public class Context extends org.zaproxy.clientapi.gen.deprecated.ContextDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Context(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,16 +44,14 @@ public class Context {
 	 * List context names of current session
 	 */
 	public ApiResponse contextList() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("context", "view", "contextList", map);
+		return api.callApi("context", "view", "contextList", null);
 	}
 
 	/**
 	 * List excluded regexs for context
 	 */
 	public ApiResponse excludeRegexs(String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "view", "excludeRegexs", map);
 	}
@@ -60,8 +60,7 @@ public class Context {
 	 * List included regexs for context
 	 */
 	public ApiResponse includeRegexs(String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "view", "includeRegexs", map);
 	}
@@ -70,8 +69,7 @@ public class Context {
 	 * List the information about the named context
 	 */
 	public ApiResponse context(String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "view", "context", map);
 	}
@@ -80,16 +78,14 @@ public class Context {
 	 * Lists the names of all built in technologies
 	 */
 	public ApiResponse technologyList() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("context", "view", "technologyList", map);
+		return api.callApi("context", "view", "technologyList", null);
 	}
 
 	/**
 	 * Lists the names of all technologies included in a context
 	 */
 	public ApiResponse includedTechnologyList(String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "view", "includedTechnologyList", map);
 	}
@@ -98,8 +94,7 @@ public class Context {
 	 * Lists the names of all technologies excluded from a context
 	 */
 	public ApiResponse excludedTechnologyList(String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "view", "excludedTechnologyList", map);
 	}
@@ -107,12 +102,8 @@ public class Context {
 	/**
 	 * Add exclude regex to context
 	 */
-	public ApiResponse excludeFromContext(String apikey, String contextname, String regex) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse excludeFromContext(String contextname, String regex) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("regex", regex);
 		return api.callApi("context", "action", "excludeFromContext", map);
@@ -121,12 +112,8 @@ public class Context {
 	/**
 	 * Add include regex to context
 	 */
-	public ApiResponse includeInContext(String apikey, String contextname, String regex) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse includeInContext(String contextname, String regex) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("regex", regex);
 		return api.callApi("context", "action", "includeInContext", map);
@@ -135,12 +122,8 @@ public class Context {
 	/**
 	 * Creates a new context with the given name in the current session
 	 */
-	public ApiResponse newContext(String apikey, String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse newContext(String contextname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "action", "newContext", map);
 	}
@@ -148,12 +131,8 @@ public class Context {
 	/**
 	 * Removes a context in the current session
 	 */
-	public ApiResponse removeContext(String apikey, String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeContext(String contextname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "action", "removeContext", map);
 	}
@@ -161,12 +140,8 @@ public class Context {
 	/**
 	 * Exports the context with the given name to a file. If a relative file path is specified it will be resolved against the "contexts" directory in ZAP "home" dir.
 	 */
-	public ApiResponse exportContext(String apikey, String contextname, String contextfile) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse exportContext(String contextname, String contextfile) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("contextFile", contextfile);
 		return api.callApi("context", "action", "exportContext", map);
@@ -175,12 +150,8 @@ public class Context {
 	/**
 	 * Imports a context from a file. If a relative file path is specified it will be resolved against the "contexts" directory in ZAP "home" dir.
 	 */
-	public ApiResponse importContext(String apikey, String contextfile) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse importContext(String contextfile) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextFile", contextfile);
 		return api.callApi("context", "action", "importContext", map);
 	}
@@ -188,12 +159,8 @@ public class Context {
 	/**
 	 * Includes technologies with the given names, separated by a comma, to a context
 	 */
-	public ApiResponse includeContextTechnologies(String apikey, String contextname, String technologynames) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse includeContextTechnologies(String contextname, String technologynames) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("technologyNames", technologynames);
 		return api.callApi("context", "action", "includeContextTechnologies", map);
@@ -202,12 +169,8 @@ public class Context {
 	/**
 	 * Includes all built in technologies in to a context
 	 */
-	public ApiResponse includeAllContextTechnologies(String apikey, String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse includeAllContextTechnologies(String contextname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "action", "includeAllContextTechnologies", map);
 	}
@@ -215,12 +178,8 @@ public class Context {
 	/**
 	 * Excludes technologies with the given names, separated by a comma, from a context
 	 */
-	public ApiResponse excludeContextTechnologies(String apikey, String contextname, String technologynames) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse excludeContextTechnologies(String contextname, String technologynames) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("technologyNames", technologynames);
 		return api.callApi("context", "action", "excludeContextTechnologies", map);
@@ -229,12 +188,8 @@ public class Context {
 	/**
 	 * Excludes all built in technologies from a context
 	 */
-	public ApiResponse excludeAllContextTechnologies(String apikey, String contextname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse excludeAllContextTechnologies(String contextname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		return api.callApi("context", "action", "excludeAllContextTechnologies", map);
 	}
@@ -242,12 +197,8 @@ public class Context {
 	/**
 	 * Sets a context to in scope (contexts are in scope by default)
 	 */
-	public ApiResponse setContextInScope(String apikey, String contextname, String booleaninscope) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setContextInScope(String contextname, String booleaninscope) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextName", contextname);
 		map.put("booleanInScope", booleaninscope);
 		return api.callApi("context", "action", "setContextInScope", map);

@@ -30,23 +30,21 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Pnh {
+@SuppressWarnings("javadoc")
+public class Pnh extends org.zaproxy.clientapi.gen.deprecated.PnhDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Pnh(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse monitor(String apikey, String id, String message) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse monitor(String id, String message) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("message", message);
 		return api.callApi("pnh", "action", "monitor", map);
@@ -55,12 +53,8 @@ public class Pnh {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse oracle(String apikey, String id) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse oracle(String id) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		return api.callApi("pnh", "action", "oracle", map);
 	}
@@ -68,12 +62,8 @@ public class Pnh {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse startMonitoring(String apikey, String url) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse startMonitoring(String url) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("url", url);
 		return api.callApi("pnh", "action", "startMonitoring", map);
 	}
@@ -81,12 +71,8 @@ public class Pnh {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse stopMonitoring(String apikey, String id) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse stopMonitoring(String id) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		return api.callApi("pnh", "action", "stopMonitoring", map);
 	}
@@ -94,49 +80,29 @@ public class Pnh {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public byte[] pnh(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApiOther("pnh", "other", "pnh", map);
+	public byte[] pnh() throws ClientApiException {
+		return api.callApiOther("pnh", "other", "pnh", null);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public byte[] manifest(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApiOther("pnh", "other", "manifest", map);
+	public byte[] manifest() throws ClientApiException {
+		return api.callApiOther("pnh", "other", "manifest", null);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public byte[] service(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApiOther("pnh", "other", "service", map);
+	public byte[] service() throws ClientApiException {
+		return api.callApiOther("pnh", "other", "service", null);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public byte[] fx_pnhxpi(String apikey) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApiOther("pnh", "other", "fx_pnh.xpi", map);
+	public byte[] fx_pnhxpi() throws ClientApiException {
+		return api.callApiOther("pnh", "other", "fx_pnh.xpi", null);
 	}
 
 }

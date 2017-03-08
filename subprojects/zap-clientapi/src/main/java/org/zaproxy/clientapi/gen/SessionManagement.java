@@ -30,39 +30,34 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class SessionManagement {
+@SuppressWarnings("javadoc")
+public class SessionManagement extends org.zaproxy.clientapi.gen.deprecated.SessionManagementDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public SessionManagement(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
 	public ApiResponse getSupportedSessionManagementMethods() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("sessionManagement", "view", "getSupportedSessionManagementMethods", map);
+		return api.callApi("sessionManagement", "view", "getSupportedSessionManagementMethods", null);
 	}
 
 	public ApiResponse getSessionManagementMethodConfigParams(String methodname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("methodName", methodname);
 		return api.callApi("sessionManagement", "view", "getSessionManagementMethodConfigParams", map);
 	}
 
 	public ApiResponse getSessionManagementMethod(String contextid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		return api.callApi("sessionManagement", "view", "getSessionManagementMethod", map);
 	}
 
-	public ApiResponse setSessionManagementMethod(String apikey, String contextid, String methodname, String methodconfigparams) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setSessionManagementMethod(String contextid, String methodname, String methodconfigparams) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("methodName", methodname);
 		if (methodconfigparams != null) {

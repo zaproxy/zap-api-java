@@ -108,7 +108,7 @@ public class FormBasedAuthentication {
 		String contextId = "1";
 
 		// Actually set the logged in indicator
-		clientApi.authentication.setLoggedInIndicator(ZAP_API_KEY, contextId, java.util.regex.Pattern.quote(loggedInIndicator));
+		clientApi.authentication.setLoggedInIndicator(contextId, java.util.regex.Pattern.quote(loggedInIndicator));
 
 		// Check out the logged in indicator that is set
 		System.out.println("Configured logged in indicator regex: "
@@ -130,7 +130,7 @@ public class FormBasedAuthentication {
 
 		System.out.println("Setting form based authentication configuration as: "
 				+ formBasedConfig.toString());
-		clientApi.authentication.setAuthenticationMethod(ZAP_API_KEY, contextId, "formBasedAuthentication",
+		clientApi.authentication.setAuthenticationMethod(contextId, "formBasedAuthentication",
 				formBasedConfig.toString());
 
 		// Check if everything is set up ok
@@ -146,7 +146,7 @@ public class FormBasedAuthentication {
 		String password = "weakPassword";
 
 		// Make sure we have at least one user
-		String userId = extractUserId(clientApi.users.newUser(ZAP_API_KEY, contextId, user));
+		String userId = extractUserId(clientApi.users.newUser(contextId, user));
 
 		// Prepare the configuration in a format similar to how URL parameters are formed. This
 		// means that any value we add for the configuration values has to be URL encoded.
@@ -155,7 +155,7 @@ public class FormBasedAuthentication {
 		userAuthConfig.append("&password=").append(URLEncoder.encode(password, "UTF-8"));
 
 		System.out.println("Setting user authentication configuration as: " + userAuthConfig.toString());
-		clientApi.users.setAuthenticationCredentials(ZAP_API_KEY, contextId, userId, userAuthConfig.toString());
+		clientApi.users.setAuthenticationCredentials(contextId, userId, userAuthConfig.toString());
 
 		// Check if everything is set up ok
 		System.out.println("Authentication config: " + clientApi.users.getUserById(contextId, userId).toString(0));
@@ -172,7 +172,7 @@ public class FormBasedAuthentication {
 	 * @throws Exception if an error occurred while accessing the API
 	 */
 	public static void main(String[] args) throws Exception {
-		ClientApi clientApi = new ClientApi(ZAP_ADDRESS, ZAP_PORT);
+		ClientApi clientApi = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
 		listAuthInformation(clientApi);
 		System.out.println("-------------");

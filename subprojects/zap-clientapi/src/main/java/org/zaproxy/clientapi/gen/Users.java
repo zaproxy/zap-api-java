@@ -30,17 +30,18 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Users {
+@SuppressWarnings("javadoc")
+public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Users(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
 	public ApiResponse usersList(String contextid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		if (contextid != null) {
 			map.put("contextId", contextid);
 		}
@@ -48,8 +49,7 @@ public class Users {
 	}
 
 	public ApiResponse getUserById(String contextid, String userid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		if (contextid != null) {
 			map.put("contextId", contextid);
 		}
@@ -60,72 +60,50 @@ public class Users {
 	}
 
 	public ApiResponse getAuthenticationCredentialsConfigParams(String contextid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		return api.callApi("users", "view", "getAuthenticationCredentialsConfigParams", map);
 	}
 
 	public ApiResponse getAuthenticationCredentials(String contextid, String userid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		return api.callApi("users", "view", "getAuthenticationCredentials", map);
 	}
 
-	public ApiResponse newUser(String apikey, String contextid, String name) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse newUser(String contextid, String name) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("name", name);
 		return api.callApi("users", "action", "newUser", map);
 	}
 
-	public ApiResponse removeUser(String apikey, String contextid, String userid) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeUser(String contextid, String userid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		return api.callApi("users", "action", "removeUser", map);
 	}
 
-	public ApiResponse setUserEnabled(String apikey, String contextid, String userid, String enabled) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setUserEnabled(String contextid, String userid, String enabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		map.put("enabled", enabled);
 		return api.callApi("users", "action", "setUserEnabled", map);
 	}
 
-	public ApiResponse setUserName(String apikey, String contextid, String userid, String name) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setUserName(String contextid, String userid, String name) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		map.put("name", name);
 		return api.callApi("users", "action", "setUserName", map);
 	}
 
-	public ApiResponse setAuthenticationCredentials(String apikey, String contextid, String userid, String authcredentialsconfigparams) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse setAuthenticationCredentials(String contextid, String userid, String authcredentialsconfigparams) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("contextId", contextid);
 		map.put("userId", userid);
 		if (authcredentialsconfigparams != null) {

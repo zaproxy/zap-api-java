@@ -26,7 +26,7 @@ public class StopZapTask extends ZapTask {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			this.getClientApi().core.shutdown(null);
+			this.getClientApi().core.shutdown();
 		} catch (Exception e) {
 			throw new BuildException(e);
 		}

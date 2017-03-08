@@ -30,17 +30,18 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Search {
+@SuppressWarnings("javadoc")
+public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Search(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
 	public ApiResponse urlsByUrlRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -55,8 +56,7 @@ public class Search {
 	}
 
 	public ApiResponse urlsByRequestRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -71,8 +71,7 @@ public class Search {
 	}
 
 	public ApiResponse urlsByResponseRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -87,8 +86,7 @@ public class Search {
 	}
 
 	public ApiResponse urlsByHeaderRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -103,8 +101,7 @@ public class Search {
 	}
 
 	public ApiResponse messagesByUrlRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -119,8 +116,7 @@ public class Search {
 	}
 
 	public ApiResponse messagesByRequestRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -135,8 +131,7 @@ public class Search {
 	}
 
 	public ApiResponse messagesByResponseRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -151,8 +146,7 @@ public class Search {
 	}
 
 	public ApiResponse messagesByHeaderRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -166,12 +160,8 @@ public class Search {
 		return api.callApi("search", "view", "messagesByHeaderRegex", map);
 	}
 
-	public byte[] harByUrlRegex(String apikey, String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public byte[] harByUrlRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -185,12 +175,8 @@ public class Search {
 		return api.callApiOther("search", "other", "harByUrlRegex", map);
 	}
 
-	public byte[] harByRequestRegex(String apikey, String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public byte[] harByRequestRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -204,12 +190,8 @@ public class Search {
 		return api.callApiOther("search", "other", "harByRequestRegex", map);
 	}
 
-	public byte[] harByResponseRegex(String apikey, String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public byte[] harByResponseRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -223,12 +205,8 @@ public class Search {
 		return api.callApiOther("search", "other", "harByResponseRegex", map);
 	}
 
-	public byte[] harByHeaderRegex(String apikey, String regex, String baseurl, String start, String count) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public byte[] harByHeaderRegex(String regex, String baseurl, String start, String count) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);

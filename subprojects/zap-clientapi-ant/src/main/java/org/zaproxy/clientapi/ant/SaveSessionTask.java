@@ -28,7 +28,7 @@ public class SaveSessionTask extends ZapTask {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			this.getClientApi().core.saveSession(null, name, "true");
+			this.getClientApi().core.saveSession(name, "true");
 			
 		} catch (Exception e) {
 			throw new BuildException(e);
