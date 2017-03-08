@@ -26,9 +26,10 @@ public abstract class ZapTask extends Task {
 	private String zapAddress;
 	private int zapPort;
 	private boolean debug = false;
+	private String apikey;
 	
 	protected ClientApi getClientApi() {
-		return new ClientApi(zapAddress, zapPort, debug);
+		return new ClientApi(zapAddress, zapPort, apikey, debug);
 	}
 
 	public String getZapAddress() {
@@ -50,5 +51,13 @@ public abstract class ZapTask extends Task {
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
+	}
+
+	public String getApikey() {
+		return apikey;
+	}
+
+	public void setApikey(String apikey) {
+		this.apikey = apikey;
 	}
 }
