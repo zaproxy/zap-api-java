@@ -41,7 +41,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed.
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -62,7 +62,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -77,7 +77,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -93,7 +93,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -109,7 +109,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -125,7 +125,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -141,7 +141,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -157,7 +157,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -173,7 +173,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -189,7 +189,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -205,7 +205,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated
@@ -221,7 +221,7 @@ public class AjaxSpiderDeprecated {
     /**
      * This component is optional and therefore the API will only work if it is installed
      * 
-     * @deprecated (TODO add version) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
      *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
      */
     @Deprecated

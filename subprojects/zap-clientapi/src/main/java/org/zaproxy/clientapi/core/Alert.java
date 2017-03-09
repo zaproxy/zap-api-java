@@ -58,7 +58,7 @@ public class Alert {
      * Constructs an {@code Alert} from the given {@code ApiResponseSet}.
      *
      * @param apiResponseSet the {@code ApiResponseSet} returned from an alert related ZAP API call.
-     * @since TODO add version
+     * @since 1.1.0
      */
     public Alert(ApiResponseSet apiResponseSet) {
         super();
@@ -195,7 +195,7 @@ public class Alert {
 	 * Gets the ID of the alert.
 	 *
 	 * @return the ID of the alert.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getId() {
 		return id;
@@ -205,7 +205,7 @@ public class Alert {
 	 * Gets the ID of the plugin/scanner that raised the alert.
 	 *
 	 * @return the ID of the plugin/scanner that raised the alert.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getPluginId() {
 		return pluginId;
@@ -215,7 +215,7 @@ public class Alert {
 	 * Gets the ID of the HTTP message of the alert.
 	 *
 	 * @return the ID of the HTTP message.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getMessageId() {
 		return messageId;
@@ -225,7 +225,7 @@ public class Alert {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getName() {
 		return name;
@@ -235,7 +235,7 @@ public class Alert {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -245,7 +245,7 @@ public class Alert {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @deprecated (TODO add version) Use {@link #getName()} instead.
+	 * @deprecated (1.1.0) Use {@link #getName()} instead.
 	 */
 	@Deprecated
 	public String getAlert() {
@@ -255,7 +255,7 @@ public class Alert {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @deprecated (TODO add version) Use {@link #setName(String)} instead.
+	 * @deprecated (1.1.0) Use {@link #setName(String)} instead.
 	 */
 	@Deprecated
 	public void setAlert(String name) {
