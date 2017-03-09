@@ -36,7 +36,7 @@ public class ApiResponseSet extends ApiResponse {
 	 *
 	 * @param name the name of the API response
 	 * @param attributes the attributes
-	 * @deprecated (TODO add version) Unused, there's no replacement.
+	 * @deprecated (1.1.0) Unused, there's no replacement.
 	 */
 	@Deprecated
 	public ApiResponseSet(String name, String[] attributes) {
@@ -66,7 +66,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * Gets the attributes.
 	 *
 	 * @return the attributes, might be {@code null}.
-	 * @deprecated (TODO add version) Unused, there's no replacement.
+	 * @deprecated (1.1.0) Unused, there's no replacement.
 	 * @see #getValues()
 	 */
 	@Deprecated
@@ -79,7 +79,7 @@ public class ApiResponseSet extends ApiResponse {
 	 *
 	 * @param key the key of the value
 	 * @return the value, or {@code null} if no value exists for the given {@code key}.
-	 * @deprecated (TODO add version) Use {@link #getStringValue(String)} or {@link #getValue(String)} instead.
+	 * @deprecated (1.1.0) Use {@link #getStringValue(String)} or {@link #getValue(String)} instead.
 	 */
 	@Deprecated
 	public String getAttribute(String key) {
@@ -91,7 +91,7 @@ public class ApiResponseSet extends ApiResponse {
 	 *
 	 * @param key the key of the value
 	 * @return the value, or {@code null} if no value exists for the given {@code key}.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 * @see #getKeys()
 	 * @see #getStringValue(String)
 	 */
@@ -107,7 +107,7 @@ public class ApiResponseSet extends ApiResponse {
 	 *
 	 * @param key the key of the value
 	 * @return the value, or {@code null} if no value exists for the given {@code key}.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 * @see #getKeys()
 	 * @see #getValue(String)
 	 */
@@ -126,7 +126,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * {@code UnsupportedOperationException}.
 	 *
 	 * @return the map with the keys/values, never {@code null}.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public Map<String, ApiResponse> getValuesMap() {
 		return valuesMap;
@@ -139,7 +139,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * {@code UnsupportedOperationException}.
 	 *
 	 * @return the keys, never {@code null}.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 * @see #getValue(String)
 	 * @see #getStringValue(String)
 	 * @see #getValues()
@@ -156,7 +156,7 @@ public class ApiResponseSet extends ApiResponse {
 	 * {@code UnsupportedOperationException}.
 	 *
 	 * @return the values, never {@code null}.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 * @see #getValue(String)
 	 * @see #getStringValue(String)
 	 */

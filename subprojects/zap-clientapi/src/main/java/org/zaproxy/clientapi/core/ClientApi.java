@@ -125,7 +125,7 @@ public class ClientApi {
 	 * @param zapAddress ZAP's address
 	 * @param zapPort ZAP's listening port
 	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public ClientApi(String zapAddress, int zapPort, String apiKey) {
 		this(zapAddress, zapPort, apiKey, false);
@@ -144,7 +144,7 @@ public class ClientApi {
 	 * @param zapPort ZAP's listening port
 	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
 	 * @param debug {@code true} if debug information should be written to debug stream, {@code false} otherwise.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public ClientApi(String zapAddress, int zapPort, String apiKey, boolean debug) {
 		proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
@@ -423,7 +423,7 @@ public class ClientApi {
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
-     * @deprecated (TODO add version) Use {@link Context#excludeFromContext(String, String)} instead.
+     * @deprecated (1.1.0) Use {@link Context#excludeFromContext(String, String)} instead.
      * @see #context
      */
     @Deprecated
@@ -438,7 +438,7 @@ public class ClientApi {
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
-     * @deprecated (TODO add version) Use {@link Context#includeInContext(String, String)} instead.
+     * @deprecated (1.1.0) Use {@link Context#includeInContext(String, String)} instead.
      * @see #context
      */
     @Deprecated
@@ -455,7 +455,7 @@ public class ClientApi {
      * @param contextName the name of the context.
      * @param regex the regular expression to match the node/URL.
      * @throws Exception if an error occurred while calling the API.
-     * @deprecated (TODO add version) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
+     * @deprecated (1.1.0) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
      */
     @Deprecated
     public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex) throws Exception {
@@ -524,7 +524,7 @@ public class ClientApi {
      * @param apikey the API key, might be {@code null}.
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
-     * @deprecated (TODO add version) Use {@link #activeScanSiteInScope(String)} instead, the API key should be set using one of
+     * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be set using one of
      *             the {@code ClientApi} constructors.
      */
     @Deprecated
@@ -540,7 +540,7 @@ public class ClientApi {
      *
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
-     * @since TODO add version
+     * @since 1.1.0
      */
     public void activeScanSiteInScope(String url) throws Exception {
         ascan.scan(url, "true", "true", "", "", "");
