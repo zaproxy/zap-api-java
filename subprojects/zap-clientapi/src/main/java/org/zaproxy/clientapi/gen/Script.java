@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Script {
+@SuppressWarnings("javadoc")
+public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Script(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,27 +44,21 @@ public class Script {
 	 * Lists the script engines available
 	 */
 	public ApiResponse listEngines() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("script", "view", "listEngines", map);
+		return api.callApi("script", "view", "listEngines", null);
 	}
 
 	/**
 	 * Lists the scripts available, with its engine, name, description, type and error state.
 	 */
 	public ApiResponse listScripts() throws ClientApiException {
-		Map<String, String> map = null;
-		return api.callApi("script", "view", "listScripts", map);
+		return api.callApi("script", "view", "listScripts", null);
 	}
 
 	/**
 	 * Enables the script with the given name
 	 */
-	public ApiResponse enable(String apikey, String scriptname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse enable(String scriptname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		return api.callApi("script", "action", "enable", map);
 	}
@@ -70,12 +66,8 @@ public class Script {
 	/**
 	 * Disables the script with the given name
 	 */
-	public ApiResponse disable(String apikey, String scriptname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse disable(String scriptname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		return api.callApi("script", "action", "disable", map);
 	}
@@ -83,12 +75,8 @@ public class Script {
 	/**
 	 * Loads a script into ZAP from the given local file, with the given name, type and engine, optionally with a description
 	 */
-	public ApiResponse load(String apikey, String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse load(String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		map.put("scriptType", scripttype);
 		map.put("scriptEngine", scriptengine);
@@ -102,12 +90,8 @@ public class Script {
 	/**
 	 * Removes the script with the given name
 	 */
-	public ApiResponse remove(String apikey, String scriptname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse remove(String scriptname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		return api.callApi("script", "action", "remove", map);
 	}
@@ -115,12 +99,8 @@ public class Script {
 	/**
 	 * Runs the stand alone script with the give name
 	 */
-	public ApiResponse runStandAloneScript(String apikey, String scriptname) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse runStandAloneScript(String scriptname) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		return api.callApi("script", "action", "runStandAloneScript", map);
 	}

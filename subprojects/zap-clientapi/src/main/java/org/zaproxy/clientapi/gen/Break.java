@@ -30,32 +30,26 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Break {
+@SuppressWarnings("javadoc")
+public class Break extends org.zaproxy.clientapi.gen.deprecated.BreakDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public Break(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
-	public ApiResponse brk(String apikey, String type, String scope, String state) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse brk(String type, String scope, String state) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("type", type);
 		map.put("scope", scope);
 		map.put("state", state);
 		return api.callApi("break", "action", "break", map);
 	}
 
-	public ApiResponse addHttpBreakpoint(String apikey, String string, String location, String match, String inverse, String ignorecase) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse addHttpBreakpoint(String string, String location, String match, String inverse, String ignorecase) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("string", string);
 		map.put("location", location);
 		map.put("match", match);
@@ -64,12 +58,8 @@ public class Break {
 		return api.callApi("break", "action", "addHttpBreakpoint", map);
 	}
 
-	public ApiResponse removeHttpBreakpoint(String apikey, String string, String location, String match, String inverse, String ignorecase) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse removeHttpBreakpoint(String string, String location, String match, String inverse, String ignorecase) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("string", string);
 		map.put("location", location);
 		map.put("match", match);

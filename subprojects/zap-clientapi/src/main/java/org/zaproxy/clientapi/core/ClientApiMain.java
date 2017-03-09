@@ -56,7 +56,7 @@ public class ClientApiMain {
         try {
             switch(task){
                 case stop:
-                    api.core.shutdown((String)params.get("apikey"));
+                    api.core.shutdown();
                     break;
                 case checkAlerts:
                     if (params.get("alertsFile") == null){
@@ -99,13 +99,13 @@ public class ClientApiMain {
                         showHelp();
                         System.exit(1);
                     }
-                    api.core.saveSession((String)params.get("apikey"), (String)params.get("sessionName"), "true");
+                    api.core.saveSession((String)params.get("sessionName"), "true");
                     break;
                 case newSession:
                     if (params.get("sessionName") == null){
-                        api.core.newSession((String)params.get("apikey"), "", "true");
+                        api.core.newSession("", "true");
                     }else{
-                        api.core.newSession((String)params.get("apikey"), (String)params.get("sessionName"), "true");
+                        api.core.newSession((String)params.get("sessionName"), "true");
                     }
                     break;
                 case activeScanUrl:
@@ -114,27 +114,27 @@ public class ClientApiMain {
                         showHelp();
                         System.exit(1);
                     }else{
-                        api.ascan.scan((String)params.get("apikey"), (String)params.get("url"), "true", "false", "", "", "");
+                        api.ascan.scan((String)params.get("url"), "true", "false", "", "", "");
                     }
                     break;
                 case activeScanSiteInScope:
                     checkForUrlParam();
-                    api.activeScanSiteInScope((String)params.get("apikey"), (String)params.get("url"));
+                    api.activeScanSiteInScope((String)params.get("url"));
                     break;
                 case addExcludeRegexToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.addExcludeFromContext((String)params.get("apikey"), (String)params.get("contextName"), (String)params.get("regex"));
+                    api.context.excludeFromContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
                 case addIncludeRegexToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.addIncludeInContext((String)params.get("apikey"), (String)params.get("contextName"), (String)params.get("regex"));
+                    api.context.includeInContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
                 case addIncludeOneMatchingNodeToContext:
                     checkForContextNameParam();
                     checkForRegexParam();
-                    api.includeOneMatchingNodeInContext((String)params.get("apikey"), (String)params.get("contextName"), (String)params.get("regex"));
+                    api.includeOneMatchingNodeInContext((String)params.get("contextName"), (String)params.get("regex"));
                     break;
             }
         } catch (ConnectException e){
@@ -208,7 +208,7 @@ public class ClientApiMain {
             showHelp();
             System.exit(1);
         }
-        api = new ClientApi(zapaddr, zapport, debug);
+        api = new ClientApi(zapaddr, zapport, (String) params.get("apikey"), debug);
     }
 
     private void setTask(String arg) {

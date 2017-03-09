@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class ImportLogFiles {
+@SuppressWarnings("javadoc")
+public class ImportLogFiles extends org.zaproxy.clientapi.gen.deprecated.ImportLogFilesDeprecated {
 
-	private ClientApi api = null;
+	private final ClientApi api;
 
 	public ImportLogFiles(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -42,42 +44,35 @@ public class ImportLogFiles {
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse ImportZAPLogFromFile(String filepath) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("FilePath", filepath);
-		return api.callApi("importLogFiles", "view", "ImportZAPLogFromFile", map);
+		return api.callApi("importLogFiles", "action", "ImportZAPLogFromFile", map);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse ImportModSecurityLogFromFile(String filepath) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("FilePath", filepath);
-		return api.callApi("importLogFiles", "view", "ImportModSecurityLogFromFile", map);
+		return api.callApi("importLogFiles", "action", "ImportModSecurityLogFromFile", map);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse ImportZAPHttpRequestResponsePair(String httprequest, String httpresponse) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
+		Map<String, String> map = new HashMap<>();
 		map.put("HTTPRequest", httprequest);
 		map.put("HTTPResponse", httpresponse);
-		return api.callApi("importLogFiles", "view", "ImportZAPHttpRequestResponsePair", map);
+		return api.callApi("importLogFiles", "action", "ImportZAPHttpRequestResponsePair", map);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse PostModSecurityAuditEvent(String apikey, String auditeventstring) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public ApiResponse PostModSecurityAuditEvent(String auditeventstring) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		if (auditeventstring != null) {
 			map.put("AuditEventString", auditeventstring);
 		}
@@ -87,12 +82,8 @@ public class ImportLogFiles {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public byte[] OtherPostModSecurityAuditEvent(String apikey, String auditeventstring) throws ClientApiException {
-		Map<String, String> map = null;
-		map = new HashMap<String, String>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
+	public byte[] OtherPostModSecurityAuditEvent(String auditeventstring) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
 		map.put("AuditEventString", auditeventstring);
 		return api.callApiOther("importLogFiles", "other", "OtherPostModSecurityAuditEvent", map);
 	}

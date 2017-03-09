@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class AjaxSpider {
+@SuppressWarnings("javadoc")
+public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderDeprecated {
 
 	private final ClientApi api;
 
 	public AjaxSpider(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -137,22 +139,12 @@ public class AjaxSpider {
 	}
 
 	/**
-	 * This component is optional and therefore the API will only work if it is installed.
-	 */
-	public ApiResponse scan(String apikey, String url, String inscope) throws ClientApiException {
-		return scan(apikey, url, inscope, null, null);
-	}
-	
-	/**
 	 * Runs the spider against the given URL and/or context, optionally, spidering everything in scope. The parameter 'contextName' can be used to constrain the scan to a Context, the option 'in scope' is ignored if a context was also specified. The parameter 'subtreeOnly' allows to restrict the spider under a site's subtree (using the specified 'url').
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse scan(String apikey, String url, String inscope, String contextname, String subtreeonly) throws ClientApiException {
+	public ApiResponse scan(String url, String inscope, String contextname, String subtreeonly) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		if (url != null) {
 			map.put("url", url);
 		}
@@ -173,11 +165,8 @@ public class AjaxSpider {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse scanAsUser(String apikey, String contextname, String username, String url, String subtreeonly) throws ClientApiException {
+	public ApiResponse scanAsUser(String contextname, String username, String url, String subtreeonly) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("contextName", contextname);
 		map.put("userName", username);
 		if (url != null) {
@@ -192,22 +181,15 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse stop(String apikey) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
-		return api.callApi("ajaxSpider", "action", "stop", map);
+	public ApiResponse stop() throws ClientApiException {
+		return api.callApi("ajaxSpider", "action", "stop", null);
 	}
 
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionBrowserId(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionBrowserId(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("ajaxSpider", "action", "setOptionBrowserId", map);
 	}
@@ -215,11 +197,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionClickDefaultElems(String apikey, boolean bool) throws ClientApiException {
+	public ApiResponse setOptionClickDefaultElems(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("ajaxSpider", "action", "setOptionClickDefaultElems", map);
 	}
@@ -227,11 +206,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionClickElemsOnce(String apikey, boolean bool) throws ClientApiException {
+	public ApiResponse setOptionClickElemsOnce(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("ajaxSpider", "action", "setOptionClickElemsOnce", map);
 	}
@@ -239,11 +215,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionEventWait(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionEventWait(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionEventWait", map);
 	}
@@ -251,11 +224,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionMaxCrawlDepth(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionMaxCrawlDepth(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionMaxCrawlDepth", map);
 	}
@@ -263,11 +233,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionMaxCrawlStates(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionMaxCrawlStates(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionMaxCrawlStates", map);
 	}
@@ -275,11 +242,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionMaxDuration(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionMaxDuration(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionMaxDuration", map);
 	}
@@ -287,11 +251,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionNumberOfBrowsers(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionNumberOfBrowsers(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionNumberOfBrowsers", map);
 	}
@@ -299,11 +260,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionRandomInputs(String apikey, boolean bool) throws ClientApiException {
+	public ApiResponse setOptionRandomInputs(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("ajaxSpider", "action", "setOptionRandomInputs", map);
 	}
@@ -311,11 +269,8 @@ public class AjaxSpider {
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionReloadWait(String apikey, int i) throws ClientApiException {
+	public ApiResponse setOptionReloadWait(int i) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ajaxSpider", "action", "setOptionReloadWait", map);
 	}

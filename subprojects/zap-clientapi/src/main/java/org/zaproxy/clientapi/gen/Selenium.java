@@ -30,11 +30,13 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * This file was automatically generated.
  */
-public class Selenium {
+@SuppressWarnings("javadoc")
+public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDeprecated {
 
 	private final ClientApi api;
 
 	public Selenium(ClientApi api) {
+		super(api);
 		this.api = api;
 	}
 
@@ -88,11 +90,8 @@ public class Selenium {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionChromeDriverPath(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionChromeDriverPath(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("selenium", "action", "setOptionChromeDriverPath", map);
 	}
@@ -102,11 +101,8 @@ public class Selenium {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionFirefoxBinaryPath(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionFirefoxBinaryPath(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("selenium", "action", "setOptionFirefoxBinaryPath", map);
 	}
@@ -116,11 +112,8 @@ public class Selenium {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionFirefoxDriverPath(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionFirefoxDriverPath(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("selenium", "action", "setOptionFirefoxDriverPath", map);
 	}
@@ -130,11 +123,8 @@ public class Selenium {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionIeDriverPath(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionIeDriverPath(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("selenium", "action", "setOptionIeDriverPath", map);
 	}
@@ -144,11 +134,8 @@ public class Selenium {
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse setOptionPhantomJsBinaryPath(String apikey, String string) throws ClientApiException {
+	public ApiResponse setOptionPhantomJsBinaryPath(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		if (apikey != null) {
-			map.put("apikey", apikey);
-		}
 		map.put("String", string);
 		return api.callApi("selenium", "action", "setOptionPhantomJsBinaryPath", map);
 	}

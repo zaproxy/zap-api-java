@@ -58,31 +58,31 @@ public class Alert {
      * Constructs an {@code Alert} from the given {@code ApiResponseSet}.
      *
      * @param apiResponseSet the {@code ApiResponseSet} returned from an alert related ZAP API call.
-     * @since TODO add version
+     * @since 1.1.0
      */
     public Alert(ApiResponseSet apiResponseSet) {
         super();
-        this.id = apiResponseSet.getValue("id");
-        this.pluginId = apiResponseSet.getValue("pluginId");
-        String name = apiResponseSet.getValue("name");
+        this.id = apiResponseSet.getStringValue("id");
+        this.pluginId = apiResponseSet.getStringValue("pluginId");
+        String name = apiResponseSet.getStringValue("name");
         if (name == null) {
             // TODO Remove once alert attribute is no longer supported.
-            name = apiResponseSet.getValue("alert");
+            name = apiResponseSet.getStringValue("alert");
         }
         this.name = name;
-        this.description = apiResponseSet.getValue("description");
-        this.risk = stringToRisk(apiResponseSet.getValue("risk"));
-        this.confidence = stringToConfidence(apiResponseSet.getValue("confidence"));
-        this.url = apiResponseSet.getValue("url");
-        this.other = apiResponseSet.getValue("other");
-        this.param = apiResponseSet.getValue("param");
-        this.attack = apiResponseSet.getValue("attack");
-        this.evidence = apiResponseSet.getValue("evidence");
-        this.reference = apiResponseSet.getValue("reference");
-        this.cweId = stringToInt(apiResponseSet.getValue("cweid"), 0);
-        this.wascId = stringToInt(apiResponseSet.getValue("wascid"), 0);
-        this.solution = apiResponseSet.getValue("solution");
-        this.messageId = apiResponseSet.getValue("messageId");
+        this.description = apiResponseSet.getStringValue("description");
+        this.risk = stringToRisk(apiResponseSet.getStringValue("risk"));
+        this.confidence = stringToConfidence(apiResponseSet.getStringValue("confidence"));
+        this.url = apiResponseSet.getStringValue("url");
+        this.other = apiResponseSet.getStringValue("other");
+        this.param = apiResponseSet.getStringValue("param");
+        this.attack = apiResponseSet.getStringValue("attack");
+        this.evidence = apiResponseSet.getStringValue("evidence");
+        this.reference = apiResponseSet.getStringValue("reference");
+        this.cweId = stringToInt(apiResponseSet.getStringValue("cweid"), 0);
+        this.wascId = stringToInt(apiResponseSet.getStringValue("wascid"), 0);
+        this.solution = apiResponseSet.getStringValue("solution");
+        this.messageId = apiResponseSet.getStringValue("messageId");
     }
 
     public Alert(String name, String url, String riskStr, String confidenceStr,
@@ -195,7 +195,7 @@ public class Alert {
 	 * Gets the ID of the alert.
 	 *
 	 * @return the ID of the alert.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getId() {
 		return id;
@@ -205,7 +205,7 @@ public class Alert {
 	 * Gets the ID of the plugin/scanner that raised the alert.
 	 *
 	 * @return the ID of the plugin/scanner that raised the alert.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getPluginId() {
 		return pluginId;
@@ -215,7 +215,7 @@ public class Alert {
 	 * Gets the ID of the HTTP message of the alert.
 	 *
 	 * @return the ID of the HTTP message.
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getMessageId() {
 		return messageId;
@@ -225,7 +225,7 @@ public class Alert {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getName() {
 		return name;
@@ -235,7 +235,7 @@ public class Alert {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -245,7 +245,7 @@ public class Alert {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @deprecated (TODO add version) Use {@link #getName()} instead.
+	 * @deprecated (1.1.0) Use {@link #getName()} instead.
 	 */
 	@Deprecated
 	public String getAlert() {
@@ -255,7 +255,7 @@ public class Alert {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @deprecated (TODO add version) Use {@link #setName(String)} instead.
+	 * @deprecated (1.1.0) Use {@link #setName(String)} instead.
 	 */
 	@Deprecated
 	public void setAlert(String name) {

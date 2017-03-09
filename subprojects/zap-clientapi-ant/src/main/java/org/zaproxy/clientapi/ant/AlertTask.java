@@ -39,7 +39,7 @@ public class AlertTask extends Task {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public String getName() {
 		return name;
@@ -49,7 +49,7 @@ public class AlertTask extends Task {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @since TODO add version
+	 * @since 1.1.0
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -59,7 +59,7 @@ public class AlertTask extends Task {
 	 * Gets the name of the alert.
 	 *
 	 * @return the name of the alert
-	 * @deprecated (TODO add version) Use {@link #getName()} instead.
+	 * @deprecated (1.1.0) Use {@link #getName()} instead.
 	 */
 	@Deprecated
 	public String getAlert() {
@@ -70,7 +70,7 @@ public class AlertTask extends Task {
 	 * Sets the name of the alert.
 	 *
 	 * @param name the name of the alert
-	 * @deprecated (TODO add version) Use {@link #setName(String)} instead.
+	 * @deprecated (1.1.0) Use {@link #setName(String)} instead.
 	 */
 	@Deprecated
 	public void setAlert(String name) {
