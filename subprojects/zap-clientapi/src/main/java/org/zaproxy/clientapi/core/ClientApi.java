@@ -398,6 +398,13 @@ public class ClientApi {
                 }
                 sb.append('&');
             }
+        } else if (apiKey != null && !apiKey.isEmpty()) {
+            // Send the API key even if there are no parameters,
+            // older ZAP versions might need it as (query) parameter.
+            sb.append('?');
+            sb.append(encodeQueryParam(ZAP_API_KEY_PARAM));
+            sb.append('=');
+            sb.append(encodeQueryParam(apiKey));
         }
 
         HttpRequest request = new HttpRequest(new URL(sb.toString()));
