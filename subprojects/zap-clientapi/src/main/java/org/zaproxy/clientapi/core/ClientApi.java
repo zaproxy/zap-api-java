@@ -390,13 +390,16 @@ public class ClientApi {
             }
 
             sb.append('?');
+	    String amp = "";
             for (Map.Entry<String, String> p : params.entrySet()) {
+		sb.append(amp);
                 sb.append(encodeQueryParam(p.getKey()));
                 sb.append('=');
                 if (p.getValue() != null) {
                     sb.append(encodeQueryParam(p.getValue()));
                 }
-                sb.append('&');
+                //sb.append('&');
+		amp="&";    
             }
         } else if (apiKey != null && !apiKey.isEmpty()) {
             // Send the API key even if there are no parameters,
