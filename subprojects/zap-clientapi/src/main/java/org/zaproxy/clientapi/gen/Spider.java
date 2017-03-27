@@ -66,20 +66,54 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "view", "scans", null);
 	}
 
+	/**
+	 * Gets the regexes of URLs excluded from the spider scans.
+	 */
 	public ApiResponse excludedFromScan() throws ClientApiException {
 		return api.callApi("spider", "view", "excludedFromScan", null);
 	}
 
+	/**
+	 * Returns a list of unique URLs from the history table based on HTTP messages added by the Spider.
+	 */
+	public ApiResponse allUrls() throws ClientApiException {
+		return api.callApi("spider", "view", "allUrls", null);
+	}
+
+	/**
+	 * Gets all the domains that are always in scope. For each domain the following are shown: the index, the value (domain), if enabled, and if specified as a regex.
+	 */
+	public ApiResponse domainsAlwaysInScope() throws ClientApiException {
+		return api.callApi("spider", "view", "domainsAlwaysInScope", null);
+	}
+
+	/**
+	 * Use view domainsAlwaysInScope instead.
+	 * @deprecated
+	 */
+	@Deprecated
 	public ApiResponse optionDomainsAlwaysInScope() throws ClientApiException {
 		return api.callApi("spider", "view", "optionDomainsAlwaysInScope", null);
 	}
 
+	/**
+	 * Use view domainsAlwaysInScope instead.
+	 * @deprecated
+	 */
+	@Deprecated
 	public ApiResponse optionDomainsAlwaysInScopeEnabled() throws ClientApiException {
 		return api.callApi("spider", "view", "optionDomainsAlwaysInScopeEnabled", null);
 	}
 
 	public ApiResponse optionHandleParameters() throws ClientApiException {
 		return api.callApi("spider", "view", "optionHandleParameters", null);
+	}
+
+	/**
+	 * Gets the maximum number of child nodes (per node) that can be crawled, 0 means no limit.
+	 */
+	public ApiResponse optionMaxChildren() throws ClientApiException {
+		return api.callApi("spider", "view", "optionMaxChildren", null);
 	}
 
 	public ApiResponse optionMaxDepth() throws ClientApiException {
@@ -98,10 +132,12 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "view", "optionRequestWaitTime", null);
 	}
 
+	@Deprecated
 	public ApiResponse optionScope() throws ClientApiException {
 		return api.callApi("spider", "view", "optionScope", null);
 	}
 
+	@Deprecated
 	public ApiResponse optionScopeText() throws ClientApiException {
 		return api.callApi("spider", "view", "optionScopeText", null);
 	}
@@ -151,7 +187,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 	}
 
 	/**
-	 * Sets whether or not the 'Referer' header should be sent while spidering
+	 * Gets whether or not the 'Referer' header should be sent while spidering.
 	 */
 	public ApiResponse optionSendRefererHeader() throws ClientApiException {
 		return api.callApi("spider", "view", "optionSendRefererHeader", null);
@@ -248,14 +284,76 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "action", "removeAllScans", null);
 	}
 
+	/**
+	 * Clears the regexes of URLs excluded from the spider scans.
+	 */
 	public ApiResponse clearExcludedFromScan() throws ClientApiException {
 		return api.callApi("spider", "action", "clearExcludedFromScan", null);
 	}
 
+	/**
+	 * Adds a regex of URLs that should be excluded from the spider scans.
+	 */
 	public ApiResponse excludeFromScan(String regex) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
 		return api.callApi("spider", "action", "excludeFromScan", map);
+	}
+
+	/**
+	 * Adds a new domain that's always in scope, using the specified value. Optionally sets if the new entry is enabled (default, true) and whether or not the new value is specified as a regex (default, false).
+	 */
+	public ApiResponse addDomainAlwaysInScope(String value, String isregex, String isenabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("value", value);
+		if (isregex != null) {
+			map.put("isRegex", isregex);
+		}
+		if (isenabled != null) {
+			map.put("isEnabled", isenabled);
+		}
+		return api.callApi("spider", "action", "addDomainAlwaysInScope", map);
+	}
+
+	/**
+	 * Modifies a domain that's always in scope. Allows to modify the value, if enabled or if a regex. The domain is selected with its index, which can be obtained with the view domainsAlwaysInScope.
+	 */
+	public ApiResponse modifyDomainAlwaysInScope(String idx, String value, String isregex, String isenabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		if (value != null) {
+			map.put("value", value);
+		}
+		if (isregex != null) {
+			map.put("isRegex", isregex);
+		}
+		if (isenabled != null) {
+			map.put("isEnabled", isenabled);
+		}
+		return api.callApi("spider", "action", "modifyDomainAlwaysInScope", map);
+	}
+
+	/**
+	 * Removes a domain that's always in scope, with the given index. The index can be obtained with the view domainsAlwaysInScope.
+	 */
+	public ApiResponse removeDomainAlwaysInScope(String idx) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		return api.callApi("spider", "action", "removeDomainAlwaysInScope", map);
+	}
+
+	/**
+	 * Enables all domains that are always in scope.
+	 */
+	public ApiResponse enableAllDomainsAlwaysInScope() throws ClientApiException {
+		return api.callApi("spider", "action", "enableAllDomainsAlwaysInScope", null);
+	}
+
+	/**
+	 * Disables all domains that are always in scope.
+	 */
+	public ApiResponse disableAllDomainsAlwaysInScope() throws ClientApiException {
+		return api.callApi("spider", "action", "disableAllDomainsAlwaysInScope", null);
 	}
 
 	public ApiResponse setOptionHandleParameters(String string) throws ClientApiException {
@@ -264,6 +362,11 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "action", "setOptionHandleParameters", map);
 	}
 
+	/**
+	 * Use actions [add|modify|remove]DomainAlwaysInScope instead.
+	 * @deprecated
+	 */
+	@Deprecated
 	public ApiResponse setOptionScopeString(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
@@ -286,6 +389,15 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
 		return api.callApi("spider", "action", "setOptionHandleODataParametersVisited", map);
+	}
+
+	/**
+	 * Sets the maximum number of child nodes (per node) that can be crawled, 0 means no limit.
+	 */
+	public ApiResponse setOptionMaxChildren(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Integer", Integer.toString(i));
+		return api.callApi("spider", "action", "setOptionMaxChildren", map);
 	}
 
 	public ApiResponse setOptionMaxDepth(int i) throws ClientApiException {
@@ -354,6 +466,9 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "action", "setOptionRequestWaitTime", map);
 	}
 
+	/**
+	 * Sets whether or not the 'Referer' header should be sent while spidering.
+	 */
 	public ApiResponse setOptionSendRefererHeader(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));

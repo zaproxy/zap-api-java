@@ -160,8 +160,56 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "view", "homeDirectory", null);
 	}
 
+	/**
+	 * Gets the location of the current session file
+	 */
+	public ApiResponse sessionLocation() throws ClientApiException {
+		return api.callApi("core", "view", "sessionLocation", null);
+	}
+
+	/**
+	 * Gets all the domains that are excluded from the outgoing proxy. For each domain the following are shown: the index, the value (domain), if enabled, and if specified as a regex.
+	 */
+	public ApiResponse proxyChainExcludedDomains() throws ClientApiException {
+		return api.callApi("core", "view", "proxyChainExcludedDomains", null);
+	}
+
+	/**
+	 * Use view proxyChainExcludedDomains instead.
+	 * @deprecated
+	 */
+	@Deprecated
+	public ApiResponse optionProxyChainSkipName() throws ClientApiException {
+		return api.callApi("core", "view", "optionProxyChainSkipName", null);
+	}
+
+	/**
+	 * Use view proxyChainExcludedDomains instead.
+	 * @deprecated
+	 */
+	@Deprecated
+	public ApiResponse optionProxyExcludedDomains() throws ClientApiException {
+		return api.callApi("core", "view", "optionProxyExcludedDomains", null);
+	}
+
+	/**
+	 * Use view proxyChainExcludedDomains instead.
+	 * @deprecated
+	 */
+	@Deprecated
+	public ApiResponse optionProxyExcludedDomainsEnabled() throws ClientApiException {
+		return api.callApi("core", "view", "optionProxyExcludedDomainsEnabled", null);
+	}
+
 	public ApiResponse optionDefaultUserAgent() throws ClientApiException {
 		return api.callApi("core", "view", "optionDefaultUserAgent", null);
+	}
+
+	/**
+	 * Gets the TTL (in seconds) of successful DNS queries.
+	 */
+	public ApiResponse optionDnsTtlSuccessfulQueries() throws ClientApiException {
+		return api.callApi("core", "view", "optionDnsTtlSuccessfulQueries", null);
 	}
 
 	public ApiResponse optionHttpState() throws ClientApiException {
@@ -184,20 +232,8 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "view", "optionProxyChainRealm", null);
 	}
 
-	public ApiResponse optionProxyChainSkipName() throws ClientApiException {
-		return api.callApi("core", "view", "optionProxyChainSkipName", null);
-	}
-
 	public ApiResponse optionProxyChainUserName() throws ClientApiException {
 		return api.callApi("core", "view", "optionProxyChainUserName", null);
-	}
-
-	public ApiResponse optionProxyExcludedDomains() throws ClientApiException {
-		return api.callApi("core", "view", "optionProxyExcludedDomains", null);
-	}
-
-	public ApiResponse optionProxyExcludedDomainsEnabled() throws ClientApiException {
-		return api.callApi("core", "view", "optionProxyExcludedDomainsEnabled", null);
 	}
 
 	public ApiResponse optionTimeoutInSecs() throws ClientApiException {
@@ -282,10 +318,16 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "snapshotSession", null);
 	}
 
+	/**
+	 * Clears the regexes of URLs excluded from the proxy.
+	 */
 	public ApiResponse clearExcludedFromProxy() throws ClientApiException {
 		return api.callApi("core", "action", "clearExcludedFromProxy", null);
 	}
 
+	/**
+	 * Adds a regex of URLs that should be excluded from the proxy.
+	 */
 	public ApiResponse excludeFromProxy(String regex) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
@@ -307,12 +349,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "setMode", map);
 	}
 
+	/**
+	 * Generates a new Root CA certificate for the Local Proxy.
+	 */
 	public ApiResponse generateRootCA() throws ClientApiException {
 		return api.callApi("core", "action", "generateRootCA", null);
 	}
 
 	/**
-	 * Sends the HTTP request, optionally following redirections. Returns the request sent and response received and followed redirections, if any.
+	 * Sends the HTTP request, optionally following redirections. Returns the request sent and response received and followed redirections, if any. The Mode is enforced when sending the request (and following redirections), custom manual requests are not allowed in 'Safe' mode nor in 'Protected' mode if out of scope.
 	 */
 	public ApiResponse sendRequest(String request, String followredirects) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
@@ -323,6 +368,9 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "sendRequest", map);
 	}
 
+	/**
+	 * Deletes all alerts of the current session.
+	 */
 	public ApiResponse deleteAllAlerts() throws ClientApiException {
 		return api.callApi("core", "action", "deleteAllAlerts", null);
 	}
@@ -344,6 +392,62 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 			map.put("postData", postdata);
 		}
 		return api.callApi("core", "action", "deleteSiteNode", map);
+	}
+
+	/**
+	 * Adds a domain to be excluded from the outgoing proxy, using the specified value. Optionally sets if the new entry is enabled (default, true) and whether or not the new value is specified as a regex (default, false).
+	 */
+	public ApiResponse addProxyChainExcludedDomain(String value, String isregex, String isenabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("value", value);
+		if (isregex != null) {
+			map.put("isRegex", isregex);
+		}
+		if (isenabled != null) {
+			map.put("isEnabled", isenabled);
+		}
+		return api.callApi("core", "action", "addProxyChainExcludedDomain", map);
+	}
+
+	/**
+	 * Modifies a domain excluded from the outgoing proxy. Allows to modify the value, if enabled or if a regex. The domain is selected with its index, which can be obtained with the view proxyChainExcludedDomains.
+	 */
+	public ApiResponse modifyProxyChainExcludedDomain(String idx, String value, String isregex, String isenabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		if (value != null) {
+			map.put("value", value);
+		}
+		if (isregex != null) {
+			map.put("isRegex", isregex);
+		}
+		if (isenabled != null) {
+			map.put("isEnabled", isenabled);
+		}
+		return api.callApi("core", "action", "modifyProxyChainExcludedDomain", map);
+	}
+
+	/**
+	 * Removes a domain excluded from the outgoing proxy, with the given index. The index can be obtained with the view proxyChainExcludedDomains.
+	 */
+	public ApiResponse removeProxyChainExcludedDomain(String idx) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		return api.callApi("core", "action", "removeProxyChainExcludedDomain", map);
+	}
+
+	/**
+	 * Enables all domains excluded from the outgoing proxy.
+	 */
+	public ApiResponse enableAllProxyChainExcludedDomains() throws ClientApiException {
+		return api.callApi("core", "action", "enableAllProxyChainExcludedDomains", null);
+	}
+
+	/**
+	 * Disables all domains excluded from the outgoing proxy.
+	 */
+	public ApiResponse disableAllProxyChainExcludedDomains() throws ClientApiException {
+		return api.callApi("core", "action", "disableAllProxyChainExcludedDomains", null);
 	}
 
 	public ApiResponse setOptionDefaultUserAgent(String string) throws ClientApiException {
@@ -370,6 +474,11 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "setOptionProxyChainRealm", map);
 	}
 
+	/**
+	 * Use actions [add|modify|remove]ProxyChainExcludedDomain instead.
+	 * @deprecated
+	 */
+	@Deprecated
 	public ApiResponse setOptionProxyChainSkipName(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
@@ -380,6 +489,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
 		return api.callApi("core", "action", "setOptionProxyChainUserName", map);
+	}
+
+	/**
+	 * Sets the TTL (in seconds) of successful DNS queries (applies after ZAP restart).
+	 */
+	public ApiResponse setOptionDnsTtlSuccessfulQueries(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Integer", Integer.toString(i));
+		return api.callApi("core", "action", "setOptionDnsTtlSuccessfulQueries", map);
 	}
 
 	public ApiResponse setOptionHttpStateEnabled(boolean bool) throws ClientApiException {
@@ -428,6 +546,9 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApiOther("core", "other", "proxy.pac", null);
 	}
 
+	/**
+	 * Gets the Root CA certificate of the Local Proxy.
+	 */
 	public byte[] rootcert() throws ClientApiException {
 		return api.callApiOther("core", "other", "rootcert", null);
 	}
@@ -450,6 +571,13 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	 */
 	public byte[] htmlreport() throws ClientApiException {
 		return api.callApiOther("core", "other", "htmlreport", null);
+	}
+
+	/**
+	 * Generates a report in Markdown format
+	 */
+	public byte[] mdreport() throws ClientApiException {
+		return api.callApiOther("core", "other", "mdreport", null);
 	}
 
 	/**
@@ -479,7 +607,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Sends the first HAR request entry, optionally following redirections. Returns, in HAR format, the request sent and response received and followed redirections, if any.
+	 * Sends the first HAR request entry, optionally following redirections. Returns, in HAR format, the request sent and response received and followed redirections, if any. The Mode is enforced when sending the request (and following redirections), custom manual requests are not allowed in 'Safe' mode nor in 'Protected' mode if out of scope.
 	 */
 	public byte[] sendHarRequest(String request, String followredirects) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
