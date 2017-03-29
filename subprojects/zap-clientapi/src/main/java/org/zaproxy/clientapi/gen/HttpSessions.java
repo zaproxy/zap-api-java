@@ -41,7 +41,14 @@ public class HttpSessions extends org.zaproxy.clientapi.gen.deprecated.HttpSessi
 	}
 
 	/**
-	 * Gets the sessions of the given site. Optionally returning just the session with the given name.
+	 * Gets all of the sites that have sessions.
+	 */
+	public ApiResponse sites() throws ClientApiException {
+		return api.callApi("httpSessions", "view", "sites", null);
+	}
+
+	/**
+	 * Gets the sessions for the given site. Optionally returning just the session with the given name.
 	 */
 	public ApiResponse sessions(String site, String session) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();

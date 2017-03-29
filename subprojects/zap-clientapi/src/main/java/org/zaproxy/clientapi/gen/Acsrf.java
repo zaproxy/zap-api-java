@@ -41,14 +41,14 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
 	}
 
 	/**
-	 * Lists the names of all anti CSRF tokens
+	 * Lists the names of all anti-CSRF tokens
 	 */
 	public ApiResponse optionTokensNames() throws ClientApiException {
 		return api.callApi("acsrf", "view", "optionTokensNames", null);
 	}
 
 	/**
-	 * Adds an anti CSRF token with the given name, enabled by default
+	 * Adds an anti-CSRF token with the given name, enabled by default
 	 */
 	public ApiResponse addOptionToken(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
@@ -57,7 +57,7 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
 	}
 
 	/**
-	 * Removes the anti CSRF token with the given name
+	 * Removes the anti-CSRF token with the given name
 	 */
 	public ApiResponse removeOptionToken(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
@@ -66,7 +66,7 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
 	}
 
 	/**
-	 * Generate a form for testing lack of anti CSRF tokens - typically invoked via ZAP
+	 * Generate a form for testing lack of anti-CSRF tokens - typically invoked via ZAP
 	 */
 	public byte[] genForm(String hrefid) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();

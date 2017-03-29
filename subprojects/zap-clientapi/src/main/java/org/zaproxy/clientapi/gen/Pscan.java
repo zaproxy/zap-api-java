@@ -41,6 +41,13 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
 	}
 
 	/**
+	 * Tells whether or not the passive scan should be performed only on messages that are in scope.
+	 */
+	public ApiResponse scanOnlyInScope() throws ClientApiException {
+		return api.callApi("pscan", "view", "scanOnlyInScope", null);
+	}
+
+	/**
 	 * The number of records the passive scanner still has to scan
 	 */
 	public ApiResponse recordsToScan() throws ClientApiException {
@@ -55,12 +62,21 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
 	}
 
 	/**
-	 * Sets whether or not the passive scanning is enabled
+	 * Sets whether or not the passive scanning is enabled (Note: the enabled state is not persisted).
 	 */
 	public ApiResponse setEnabled(String enabled) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("enabled", enabled);
 		return api.callApi("pscan", "action", "setEnabled", map);
+	}
+
+	/**
+	 * Sets whether or not the passive scan should be performed only on messages that are in scope.
+	 */
+	public ApiResponse setScanOnlyInScope(String onlyinscope) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("onlyInScope", onlyinscope);
+		return api.callApi("pscan", "action", "setScanOnlyInScope", map);
 	}
 
 	/**

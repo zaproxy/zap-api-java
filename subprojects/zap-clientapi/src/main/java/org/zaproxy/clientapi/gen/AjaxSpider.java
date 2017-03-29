@@ -71,6 +71,13 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
 	/**
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
+	public ApiResponse fullResults() throws ClientApiException {
+		return api.callApi("ajaxSpider", "view", "fullResults", null);
+	}
+
+	/**
+	 * This component is optional and therefore the API will only work if it is installed
+	 */
 	public ApiResponse optionBrowserId() throws ClientApiException {
 		return api.callApi("ajaxSpider", "view", "optionBrowserId", null);
 	}

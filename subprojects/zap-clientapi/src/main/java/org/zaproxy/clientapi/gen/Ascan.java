@@ -76,6 +76,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "view", "scanPolicyNames", null);
 	}
 
+	/**
+	 * Gets the regexes of URLs excluded from the active scans.
+	 */
 	public ApiResponse excludedFromScan() throws ClientApiException {
 		return api.callApi("ascan", "view", "excludedFromScan", null);
 	}
@@ -106,6 +109,29 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "view", "attackModeQueue", null);
 	}
 
+	/**
+	 * Gets all the parameters that are excluded. For each parameter the following are shown: the name, the URL, and the parameter type.
+	 */
+	public ApiResponse excludedParams() throws ClientApiException {
+		return api.callApi("ascan", "view", "excludedParams", null);
+	}
+
+	/**
+	 * Use view excludedParams instead.
+	 * @deprecated
+	 */
+	@Deprecated
+	public ApiResponse optionExcludedParamList() throws ClientApiException {
+		return api.callApi("ascan", "view", "optionExcludedParamList", null);
+	}
+
+	/**
+	 * Gets all the types of excluded parameters. For each type the following are shown: the ID and the name.
+	 */
+	public ApiResponse excludedParamTypes() throws ClientApiException {
+		return api.callApi("ascan", "view", "excludedParamTypes", null);
+	}
+
 	public ApiResponse optionAttackPolicy() throws ClientApiException {
 		return api.callApi("ascan", "view", "optionAttackPolicy", null);
 	}
@@ -116,10 +142,6 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
 	public ApiResponse optionDelayInMs() throws ClientApiException {
 		return api.callApi("ascan", "view", "optionDelayInMs", null);
-	}
-
-	public ApiResponse optionExcludedParamList() throws ClientApiException {
-		return api.callApi("ascan", "view", "optionExcludedParamList", null);
 	}
 
 	public ApiResponse optionHandleAntiCSRFTokens() throws ClientApiException {
@@ -136,6 +158,14 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
 	public ApiResponse optionMaxResultsToList() throws ClientApiException {
 		return api.callApi("ascan", "view", "optionMaxResultsToList", null);
+	}
+
+	public ApiResponse optionMaxRuleDurationInMins() throws ClientApiException {
+		return api.callApi("ascan", "view", "optionMaxRuleDurationInMins", null);
+	}
+
+	public ApiResponse optionMaxScanDurationInMins() throws ClientApiException {
+		return api.callApi("ascan", "view", "optionMaxScanDurationInMins", null);
 	}
 
 	public ApiResponse optionMaxScansInUI() throws ClientApiException {
@@ -158,6 +188,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "view", "optionAllowAttackOnStart", null);
 	}
 
+	/**
+	 * Tells whether or not the active scanner should inject the HTTP request header X-ZAP-Scan-ID, with the ID of the scanner that's sending the requests.
+	 */
 	public ApiResponse optionInjectPluginIdInHeader() throws ClientApiException {
 		return api.callApi("ascan", "view", "optionInjectPluginIdInHeader", null);
 	}
@@ -186,8 +219,17 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 	}
 
 	public ApiResponse scan(String url, String recurse, String inscopeonly, String scanpolicyname, String method, String postdata) throws ClientApiException {
+		return scan(url, recurse, inscopeonly, scanpolicyname, method, postdata, (Integer) null);
+	}
+	
+	/**
+	 * Runs the active scanner against the given URL and/or Context. Optionally, the 'recurse' parameter can be used to scan URLs under the given URL, the parameter 'inScopeOnly' can be used to constrain the scan to URLs that are in scope (ignored if a Context is specified), the parameter 'scanPolicyName' allows to specify the scan policy (if none is given it uses the default scan policy), the parameters 'method' and 'postData' allow to select a given request in conjunction with the given URL.
+	 */
+	public ApiResponse scan(String url, String recurse, String inscopeonly, String scanpolicyname, String method, String postdata, Integer contextid) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		map.put("url", url);
+		if (url != null) {
+			map.put("url", url);
+		}
 		if (recurse != null) {
 			map.put("recurse", recurse);
 		}
@@ -203,6 +245,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		if (postdata != null) {
 			map.put("postData", postdata);
 		}
+		if (contextid != null) {
+			map.put("contextId", contextid.toString());
+		}
 		return api.callApi("ascan", "action", "scan", map);
 	}
 
@@ -211,9 +256,15 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 	 */
 	public ApiResponse scanAsUser(String url, String contextid, String userid, String recurse, String scanpolicyname, String method, String postdata) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
-		map.put("url", url);
-		map.put("contextId", contextid);
-		map.put("userId", userid);
+		if (url != null) {
+			map.put("url", url);
+		}
+		if (contextid != null) {
+			map.put("contextId", contextid);
+		}
+		if (userid != null) {
+			map.put("userId", userid);
+		}
 		if (recurse != null) {
 			map.put("recurse", recurse);
 		}
@@ -269,10 +320,16 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "action", "removeAllScans", null);
 	}
 
+	/**
+	 * Clears the regexes of URLs excluded from the active scans.
+	 */
 	public ApiResponse clearExcludedFromScan() throws ClientApiException {
 		return api.callApi("ascan", "action", "clearExcludedFromScan", null);
 	}
 
+	/**
+	 * Adds a regex of URLs that should be excluded from the active scans.
+	 */
 	public ApiResponse excludeFromScan(String regex) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("regex", regex);
@@ -363,8 +420,18 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 	}
 
 	public ApiResponse addScanPolicy(String scanpolicyname) throws ClientApiException {
+		return addScanPolicy(scanpolicyname, null, null);
+	}
+
+	public ApiResponse addScanPolicy(String scanpolicyname, String alertthreshold, String attackstrength) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("scanPolicyName", scanpolicyname);
+		if (alertthreshold != null) {
+			map.put("alertThreshold", alertthreshold);
+		}
+		if (attackstrength != null) {
+			map.put("attackStrength", attackstrength);
+		}
 		return api.callApi("ascan", "action", "addScanPolicy", map);
 	}
 
@@ -372,6 +439,60 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		Map<String, String> map = new HashMap<>();
 		map.put("scanPolicyName", scanpolicyname);
 		return api.callApi("ascan", "action", "removeScanPolicy", map);
+	}
+
+	public ApiResponse updateScanPolicy(String scanpolicyname, String alertthreshold, String attackstrength) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("scanPolicyName", scanpolicyname);
+		if (alertthreshold != null) {
+			map.put("alertThreshold", alertthreshold);
+		}
+		if (attackstrength != null) {
+			map.put("attackStrength", attackstrength);
+		}
+		return api.callApi("ascan", "action", "updateScanPolicy", map);
+	}
+
+	/**
+	 * Adds a new parameter excluded from the scan, using the specified name. Optionally sets if the new entry applies to a specific URL (default, all URLs) and sets the ID of the type of the parameter (default, ID of any type). The type IDs can be obtained with the view excludedParamTypes. 
+	 */
+	public ApiResponse addExcludedParam(String name, String type, String url) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("name", name);
+		if (type != null) {
+			map.put("type", type);
+		}
+		if (url != null) {
+			map.put("url", url);
+		}
+		return api.callApi("ascan", "action", "addExcludedParam", map);
+	}
+
+	/**
+	 * Modifies a parameter excluded from the scan. Allows to modify the name, the URL and the type of parameter. The parameter is selected with its index, which can be obtained with the view excludedParams.
+	 */
+	public ApiResponse modifyExcludedParam(String idx, String name, String type, String url) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		if (name != null) {
+			map.put("name", name);
+		}
+		if (type != null) {
+			map.put("type", type);
+		}
+		if (url != null) {
+			map.put("url", url);
+		}
+		return api.callApi("ascan", "action", "modifyExcludedParam", map);
+	}
+
+	/**
+	 * Removes a parameter excluded from the scan, with the given index. The index can be obtained with the view excludedParams.
+	 */
+	public ApiResponse removeExcludedParam(String idx) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("idx", idx);
+		return api.callApi("ascan", "action", "removeExcludedParam", map);
 	}
 
 	public ApiResponse setOptionAttackPolicy(String string) throws ClientApiException {
@@ -410,6 +531,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "action", "setOptionHostPerScan", map);
 	}
 
+	/**
+	 * Sets whether or not the active scanner should inject the HTTP request header X-ZAP-Scan-ID, with the ID of the scanner that's sending the requests.
+	 */
 	public ApiResponse setOptionInjectPluginIdInHeader(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
@@ -426,6 +550,18 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("ascan", "action", "setOptionMaxResultsToList", map);
+	}
+
+	public ApiResponse setOptionMaxRuleDurationInMins(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Integer", Integer.toString(i));
+		return api.callApi("ascan", "action", "setOptionMaxRuleDurationInMins", map);
+	}
+
+	public ApiResponse setOptionMaxScanDurationInMins(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Integer", Integer.toString(i));
+		return api.callApi("ascan", "action", "setOptionMaxScanDurationInMins", map);
 	}
 
 	public ApiResponse setOptionMaxScansInUI(int i) throws ClientApiException {

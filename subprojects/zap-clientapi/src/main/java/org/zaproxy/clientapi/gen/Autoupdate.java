@@ -54,6 +54,34 @@ public class Autoupdate extends org.zaproxy.clientapi.gen.deprecated.AutoupdateD
 		return api.callApi("autoupdate", "view", "isLatestVersion", null);
 	}
 
+	/**
+	 * Return a list of all of the installed add-ons
+	 */
+	public ApiResponse installedAddons() throws ClientApiException {
+		return api.callApi("autoupdate", "view", "installedAddons", null);
+	}
+
+	/**
+	 * Return a list of any add-ons that have been added to the Marketplace since the last check for updates
+	 */
+	public ApiResponse newAddons() throws ClientApiException {
+		return api.callApi("autoupdate", "view", "newAddons", null);
+	}
+
+	/**
+	 * Return a list of any add-ons that have been changed in the Marketplace since the last check for updates
+	 */
+	public ApiResponse updatedAddons() throws ClientApiException {
+		return api.callApi("autoupdate", "view", "updatedAddons", null);
+	}
+
+	/**
+	 * Return a list of all of the add-ons on the ZAP Marketplace (this information is read once and then cached)
+	 */
+	public ApiResponse marketplaceAddons() throws ClientApiException {
+		return api.callApi("autoupdate", "view", "marketplaceAddons", null);
+	}
+
 	public ApiResponse optionAddonDirectories() throws ClientApiException {
 		return api.callApi("autoupdate", "view", "optionAddonDirectories", null);
 	}
@@ -111,6 +139,24 @@ public class Autoupdate extends org.zaproxy.clientapi.gen.deprecated.AutoupdateD
 	 */
 	public ApiResponse downloadLatestRelease() throws ClientApiException {
 		return api.callApi("autoupdate", "action", "downloadLatestRelease", null);
+	}
+
+	/**
+	 * Installs or updates the specified add-on, returning when complete (ie not asynchronously)
+	 */
+	public ApiResponse installAddon(String id) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		return api.callApi("autoupdate", "action", "installAddon", map);
+	}
+
+	/**
+	 * Uninstalls the specified add-on 
+	 */
+	public ApiResponse uninstallAddon(String id) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		return api.callApi("autoupdate", "action", "uninstallAddon", map);
 	}
 
 	public ApiResponse setOptionCheckAddonUpdates(boolean bool) throws ClientApiException {
