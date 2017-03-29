@@ -17,7 +17,7 @@ can be obtained from [Maven Central](http://search.maven.org/) with following co
 
  * GroupId: `org.zaproxy`
  * ArtifactId: `zap-clientapi`
- * Version: `1.1.1`
+ * Version: `1.2.0`
 
 Previous releases are also available, more details can be found in [Maven Central](http://search.maven.org/#search|ga|1|org.zaproxy).
 
