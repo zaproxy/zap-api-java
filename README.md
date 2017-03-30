@@ -103,7 +103,7 @@ Checkout the tagged version:
 
     git checkout v<version-to-release>
 
-Create the the artifacts/libraries necessary for the release:
+Create the artifacts/libraries necessary for the release:
 
     ./gradlew clean build uberJar
 
