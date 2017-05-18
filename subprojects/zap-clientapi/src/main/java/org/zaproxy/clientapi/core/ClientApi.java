@@ -61,6 +61,7 @@ import org.zaproxy.clientapi.gen.ForcedUser;
 import org.zaproxy.clientapi.gen.HttpSessions;
 import org.zaproxy.clientapi.gen.ImportLogFiles;
 import org.zaproxy.clientapi.gen.Importurls;
+import org.zaproxy.clientapi.gen.Openapi;
 import org.zaproxy.clientapi.gen.Params;
 import org.zaproxy.clientapi.gen.Pnh;
 import org.zaproxy.clientapi.gen.Pscan;
@@ -104,6 +105,7 @@ public class ClientApi {
 	public HttpSessions httpSessions = new HttpSessions(this);
 	public ImportLogFiles logImportFiles = new ImportLogFiles(this);
 	public Importurls importurls = new Importurls(this);
+	public Openapi openapi = new Openapi(this);
 	public Params params = new Params(this);
 	public Pnh pnh = new Pnh(this);
 	public Pscan pscan = new Pscan(this);

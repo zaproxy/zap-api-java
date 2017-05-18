@@ -7,6 +7,7 @@ Summary of the changes done in each version.
 ### New APIs
 
  - Import files containing URLs ("importurls").
+ - OpenAPI Support ("openapi").
 
 ## 1.2.0 (2017-03-29)
 
