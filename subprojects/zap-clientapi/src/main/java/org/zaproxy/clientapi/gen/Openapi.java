@@ -51,13 +51,16 @@ public class Openapi {
 	}
 
 	/**
-	 * Import an Open API definition from a URL.
+	 * Import an Open API definition from a URL, hostOverride allows the host to be replaced
 	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
-	public ApiResponse importUrl(String url) throws ClientApiException {
+	public ApiResponse importUrl(String url, String hostoverride) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("url", url);
+		if (hostoverride != null) {
+			map.put("hostOverride", hostoverride);
+		}
 		return api.callApi("openapi", "action", "importUrl", map);
 	}
 
