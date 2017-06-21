@@ -19,27 +19,13 @@
  */
 package org.zaproxy.clientapi.ant;
 
-import org.apache.tools.ant.BuildException;
+import org.zaproxy.clientapi.core.ApiResponse;
+import org.zaproxy.clientapi.core.ClientApiException;
 
-public class ActiveScanUrlTask extends ZapTask {
-	
-	private String url;
+public class ActiveScanUrlTask extends AbstractActiveScanTask {
 
 	@Override
-	public void execute() throws BuildException {
-		try {
-			this.getClientApi().ascan.scan(url, "false", "false", "", "", "");
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
-
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
+	protected ApiResponse startScan() throws ClientApiException {
+		return this.getClientApi().ascan.scan(getUrl(), "false", "false", "", "", "");
 	}
 }

@@ -9,6 +9,10 @@ Summary of the changes done in each version.
  - Import files containing URLs ("importurls").
  - OpenAPI Support ("openapi").
 
+### Ant Tasks
+
+ - Update scan tasks to wait for the corresponding scan to finish.
+
 ## 1.2.0 (2017-03-29)
 
 ### Updated APIs
