@@ -28,7 +28,13 @@ public class SpiderUrlTask extends ZapTask {
 	@Override
 	public void execute() throws BuildException {
 		try {
-			this.getClientApi().spider.scan(url, "", "", null, null);
+			String scanId = extractValue(this.getClientApi().spider.scan(url, "", "", null, null));
+
+			int progress;
+			do {
+				progress = Integer.parseInt(extractValue(this.getClientApi().spider.status(scanId)));
+				Thread.sleep(1000);
+			} while (progress < 100);
 			
 		} catch (Exception e) {
 			throw new BuildException(e);

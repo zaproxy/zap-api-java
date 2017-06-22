@@ -20,6 +20,8 @@
 package org.zaproxy.clientapi.ant;
 
 import org.apache.tools.ant.Task;
+import org.zaproxy.clientapi.core.ApiResponse;
+import org.zaproxy.clientapi.core.ApiResponseElement;
 import org.zaproxy.clientapi.core.ClientApi;
 
 public abstract class ZapTask extends Task {
@@ -59,5 +61,12 @@ public abstract class ZapTask extends Task {
 
 	public void setApikey(String apikey) {
 		this.apikey = apikey;
+	}
+
+	protected String extractValue(ApiResponse element) {
+		if (element instanceof ApiResponseElement) {
+			return ((ApiResponseElement) element).getValue();
+		}
+		return null;
 	}
 }
