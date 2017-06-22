@@ -65,6 +65,7 @@ import org.zaproxy.clientapi.gen.Openapi;
 import org.zaproxy.clientapi.gen.Params;
 import org.zaproxy.clientapi.gen.Pnh;
 import org.zaproxy.clientapi.gen.Pscan;
+import org.zaproxy.clientapi.gen.Replacer;
 import org.zaproxy.clientapi.gen.Reveal;
 import org.zaproxy.clientapi.gen.Script;
 import org.zaproxy.clientapi.gen.Search;
@@ -109,6 +110,7 @@ public class ClientApi {
 	public Params params = new Params(this);
 	public Pnh pnh = new Pnh(this);
 	public Pscan pscan = new Pscan(this);
+	public Replacer replacer = new Replacer(this);
 	public Reveal reveal = new Reveal(this);
 	public Search search = new Search(this);
 	public Script script = new Script(this);
