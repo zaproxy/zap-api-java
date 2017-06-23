@@ -22,6 +22,8 @@ package org.zaproxy.clientapi.ant;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.BuildFileRule;
@@ -60,6 +62,8 @@ public class BuildTest {
 
     @Before
     public void setUpBuildFile() {
+        zap.clearResponses();
+
         buildRule.configureProject(BUILD_FILE_PATH);
 
         // Properties used in build.xml file
@@ -88,11 +92,15 @@ public class BuildTest {
 
     @Test
     public void shouldExecuteTargetActiveScanSubtree() {
+        zap.addResponse("http://zap/xml/ascan/action/scan/", "<scan>0</scan>");
+        zap.addResponse("http://zap/xml/ascan/view/status/", "<status>100</status>");
         buildRule.executeTarget("activeScanSubtree");
     }
 
     @Test
     public void shouldExecuteTargetActiveScanUrl() {
+        zap.addResponse("http://zap/xml/ascan/action/scan/", "<scan>0</scan>");
+        zap.addResponse("http://zap/xml/ascan/view/status/", "<status>100</status>");
         buildRule.executeTarget("activeScanUrl");
     }
 
@@ -123,6 +131,8 @@ public class BuildTest {
 
     @Test
     public void shouldExecuteTargetSpider() {
+        zap.addResponse("http://zap/xml/spider/action/scan/", "<scan>0</scan>");
+        zap.addResponse("http://zap/xml/spider/view/status/", "<status>100</status>");
         buildRule.executeTarget("spider");
     }
 
@@ -134,18 +144,32 @@ public class BuildTest {
     private static class SimpleServer extends NanoHTTPD {
 
         private final String mimeType;
-        private final String response;
+        private final String defaultResponse;
+        private final Map<String, String> pathResponses;
 
-        public SimpleServer(String mimeType, String response) throws IOException {
+        public SimpleServer(String mimeType, String defaultResponse) throws IOException {
             super(0);
             start(NanoHTTPD.SOCKET_READ_TIMEOUT, false);
 
             this.mimeType = mimeType;
-            this.response = response;
+            this.defaultResponse = defaultResponse;
+            this.pathResponses = new HashMap<>();
+        }
+
+        public void addResponse(String path, String string) {
+            pathResponses.put(path, string);
+        }
+
+        public void clearResponses() {
+            pathResponses.clear();
         }
 
         @Override
         public Response serve(IHTTPSession session) {
+            String response = pathResponses.get(session.getUri());
+            if (response == null) {
+                response = defaultResponse;
+            }
             return new Response(Response.Status.OK, mimeType, new StringInputStream(response), response.length()) {
                 // Extend to access the constructor.
             };

@@ -1,5 +1,9 @@
 # OWASP ZAP Java API
 
+[![Version](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/)
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![Build Status](https://api.travis-ci.org/zaproxy/zap-api-java.svg?branch=develop)](https://travis-ci.org/zaproxy/zap-api-java)
+
 The Java implementation to access the [OWASP ZAP API](https://github.com/zaproxy/zaproxy/wiki/ApiDetails). For more information
 about OWASP ZAP consult the (main) [OWASP ZAP project](https://github.com/zaproxy/zaproxy/).
 
@@ -17,7 +21,7 @@ can be obtained from [Maven Central](http://search.maven.org/) with following co
 
  * GroupId: `org.zaproxy`
  * ArtifactId: `zap-clientapi`
- * Version: `1.2.0`
+ * Version: `1.3.0`
 
 Previous releases are also available, more details can be found in [Maven Central](http://search.maven.org/#search|ga|1|org.zaproxy).
 
@@ -99,7 +103,7 @@ Checkout the tagged version:
 
     git checkout v<version-to-release>
 
-Create the the artifacts/libraries necessary for the release:
+Create the artifacts/libraries necessary for the release:
 
     ./gradlew clean build uberJar
 

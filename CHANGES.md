@@ -2,6 +2,18 @@
 
 Summary of the changes done in each version.
 
+## 1.3.0 (2017-06-23)
+
+### New APIs
+
+ - Import files containing URLs ("importurls").
+ - OpenAPI Support ("openapi").
+ - Replacer ("replacer").
+
+### Ant Tasks
+
+ - Update scan tasks to wait for the corresponding scan to finish.
+
 ## 1.2.0 (2017-03-29)
 
 ### Updated APIs

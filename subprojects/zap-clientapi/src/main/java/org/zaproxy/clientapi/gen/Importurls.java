@@ -1,9 +1,8 @@
-/*
- * Zed Attack Proxy (ZAP) and its related class files.
+/* Zed Attack Proxy (ZAP) and its related class files.
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2011 The Zed Attack Proxy Team
+ * Copyright 2016 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +16,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zaproxy.clientapi.ant;
 
+
+package org.zaproxy.clientapi.gen;
+
+import java.util.HashMap;
+import java.util.Map;
 import org.zaproxy.clientapi.core.ApiResponse;
+import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-public class ActiveScanSubtreeTask extends AbstractActiveScanTask {
 
-	@Override
-	protected ApiResponse startScan() throws ClientApiException {
-		return this.getClientApi().ascan.scan(getUrl(), "true", "false", "", "", "");
+/**
+ * This file was automatically generated.
+ */
+@SuppressWarnings("javadoc")
+public class Importurls {
+
+	private final ClientApi api;
+
+	public Importurls(ClientApi api) {
+		this.api = api;
+	}
+
+	/**
+	 * This component is optional and therefore the API will only work if it is installed
+	 */
+	public ApiResponse importurls(String filepath) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("filePath", filepath);
+		return api.callApi("importurls", "action", "importurls", map);
 	}
 
 }
