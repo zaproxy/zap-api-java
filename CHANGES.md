@@ -8,6 +8,7 @@ Summary of the changes done in each version.
 
  - Import files containing URLs ("importurls").
  - OpenAPI Support ("openapi").
+ - Replacer ("replacer").
 
 ### Ant Tasks
 
