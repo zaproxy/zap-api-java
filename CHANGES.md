@@ -4,6 +4,22 @@ Summary of the changes done in each version.
 
 ## 1.4.0-SNAPSHOT (Not yet released)
 
+### Ant Tasks
+
+ - New task to create ZAP reports:
+   ```XML
+   <!-- Defined the task: -->
+   <taskdef name="reportTask" classname="org.zaproxy.clientapi.ant.ReportTask" />
+   <!-- Call the task: -->
+   <reportTask zapAddress="localhost" zapPort="8080" apikey="API-KEY"
+       type="html" file="report.html" overwrite="true" />
+       <!--
+           type - the type/format of the report (e.g. HTML, XML, MD), defaults to HTML.
+           file - where the report should be created (can be an absolute path, if relative it is resolved against the build directory).
+           overwrite - if the file should be overwritten.
+       -->
+   ```
+
 ## 1.3.0 (2017-06-23)
 
 ### New APIs
