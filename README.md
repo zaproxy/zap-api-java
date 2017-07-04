@@ -105,7 +105,7 @@ Checkout the tagged version:
 
 Create the artifacts/libraries necessary for the release:
 
-    ./gradlew clean build uberJar
+    ./gradlew clean build
 
 ### Release to Maven Central
 

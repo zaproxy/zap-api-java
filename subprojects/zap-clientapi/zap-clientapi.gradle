@@ -53,11 +53,73 @@ task uberJar(type: Jar) {
     with jar
 }
 
+build.dependsOn 'uberJar'
+
 artifacts { archives sourcesJar, javadocJar }
 
 signing {
     if (project.hasProperty('signing.keyId')) {
         sign configurations.archives
+    }
+}
+
+ext.pomData = pom {
+    project {
+        name 'OWASP ZAP API Client'
+        packaging 'jar'
+        description 'Java implementation to access OWASP ZAP API.'
+        url 'https://github.com/zaproxy/zap-api-java'
+
+        organization {
+            name 'OWASP'
+            url 'https://www.owasp.org/index.php/ZAP'
+        }
+
+        mailingLists {
+            mailingList {
+                name 'OWASP ZAP User Group'
+                post 'zaproxy-users@googlegroups.com'
+                archive 'https://groups.google.com/group/zaproxy-users'
+            }
+            mailingList {
+                name 'OWASP ZAP Developer Group'
+                post 'zaproxy-develop@googlegroups.com'
+                archive 'https://groups.google.com/group/zaproxy-develop'
+            }
+        }
+
+        scm {
+            url 'https://github.com/zaproxy/zap-api-java'
+            connection 'scm:git:https://github.com/zaproxy/zap-api-java.git'
+            developerConnection 'scm:git:https://github.com/zaproxy/zap-api-java.git'
+        }
+
+        licenses {
+            license {
+                name 'The Apache License, Version 2.0'
+                url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                distribution 'repo'
+            }
+        }
+
+        developers {
+            developer {
+                id 'psiinon'
+                name 'Simon Bennetts'
+                email 'psiinon@gmail.com'
+            }
+        }
+    }
+}
+
+task generatePom {
+    description 'Generates the POM file.'
+    pomData.writeTo("$buildDir/pom.xml")
+}
+
+install {
+    repositories.mavenInstaller {
+        pom = pomData
     }
 }
 
@@ -80,54 +142,7 @@ uploadArchives {
                 }
             }
 
-            pom {
-                project {
-                    name 'OWASP ZAP API Client'
-                    packaging 'jar'
-                    description 'Java implementation to access OWASP ZAP API.'
-                    url 'https://github.com/zaproxy/zap-api-java'
-
-                    organization {
-                        name 'OWASP'
-                        url 'https://www.owasp.org/index.php/ZAP'
-                    }
-
-                    mailingLists {
-                        mailingList {
-                            name 'OWASP ZAP User Group'
-                            post 'zaproxy-users@googlegroups.com'
-                            archive 'https://groups.google.com/group/zaproxy-users'
-                        }
-                        mailingList {
-                            name 'OWASP ZAP Developer Group'
-                            post 'zaproxy-develop@googlegroups.com'
-                            archive 'https://groups.google.com/group/zaproxy-develop'
-                        }
-                    }
-
-                    scm {
-                        url 'https://github.com/zaproxy/zap-api-java'
-                        connection 'scm:git:https://github.com/zaproxy/zap-api-java.git'
-                        developerConnection 'scm:git:https://github.com/zaproxy/zap-api-java.git'
-                    }
-
-                    licenses {
-                        license {
-                            name 'The Apache License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                            distribution 'repo'
-                        }
-                    }
-
-                    developers {
-                        developer {
-                            id 'psiinon'
-                            name 'Simon Bennetts'
-                            email 'psiinon@gmail.com'
-                        }
-                    }
-                }
-            }
+            pom = pomData
         }
     }
 }
