@@ -10,6 +10,7 @@
 	<taskdef name="saveSessionTask" classname="org.zaproxy.clientapi.ant.SaveSessionTask" />
 	<taskdef name="spiderUrlTask" classname="org.zaproxy.clientapi.ant.SpiderUrlTask" />
 	<taskdef name="stopZapTask" classname="org.zaproxy.clientapi.ant.StopZapTask" />
+	<taskdef name="reportTask" classname="org.zaproxy.clientapi.ant.ReportTask" />
 
 	<target name="accessUrl">
 		<accessUrlTask zapAddress="${zap.addr}" zapPort="${zap.port}" debug="true" apikey="${zap.key}" url="${zap.targetUrl}" />
@@ -56,6 +57,11 @@
 
 	<target name="stopZap">
 		<stopZapTask zapAddress="${zap.addr}" zapPort="${zap.port}" debug="true" apikey="${zap.key}" />
+	</target>
+
+	<target name="report">
+		<reportTask zapAddress="${zap.addr}" zapPort="${zap.port}" debug="true" apikey="${zap.key}"
+			type="${zap.report.type}" file="${zap.report.path}" overwrite="${zap.report.overwrite}" />
 	</target>
 
 </project>
