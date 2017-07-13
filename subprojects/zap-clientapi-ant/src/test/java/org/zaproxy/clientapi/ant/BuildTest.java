@@ -21,7 +21,10 @@ package org.zaproxy.clientapi.ant;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +36,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 import org.zaproxy.clientapi.core.ClientApiException;
 
 import fi.iki.elonen.NanoHTTPD;
@@ -43,10 +47,13 @@ import fi.iki.elonen.NanoHTTPD;
 public class BuildTest {
 
     private static final String BUILD_FILE_NAME = "build.xml";
-    private static final String BUILD_FILE_PATH = BuildTest.class.getResource(BUILD_FILE_NAME).toString().replace("file:", "");
+    private static final String REPORT_PATH = "report.html";
 
     private static SimpleServer zap;
     private static SimpleServer targetSite;
+
+    @Rule
+    public final TemporaryFolder buildDir = new TemporaryFolder();
 
     @Rule
     public final BuildFileRule buildRule = new BuildFileRule();
@@ -64,7 +71,18 @@ public class BuildTest {
     public void setUpBuildFile() {
         zap.clearResponses();
 
-        buildRule.configureProject(BUILD_FILE_PATH);
+        File buildFile = new File(buildDir.getRoot(), BUILD_FILE_NAME);
+        if (!buildFile.exists()) {
+            try {
+                try (InputStream is = BuildTest.class.getResourceAsStream(BUILD_FILE_NAME)) {
+                    Files.copy(is, buildFile.toPath());
+                }
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to set up the test:", e);
+            }
+        }
+
+        buildRule.configureProject(buildFile.getAbsolutePath());
 
         // Properties used in build.xml file
         buildRule.getProject().setProperty("zap.addr", "localhost");
@@ -72,6 +90,9 @@ public class BuildTest {
         buildRule.getProject().setProperty("zap.key", "API_KEY");
         buildRule.getProject().setProperty("zap.targetUrl", "http://localhost:" + targetSite.getListeningPort());
         buildRule.getProject().setProperty("zap.session", "session");
+        buildRule.getProject().setProperty("zap.report.path", REPORT_PATH);
+        buildRule.getProject().setProperty("zap.report.type", "html");
+        buildRule.getProject().setProperty("zap.report.overwrite", "false");
     }
 
     @AfterClass
@@ -139,6 +160,12 @@ public class BuildTest {
     @Test
     public void shouldExecuteTargetStopZap() {
         buildRule.executeTarget("stopZap");
+    }
+
+    @Test
+    public void shouldExecuteReport() {
+        buildRule.executeTarget("report");
+        assertTrue("Report file not created.", new File(buildDir.getRoot(), REPORT_PATH).exists());
     }
 
     private static class SimpleServer extends NanoHTTPD {
