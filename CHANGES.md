@@ -2,7 +2,7 @@
 
 Summary of the changes done in each version.
 
-## 1.4.0-SNAPSHOT (Not yet released)
+## 1.4.0 (2017-07-13)
 
 ### Ant Tasks
 
