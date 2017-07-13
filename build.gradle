@@ -10,7 +10,7 @@ subprojects {
     apply plugin: 'java'
     group = 'org.zaproxy'
 
-    version '1.4.0'
+    version '1.5.0-SNAPSHOT'
     ext.versionBC = '1.0.0'
 
     repositories {
