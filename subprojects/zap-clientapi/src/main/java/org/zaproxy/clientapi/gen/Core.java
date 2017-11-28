@@ -2,7 +2,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 the ZAP development team
+ * Copyright 2017 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,9 +50,9 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Gets the alerts raised by ZAP, optionally filtering by URL and paginating with 'start' position and 'count' of alerts
+	 * Gets the alerts raised by ZAP, optionally filtering by URL or riskId, and paginating with 'start' position and 'count' of alerts
 	 */
-	public ApiResponse alerts(String baseurl, String start, String count) throws ClientApiException {
+	public ApiResponse alerts(String baseurl, String start, String count, String riskid) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
@@ -63,16 +63,33 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		if (count != null) {
 			map.put("count", count);
 		}
+		if (riskid != null) {
+			map.put("riskId", riskid);
+		}
 		return api.callApi("core", "view", "alerts", map);
 	}
 
 	/**
-	 * Gets the number of alerts, optionally filtering by URL
+	 * Gets number of alerts grouped by each risk level, optionally filtering by URL
 	 */
-	public ApiResponse numberOfAlerts(String baseurl) throws ClientApiException {
+	public ApiResponse alertsSummary(String baseurl) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		if (baseurl != null) {
 			map.put("baseurl", baseurl);
+		}
+		return api.callApi("core", "view", "alertsSummary", map);
+	}
+
+	/**
+	 * Gets the number of alerts, optionally filtering by URL or riskId
+	 */
+	public ApiResponse numberOfAlerts(String baseurl, String riskid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		if (baseurl != null) {
+			map.put("baseurl", baseurl);
+		}
+		if (riskid != null) {
+			map.put("riskId", riskid);
 		}
 		return api.callApi("core", "view", "numberOfAlerts", map);
 	}
@@ -92,14 +109,18 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Gets the URLs accessed through/by ZAP
+	 * Gets the URLs accessed through/by ZAP, optionally filtering by (base) URL.
 	 */
-	public ApiResponse urls() throws ClientApiException {
-		return api.callApi("core", "view", "urls", null);
+	public ApiResponse urls(String baseurl) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		if (baseurl != null) {
+			map.put("baseurl", baseurl);
+		}
+		return api.callApi("core", "view", "urls", map);
 	}
 
 	/**
-	 * Gets the HTTP message with the given ID. Returns the ID, request/response headers and bodies, cookies and note.
+	 * Gets the HTTP message with the given ID. Returns the ID, request/response headers and bodies, cookies, note, type, RTT, and timestamp.
 	 */
 	public ApiResponse message(String id) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
@@ -122,6 +143,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 			map.put("count", count);
 		}
 		return api.callApi("core", "view", "messages", map);
+	}
+
+	/**
+	 * Gets the HTTP messages with the given IDs.
+	 */
+	public ApiResponse messagesById(String ids) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("ids", ids);
+		return api.callApi("core", "view", "messagesById", map);
 	}
 
 	/**
@@ -150,7 +180,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Gets the regular expressions, applied to URLs, to exclude from the Proxy
+	 * Gets the regular expressions, applied to URLs, to exclude from the local proxies.
 	 */
 	public ApiResponse excludedFromProxy() throws ClientApiException {
 		return api.callApi("core", "view", "excludedFromProxy", null);
@@ -201,6 +231,37 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "view", "optionProxyExcludedDomainsEnabled", null);
 	}
 
+	/**
+	 * Gets the path to ZAP's home directory.
+	 */
+	public ApiResponse zapHomePath() throws ClientApiException {
+		return api.callApi("core", "view", "zapHomePath", null);
+	}
+
+	/**
+	 * Gets the maximum number of alert instances to include in a report.
+	 */
+	public ApiResponse optionMaximumAlertInstances() throws ClientApiException {
+		return api.callApi("core", "view", "optionMaximumAlertInstances", null);
+	}
+
+	/**
+	 * Gets whether or not related alerts will be merged in any reports generated.
+	 */
+	public ApiResponse optionMergeRelatedAlerts() throws ClientApiException {
+		return api.callApi("core", "view", "optionMergeRelatedAlerts", null);
+	}
+
+	/**
+	 * Gets the path to the file with alert overrides.
+	 */
+	public ApiResponse optionAlertOverridesFilePath() throws ClientApiException {
+		return api.callApi("core", "view", "optionAlertOverridesFilePath", null);
+	}
+
+	/**
+	 * Gets the user agent that ZAP should use when creating HTTP messages (for example, spider messages or CONNECT requests to outgoing proxy).
+	 */
 	public ApiResponse optionDefaultUserAgent() throws ClientApiException {
 		return api.callApi("core", "view", "optionDefaultUserAgent", null);
 	}
@@ -319,14 +380,14 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Clears the regexes of URLs excluded from the proxy.
+	 * Clears the regexes of URLs excluded from the local proxies.
 	 */
 	public ApiResponse clearExcludedFromProxy() throws ClientApiException {
 		return api.callApi("core", "action", "clearExcludedFromProxy", null);
 	}
 
 	/**
-	 * Adds a regex of URLs that should be excluded from the proxy.
+	 * Adds a regex of URLs that should be excluded from the local proxies.
 	 */
 	public ApiResponse excludeFromProxy(String regex) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
@@ -350,7 +411,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Generates a new Root CA certificate for the Local Proxy.
+	 * Generates a new Root CA certificate for the local proxies.
 	 */
 	public ApiResponse generateRootCA() throws ClientApiException {
 		return api.callApi("core", "action", "generateRootCA", null);
@@ -373,6 +434,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	 */
 	public ApiResponse deleteAllAlerts() throws ClientApiException {
 		return api.callApi("core", "action", "deleteAllAlerts", null);
+	}
+
+	/**
+	 * Deletes the alert with the given ID. 
+	 */
+	public ApiResponse deleteAlert(String id) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		return api.callApi("core", "action", "deleteAlert", map);
 	}
 
 	public ApiResponse runGarbageCollection() throws ClientApiException {
@@ -450,6 +520,38 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "disableAllProxyChainExcludedDomains", null);
 	}
 
+	/**
+	 * Sets the maximum number of alert instances to include in a report. A value of zero is treated as unlimited.
+	 */
+	public ApiResponse setOptionMaximumAlertInstances(String numberofinstances) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("numberOfInstances", numberofinstances);
+		return api.callApi("core", "action", "setOptionMaximumAlertInstances", map);
+	}
+
+	/**
+	 * Sets whether or not related alerts will be merged in any reports generated.
+	 */
+	public ApiResponse setOptionMergeRelatedAlerts(String enabled) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("enabled", enabled);
+		return api.callApi("core", "action", "setOptionMergeRelatedAlerts", map);
+	}
+
+	/**
+	 * Sets (or clears, if empty) the path to the file with alert overrides.
+	 */
+	public ApiResponse setOptionAlertOverridesFilePath(String filepath) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		if (filepath != null) {
+			map.put("filePath", filepath);
+		}
+		return api.callApi("core", "action", "setOptionAlertOverridesFilePath", map);
+	}
+
+	/**
+	 * Sets the user agent that ZAP should use when creating HTTP messages (for example, spider messages or CONNECT requests to outgoing proxy).
+	 */
 	public ApiResponse setOptionDefaultUserAgent(String string) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("String", string);
@@ -530,6 +632,9 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 		return api.callApi("core", "action", "setOptionTimeoutInSecs", map);
 	}
 
+	/**
+	 * Sets whether or not the outgoing proxy should be used. The address/hostname of the outgoing proxy must be set to enable this option.
+	 */
 	public ApiResponse setOptionUseProxyChain(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
@@ -547,7 +652,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	}
 
 	/**
-	 * Gets the Root CA certificate of the Local Proxy.
+	 * Gets the Root CA certificate used by the local proxies.
 	 */
 	public byte[] rootcert() throws ClientApiException {
 		return api.callApiOther("core", "other", "rootcert", null);
@@ -571,6 +676,13 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 	 */
 	public byte[] htmlreport() throws ClientApiException {
 		return api.callApiOther("core", "other", "htmlreport", null);
+	}
+
+	/**
+	 * Generates a report in JSON format
+	 */
+	public byte[] jsonreport() throws ClientApiException {
+		return api.callApiOther("core", "other", "jsonreport", null);
 	}
 
 	/**
@@ -604,6 +716,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
 			map.put("count", count);
 		}
 		return api.callApiOther("core", "other", "messagesHar", map);
+	}
+
+	/**
+	 * Gets the HTTP messages with the given IDs, in HAR format.
+	 */
+	public byte[] messagesHarById(String ids) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("ids", ids);
+		return api.callApiOther("core", "other", "messagesHarById", map);
 	}
 
 	/**

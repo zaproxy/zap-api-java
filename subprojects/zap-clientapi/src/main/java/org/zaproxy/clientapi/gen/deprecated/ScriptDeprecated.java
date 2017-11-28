@@ -120,4 +120,18 @@ public class ScriptDeprecated {
         return api.callApi("script", "action", "runStandAloneScript", map);
     }
 
+    /**
+     * Loads a script into ZAP from the given local file, with the given name, type and engine, optionally with a description
+     */
+    public ApiResponse load(String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("scriptName", scriptname);
+        map.put("scriptType", scripttype);
+        map.put("scriptEngine", scriptengine);
+        map.put("fileName", filename);
+        if (scriptdescription != null) {
+            map.put("scriptDescription", scriptdescription);
+        }
+        return api.callApi("script", "action", "load", map);
+    }
 }

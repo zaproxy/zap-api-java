@@ -2,7 +2,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 the ZAP development team
+ * Copyright 2017 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,12 +56,18 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		return api.callApi("ascan", "view", "scanProgress", map);
 	}
 
+	/**
+	 * Gets the IDs of the messages sent during the scan with the given ID. A message can be obtained with 'message' core view.
+	 */
 	public ApiResponse messagesIds(String scanid) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
 		return api.callApi("ascan", "view", "messagesIds", map);
 	}
 
+	/**
+	 * Gets the IDs of the alerts raised during the scan with the given ID. An alert can be obtained with 'alert' core view.
+	 */
 	public ApiResponse alertsIds(String scanid) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("scanId", scanid);
@@ -454,6 +460,15 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 	}
 
 	/**
+	 * Imports a Scan Policy using the given file system path.
+	 */
+	public ApiResponse importScanPolicy(String path) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("path", path);
+		return api.callApi("ascan", "action", "importScanPolicy", map);
+	}
+
+	/**
 	 * Adds a new parameter excluded from the scan, using the specified name. Optionally sets if the new entry applies to a specific URL (default, all URLs) and sets the ID of the type of the parameter (default, ID of any type). The type IDs can be obtained with the view excludedParamTypes. 
 	 */
 	public ApiResponse addExcludedParam(String name, String type, String url) throws ClientApiException {
@@ -493,6 +508,16 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 		Map<String, String> map = new HashMap<>();
 		map.put("idx", idx);
 		return api.callApi("ascan", "action", "removeExcludedParam", map);
+	}
+
+	/**
+	 * Skips the scanner using the given IDs of the scan and the scanner.
+	 */
+	public ApiResponse skipScanner(String scanid, String scannerid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("scanId", scanid);
+		map.put("scannerId", scannerid);
+		return api.callApi("ascan", "action", "skipScanner", map);
 	}
 
 	public ApiResponse setOptionAttackPolicy(String string) throws ClientApiException {
