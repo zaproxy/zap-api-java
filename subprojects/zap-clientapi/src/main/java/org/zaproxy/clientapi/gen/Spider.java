@@ -2,7 +2,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 the ZAP development team
+ * Copyright 2017 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -81,6 +81,17 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 	}
 
 	/**
+	 * Returns a list of the names of the nodes added to the Sites tree by the specified scan.
+	 */
+	public ApiResponse addedNodes(String scanid) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		if (scanid != null) {
+			map.put("scanId", scanid);
+		}
+		return api.callApi("spider", "view", "addedNodes", map);
+	}
+
+	/**
 	 * Gets all the domains that are always in scope. For each domain the following are shown: the index, the value (domain), if enabled, and if specified as a regex.
 	 */
 	public ApiResponse domainsAlwaysInScope() throws ClientApiException {
@@ -124,6 +135,13 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "view", "optionMaxDuration", null);
 	}
 
+	/**
+	 * Gets the maximum size, in bytes, that a response might have to be parsed.
+	 */
+	public ApiResponse optionMaxParseSizeBytes() throws ClientApiException {
+		return api.callApi("spider", "view", "optionMaxParseSizeBytes", null);
+	}
+
 	public ApiResponse optionMaxScansInUI() throws ClientApiException {
 		return api.callApi("spider", "view", "optionMaxScansInUI", null);
 	}
@@ -152,6 +170,13 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 
 	public ApiResponse optionUserAgent() throws ClientApiException {
 		return api.callApi("spider", "view", "optionUserAgent", null);
+	}
+
+	/**
+	 * Gets whether or not a spider process should accept cookies while spidering.
+	 */
+	public ApiResponse optionAcceptCookies() throws ClientApiException {
+		return api.callApi("spider", "view", "optionAcceptCookies", null);
 	}
 
 	public ApiResponse optionHandleODataParametersVisited() throws ClientApiException {
@@ -385,6 +410,15 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		return api.callApi("spider", "action", "setOptionUserAgent", map);
 	}
 
+	/**
+	 * Sets whether or not a spider process should accept cookies while spidering.
+	 */
+	public ApiResponse setOptionAcceptCookies(boolean bool) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Boolean", Boolean.toString(bool));
+		return api.callApi("spider", "action", "setOptionAcceptCookies", map);
+	}
+
 	public ApiResponse setOptionHandleODataParametersVisited(boolean bool) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("Boolean", Boolean.toString(bool));
@@ -410,6 +444,15 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 		Map<String, String> map = new HashMap<>();
 		map.put("Integer", Integer.toString(i));
 		return api.callApi("spider", "action", "setOptionMaxDuration", map);
+	}
+
+	/**
+	 * Sets the maximum size, in bytes, that a response might have to be parsed. This allows the spider to skip big responses/files.
+	 */
+	public ApiResponse setOptionMaxParseSizeBytes(int i) throws ClientApiException {
+		Map<String, String> map = new HashMap<>();
+		map.put("Integer", Integer.toString(i));
+		return api.callApi("spider", "action", "setOptionMaxParseSizeBytes", map);
 	}
 
 	public ApiResponse setOptionMaxScansInUI(int i) throws ClientApiException {

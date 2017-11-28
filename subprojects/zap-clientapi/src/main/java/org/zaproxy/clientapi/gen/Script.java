@@ -2,7 +2,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 the ZAP development team
+ * Copyright 2017 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@
 
 package org.zaproxy.clientapi.gen;
 
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import org.zaproxy.clientapi.core.ApiResponse;
@@ -73,9 +74,9 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
 	}
 
 	/**
-	 * Loads a script into ZAP from the given local file, with the given name, type and engine, optionally with a description
+	 * Loads a script into ZAP from the given local file, with the given name, type and engine, optionally with a description, and a charset name to read the script (the charset name is required if the script is not in UTF-8, for example, in ISO-8859-1).
 	 */
-	public ApiResponse load(String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription) throws ClientApiException {
+	public ApiResponse load(String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription, Charset charset) throws ClientApiException {
 		Map<String, String> map = new HashMap<>();
 		map.put("scriptName", scriptname);
 		map.put("scriptType", scripttype);
@@ -83,6 +84,9 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
 		map.put("fileName", filename);
 		if (scriptdescription != null) {
 			map.put("scriptDescription", scriptdescription);
+		}
+		if (charset != null) {
+			map.put("charset", charset.name());
 		}
 		return api.callApi("script", "action", "load", map);
 	}

@@ -563,4 +563,38 @@ public class CoreDeprecated {
         return api.callApiOther("core", "other", "sendHarRequest", map);
     }
 
+    /**
+     * Gets the alerts raised by ZAP, optionally filtering by URL and paginating with 'start' position and 'count' of alerts
+     */
+    public ApiResponse alerts(String baseurl, String start, String count) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (start != null) {
+            map.put("start", start);
+        }
+        if (count != null) {
+            map.put("count", count);
+        }
+        return api.callApi("core", "view", "alerts", map);
+    }
+
+    /**
+     * Gets the number of alerts, optionally filtering by URL
+     */
+    public ApiResponse numberOfAlerts(String baseurl) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        return api.callApi("core", "view", "numberOfAlerts", map);
+    }
+
+    /**
+     * Gets the URLs accessed through/by ZAP
+     */
+    public ApiResponse urls() throws ClientApiException {
+        return api.callApi("core", "view", "urls", null);
+    }
 }
