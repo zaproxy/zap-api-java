@@ -1,5 +1,5 @@
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.0'
+    gradleVersion = '4.2.1'
 }
 
 apply from: "gradle/compile.gradle"
@@ -10,8 +10,8 @@ subprojects {
     apply plugin: 'java'
     group = 'org.zaproxy'
 
-    version '1.4.0'
-    ext.versionBC = '1.0.0'
+    version '1.5.0'
+    ext.versionBC = '1.3.0'
 
     repositories {
         mavenLocal()

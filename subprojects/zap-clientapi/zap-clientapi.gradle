@@ -1,5 +1,5 @@
 plugins {
-    id "me.champeau.gradle.japicmp" version "0.1.2"
+    id "me.champeau.gradle.japicmp" version "0.2.5"
     id "org.owasp.dependencycheck" version "1.4.4.1"
 }
 
@@ -20,11 +20,25 @@ jar {
     }
 }
 
-task japicmp(dependsOn: jar, type: me.champeau.gradle.ArtifactJapicmpTask) {
-    baseline = "${project.group}:${project.name}:${versionBC}@jar"
-    to = jar.archivePath
+configurations {
+    japicmpBaseline
+}
+
+dependencies {
+    japicmpBaseline ("${project.group}:${project.name}:$versionBC") { force = true }
+}
+
+task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    group 'verification'
+    description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
+    check.dependsOn 'japicmp'
+    inputs.file(jar)
+
+    oldClasspath = configurations.japicmpBaseline
+    newClasspath = configurations.runtime + files(jar)
     onlyBinaryIncompatibleModified = true
     failOnModification = true
+    ignoreMissingClasses = true
     htmlOutputFile = file("$buildDir/reports/japi.html")
 }
 

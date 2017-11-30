@@ -2,7 +2,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 the ZAP development team
+ * Copyright 2017 the ZAP development team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,6 +41,8 @@ public class Reveal extends org.zaproxy.clientapi.gen.deprecated.RevealDeprecate
 	}
 
 	/**
+	 * Tells if shows hidden fields and enables disabled fields
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse reveal() throws ClientApiException {
@@ -48,6 +50,8 @@ public class Reveal extends org.zaproxy.clientapi.gen.deprecated.RevealDeprecate
 	}
 
 	/**
+	 * Sets if shows hidden fields and enables disabled fields
+	 * <p>
 	 * This component is optional and therefore the API will only work if it is installed
 	 */
 	public ApiResponse setReveal(String reveal) throws ClientApiException {

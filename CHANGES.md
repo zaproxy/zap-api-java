@@ -2,6 +2,12 @@
 
 Summary of the changes done in each version.
 
+## 1.5.0 (2017-11-30)
+
+### Updated APIs
+
+ - Core APIs updated for ZAP version 2.7.0.
+
 ## 1.4.0 (2017-07-13)
 
 ### Ant Tasks
