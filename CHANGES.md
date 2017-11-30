@@ -2,7 +2,7 @@
 
 Summary of the changes done in each version.
 
-## 1.5.0-SNAPSHOT (Not yet released)
+## 1.5.0 (2017-11-30)
 
 ### Updated APIs
 
