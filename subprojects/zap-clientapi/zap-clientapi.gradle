@@ -34,7 +34,9 @@ dependencyCheck {
 task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     group 'verification'
     description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
-    check.dependsOn 'japicmp'
+    if (!JavaVersion.current().isJava9Compatible()) {
+        check.dependsOn 'japicmp'
+    }
     inputs.file(jar)
 
     oldClasspath = configurations.japicmpBaseline
