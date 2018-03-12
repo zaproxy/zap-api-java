@@ -24,9 +24,8 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 public class ActiveScanSubtreeTask extends AbstractActiveScanTask {
 
-	@Override
-	protected ApiResponse startScan() throws ClientApiException {
-		return this.getClientApi().ascan.scan(getUrl(), "true", "false", "", "", "");
-	}
-
+    @Override
+    protected ApiResponse startScan() throws ClientApiException {
+        return this.getClientApi().ascan.scan(getUrl(), "true", "false", "", "", "");
+    }
 }

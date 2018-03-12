@@ -42,10 +42,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-
 import org.w3c.dom.Document;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
@@ -77,111 +75,115 @@ import org.zaproxy.clientapi.gen.Users;
 
 public class ClientApi {
 
-	private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;
+    private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;
 
-	private static final String ZAP_API_KEY_HEADER = "X-ZAP-API-Key";
-	private static final String ZAP_API_KEY_PARAM = "apikey";
+    private static final String ZAP_API_KEY_HEADER = "X-ZAP-API-Key";
+    private static final String ZAP_API_KEY_PARAM = "apikey";
 
-	private Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8090));
-	private boolean debug = false;
-	private PrintStream debugStream = System.out;
+    private Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8090));
+    private boolean debug = false;
+    private PrintStream debugStream = System.out;
 
-	private final String zapAddress;
-	private final int zapPort;
+    private final String zapAddress;
+    private final int zapPort;
 
-	private final String apiKey;
+    private final String apiKey;
 
-	// Note that any new API implementations added have to be added here manually
-	public Acsrf acsrf = new Acsrf(this);
-	public AjaxSpider ajaxSpider = new AjaxSpider(this);
-	public AlertFilter alertFilter = new AlertFilter(this);
-	public Ascan ascan = new Ascan(this);
-	public Authentication authentication = new Authentication(this);
-	public Authorization authorization = new Authorization(this);
-	public Autoupdate autoupdate = new Autoupdate(this);
-	public Break brk = new Break(this);
-	public Context context = new Context(this);
-	public Core core = new Core(this);
-	public ForcedUser forcedUser = new ForcedUser(this);
-	public HttpSessions httpSessions = new HttpSessions(this);
-	public ImportLogFiles logImportFiles = new ImportLogFiles(this);
-	public Importurls importurls = new Importurls(this);
-	public Openapi openapi = new Openapi(this);
-	public Params params = new Params(this);
-	public Pnh pnh = new Pnh(this);
-	public Pscan pscan = new Pscan(this);
-	public Replacer replacer = new Replacer(this);
-	public Reveal reveal = new Reveal(this);
-	public Search search = new Search(this);
-	public Script script = new Script(this);
-	public Selenium selenium = new Selenium(this);
-	public SessionManagement sessionManagement = new SessionManagement(this);
-	public Spider spider = new Spider(this);
-	public Stats stats = new Stats(this);
-	public Users users = new Users(this);
+    // Note that any new API implementations added have to be added here manually
+    public Acsrf acsrf = new Acsrf(this);
+    public AjaxSpider ajaxSpider = new AjaxSpider(this);
+    public AlertFilter alertFilter = new AlertFilter(this);
+    public Ascan ascan = new Ascan(this);
+    public Authentication authentication = new Authentication(this);
+    public Authorization authorization = new Authorization(this);
+    public Autoupdate autoupdate = new Autoupdate(this);
+    public Break brk = new Break(this);
+    public Context context = new Context(this);
+    public Core core = new Core(this);
+    public ForcedUser forcedUser = new ForcedUser(this);
+    public HttpSessions httpSessions = new HttpSessions(this);
+    public ImportLogFiles logImportFiles = new ImportLogFiles(this);
+    public Importurls importurls = new Importurls(this);
+    public Openapi openapi = new Openapi(this);
+    public Params params = new Params(this);
+    public Pnh pnh = new Pnh(this);
+    public Pscan pscan = new Pscan(this);
+    public Replacer replacer = new Replacer(this);
+    public Reveal reveal = new Reveal(this);
+    public Search search = new Search(this);
+    public Script script = new Script(this);
+    public Selenium selenium = new Selenium(this);
+    public SessionManagement sessionManagement = new SessionManagement(this);
+    public Spider spider = new Spider(this);
+    public Stats stats = new Stats(this);
+    public Users users = new Users(this);
 
-	public ClientApi (String zapAddress, int zapPort) {
-		this(zapAddress, zapPort, false);
-	}
+    public ClientApi(String zapAddress, int zapPort) {
+        this(zapAddress, zapPort, false);
+    }
 
-	/**
-	 * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to be sent with all API
-	 * requests.
-	 *
-	 * @param zapAddress ZAP's address
-	 * @param zapPort ZAP's listening port
-	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
-	 * @since 1.1.0
-	 */
-	public ClientApi(String zapAddress, int zapPort, String apiKey) {
-		this(zapAddress, zapPort, apiKey, false);
-	}
-	
-	public ClientApi (String zapAddress, int zapPort, boolean debug) {
-		this(zapAddress, zapPort, null, debug);
-	}
+    /**
+     * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to
+     * be sent with all API requests.
+     *
+     * @param zapAddress ZAP's address
+     * @param zapPort ZAP's listening port
+     * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
+     * @since 1.1.0
+     */
+    public ClientApi(String zapAddress, int zapPort, String apiKey) {
+        this(zapAddress, zapPort, apiKey, false);
+    }
 
-	/**
-	 * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to be sent with all API
-	 * requests. Also, sets whether or not client API debug information should be written to the
-	 * {@link #setDebugStream(PrintStream) debug stream} (by default the standard output stream).
-	 *
-	 * @param zapAddress ZAP's address
-	 * @param zapPort ZAP's listening port
-	 * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
-	 * @param debug {@code true} if debug information should be written to debug stream, {@code false} otherwise.
-	 * @since 1.1.0
-	 */
-	public ClientApi(String zapAddress, int zapPort, String apiKey, boolean debug) {
-		proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
-		this.debug = debug;
-		this.zapAddress = zapAddress;
-		this.zapPort = zapPort;
-		this.apiKey = apiKey;
-	}
-	
-	public void setDebugStream(PrintStream debugStream) {
-		this.debugStream = debugStream;
-	}
+    public ClientApi(String zapAddress, int zapPort, boolean debug) {
+        this(zapAddress, zapPort, null, debug);
+    }
 
-	public void accessUrl (String url) throws ClientApiException {
-		accessUrlViaProxy(proxy, url);
-	}
+    /**
+     * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to
+     * be sent with all API requests. Also, sets whether or not client API debug information should
+     * be written to the {@link #setDebugStream(PrintStream) debug stream} (by default the standard
+     * output stream).
+     *
+     * @param zapAddress ZAP's address
+     * @param zapPort ZAP's listening port
+     * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
+     * @param debug {@code true} if debug information should be written to debug stream, {@code
+     *     false} otherwise.
+     * @since 1.1.0
+     */
+    public ClientApi(String zapAddress, int zapPort, String apiKey, boolean debug) {
+        proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
+        this.debug = debug;
+        this.zapAddress = zapAddress;
+        this.zapPort = zapPort;
+        this.apiKey = apiKey;
+    }
 
-	private int statusToInt(ApiResponse response) {
-		return Integer.parseInt(((ApiResponseElement)response).getValue());
-	}
+    public void setDebugStream(PrintStream debugStream) {
+        this.debugStream = debugStream;
+    }
 
-	public void checkAlerts (List<Alert> ignoreAlerts, List<Alert> requireAlerts) throws ClientApiException {
-        HashMap<String,List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
+    public void accessUrl(String url) throws ClientApiException {
+        accessUrlViaProxy(proxy, url);
+    }
+
+    private int statusToInt(ApiResponse response) {
+        return Integer.parseInt(((ApiResponseElement) response).getValue());
+    }
+
+    public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts)
+            throws ClientApiException {
+        HashMap<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
         verifyAlerts(results.get("requireAlerts"), results.get("reportAlerts"));
-	}
+    }
 
-    private void verifyAlerts(List<Alert> requireAlerts, List<Alert> reportAlerts) throws ClientApiException {
+    private void verifyAlerts(List<Alert> requireAlerts, List<Alert> reportAlerts)
+            throws ClientApiException {
         StringBuilder sb = new StringBuilder();
         if (reportAlerts.size() > 0) {
             sb.append("Found ").append(reportAlerts.size()).append(" alerts\n");
-            for (Alert alert: reportAlerts) {
+            for (Alert alert : reportAlerts) {
                 sb.append('\t');
                 sb.append(alert.toString());
                 sb.append('\n');
@@ -192,7 +194,7 @@ public class ClientApi {
                 sb.append('\n');
             }
             sb.append("Not found ").append(requireAlerts.size()).append(" alerts\n");
-            for (Alert alert: requireAlerts) {
+            for (Alert alert : requireAlerts) {
                 sb.append('\t');
                 sb.append(alert.toString());
                 sb.append('\n');
@@ -202,43 +204,52 @@ public class ClientApi {
             if (debug) {
                 debugStream.println("Failed: " + sb.toString());
             }
-            throw new ClientApiException (sb.toString());
+            throw new ClientApiException(sb.toString());
         }
     }
 
-    public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts, File outputFile) throws ClientApiException {
-        HashMap<String,List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
+    public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts, File outputFile)
+            throws ClientApiException {
+        HashMap<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
         int alertsFound = results.get("reportAlerts").size();
         int alertsNotFound = results.get("requireAlerts").size();
         int alertsIgnored = results.get("ignoredAlerts").size();
-        String resultsString = String.format("Alerts Found: %d, Alerts required but not found: %d, Alerts ignored: %d", alertsFound, alertsNotFound, alertsIgnored);
+        String resultsString =
+                String.format(
+                        "Alerts Found: %d, Alerts required but not found: %d, Alerts ignored: %d",
+                        alertsFound, alertsNotFound, alertsIgnored);
         try {
-			AlertsFile.saveAlertsToFile(results.get("requireAlerts"), results.get("reportAlerts"), results.get("ignoredAlerts"), outputFile);
-		} catch (Exception e) {
-            throw new ClientApiException (e);
-		}
-        if (alertsFound>0 || alertsNotFound>0){
-            throw new ClientApiException("Check Alerts Failed!\n"+resultsString);
-        }else{
-        	if (debug) {
-        		debugStream.println("Check Alerts Passed!\n" + resultsString);
-        	}
+            AlertsFile.saveAlertsToFile(
+                    results.get("requireAlerts"),
+                    results.get("reportAlerts"),
+                    results.get("ignoredAlerts"),
+                    outputFile);
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
+        if (alertsFound > 0 || alertsNotFound > 0) {
+            throw new ClientApiException("Check Alerts Failed!\n" + resultsString);
+        } else {
+            if (debug) {
+                debugStream.println("Check Alerts Passed!\n" + resultsString);
+            }
         }
     }
 
     public List<Alert> getAlerts(String baseUrl, int start, int count) throws ClientApiException {
-    	List<Alert> alerts = new ArrayList<Alert>();
+        List<Alert> alerts = new ArrayList<Alert>();
         ApiResponse response = core.alerts(baseUrl, String.valueOf(start), String.valueOf(count));
         if (response != null && response instanceof ApiResponseList) {
-            ApiResponseList alertList = (ApiResponseList)response;
+            ApiResponseList alertList = (ApiResponseList) response;
             for (ApiResponse resp : alertList.getItems()) {
                 alerts.add(new Alert((ApiResponseSet) resp));
             }
         }
-    	return alerts;
+        return alerts;
     }
 
-    private HashMap<String, List<Alert>> checkForAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts) throws ClientApiException {
+    private HashMap<String, List<Alert>> checkForAlerts(
+            List<Alert> ignoreAlerts, List<Alert> requireAlerts) throws ClientApiException {
         List<Alert> reportAlerts = new ArrayList<>();
         List<Alert> ignoredAlerts = new ArrayList<>();
         List<Alert> alerts = getAlerts(null, -1, -1);
@@ -256,7 +267,7 @@ public class ClientApi {
                     }
                 }
             }
-            if (! ignore) {
+            if (!ignore) {
                 reportAlerts.add(alert);
             }
             if (requireAlerts != null) {
@@ -280,106 +291,106 @@ public class ClientApi {
         return results;
     }
 
-	private void accessUrlViaProxy (Proxy proxy, String apiurl) throws ClientApiException {
-		try {
-			URL url = new URL(apiurl);
-			if (debug) {
-				debugStream.println("Open URL: " + apiurl);
-			}
-			HttpURLConnection uc = (HttpURLConnection)url.openConnection(proxy);
-			uc.connect();
+    private void accessUrlViaProxy(Proxy proxy, String apiurl) throws ClientApiException {
+        try {
+            URL url = new URL(apiurl);
+            if (debug) {
+                debugStream.println("Open URL: " + apiurl);
+            }
+            HttpURLConnection uc = (HttpURLConnection) url.openConnection(proxy);
+            uc.connect();
 
-			BufferedReader in;
-			try {
-				in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
-				String inputLine;
+            BufferedReader in;
+            try {
+                in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+                String inputLine;
 
-				while ((inputLine = in.readLine()) != null) {
-					if (debug) {
-						debugStream.println(inputLine);
-					}
-				}
-				in.close();
+                while ((inputLine = in.readLine()) != null) {
+                    if (debug) {
+                        debugStream.println(inputLine);
+                    }
+                }
+                in.close();
 
-			} catch (IOException e) {
-				// Ignore
-				if (debug) {
-					debugStream.println("Ignoring exception " + e);
-				}
-			}
-		} catch (Exception e) {
-			throw new ClientApiException (e);
-		}
-	}
+            } catch (IOException e) {
+                // Ignore
+                if (debug) {
+                    debugStream.println("Ignoring exception " + e);
+                }
+            }
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
+    }
 
-	public ApiResponse callApi (String component, String type, String method,
-			Map<String, String> params) throws ClientApiException {
-		Document dom = this.callApiDom(component, type, method, params);
-		return ApiResponseFactory.getResponse(dom.getFirstChild());
-	}
+    public ApiResponse callApi(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+        Document dom = this.callApiDom(component, type, method, params);
+        return ApiResponseFactory.getResponse(dom.getFirstChild());
+    }
 
-	private Document callApiDom (String component, String type, String method,
-			Map<String, String> params) throws ClientApiException {
-		try {
-			HttpRequest request = buildZapRequest("xml", component, type, method, params);
-			if (debug) {
-				debugStream.println("Open URL: " + request.getRequestUri());
-			}
-			//get the factory
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			//Using factory get an instance of document builder
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			//parse using builder to get DOM representation of the XML file
-			return db.parse(getConnectionInputStream(request));
-		} catch (Exception e) {
-			throw new ClientApiException(e);
-		}
-	}
+    private Document callApiDom(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+        try {
+            HttpRequest request = buildZapRequest("xml", component, type, method, params);
+            if (debug) {
+                debugStream.println("Open URL: " + request.getRequestUri());
+            }
+            // get the factory
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            // Using factory get an instance of document builder
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            // parse using builder to get DOM representation of the XML file
+            return db.parse(getConnectionInputStream(request));
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
+    }
 
-	private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
-		HttpURLConnection uc = (HttpURLConnection) request.getRequestUri().openConnection(proxy);
-		for (Entry<String, String> header : request.getHeaders().entrySet()) {
-			uc.setRequestProperty(header.getKey(), header.getValue());
-		}
-		uc.connect();
-		if (uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
-			return uc.getErrorStream();
-		}
-		return uc.getInputStream();
-	}
+    private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
+        HttpURLConnection uc = (HttpURLConnection) request.getRequestUri().openConnection(proxy);
+        for (Entry<String, String> header : request.getHeaders().entrySet()) {
+            uc.setRequestProperty(header.getKey(), header.getValue());
+        }
+        uc.connect();
+        if (uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
+            return uc.getErrorStream();
+        }
+        return uc.getInputStream();
+    }
 
-	public byte[] callApiOther (String component, String type, String method,
-			Map<String, String> params) throws ClientApiException {
-		try {
-			HttpRequest request = buildZapRequest("other", component, type, method, params);
-			if (debug) {
-				debugStream.println("Open URL: " + request.getRequestUri());
-			}
-			InputStream in = getConnectionInputStream(request);
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			byte[] buffer = new byte[8 * 1024];
-			try {
-				int bytesRead;
-			    while ((bytesRead = in.read(buffer)) != -1) {
-			    	out.write(buffer, 0, bytesRead);
-			    }
-			} finally {
-				out.close();
-				in.close();
-			}
-			return out.toByteArray();
-			
-		} catch (Exception e) {
-			throw new ClientApiException(e);
-		}
-	}
+    public byte[] callApiOther(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+        try {
+            HttpRequest request = buildZapRequest("other", component, type, method, params);
+            if (debug) {
+                debugStream.println("Open URL: " + request.getRequestUri());
+            }
+            InputStream in = getConnectionInputStream(request);
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buffer = new byte[8 * 1024];
+            try {
+                int bytesRead;
+                while ((bytesRead = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, bytesRead);
+                }
+            } finally {
+                out.close();
+                in.close();
+            }
+            return out.toByteArray();
+
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
+    }
 
     private HttpRequest buildZapRequest(
-            String format,
-            String component,
-            String type,
-            String method,
-            Map<String, String> params) throws MalformedURLException {
+            String format, String component, String type, String method, Map<String, String> params)
+            throws MalformedURLException {
         StringBuilder sb = new StringBuilder();
         sb.append("http://zap/");
         sb.append(format);
@@ -440,7 +451,8 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addExcludeFromContext(String apikey, String contextName, String regex) throws Exception {
+    public void addExcludeFromContext(String apikey, String contextName, String regex)
+            throws Exception {
         context.excludeFromContext(apikey, contextName, regex);
     }
 
@@ -455,14 +467,16 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addIncludeInContext(String apikey, String contextName, String regex) throws Exception {
+    public void addIncludeInContext(String apikey, String contextName, String regex)
+            throws Exception {
         context.includeInContext(apikey, contextName, regex);
     }
 
     /**
-     * Includes just one of the nodes that match the given regular expression in the context with the given name.
-     * <p>
-     * Nodes that do not match the regular expression are excluded.
+     * Includes just one of the nodes that match the given regular expression in the context with
+     * the given name.
+     *
+     * <p>Nodes that do not match the regular expression are excluded.
      *
      * @param apikey the API key, might be {@code null}.
      * @param contextName the name of the context.
@@ -471,28 +485,30 @@ public class ClientApi {
      * @deprecated (1.1.0) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
      */
     @Deprecated
-    public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex) throws Exception {
+    public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex)
+            throws Exception {
         List<String> sessionUrls = getSessionUrls();
         boolean foundOneMatch = false;
-        for (String sessionUrl : sessionUrls){
-            if (sessionUrl.matches(regex)){
-                if (foundOneMatch){
+        for (String sessionUrl : sessionUrls) {
+            if (sessionUrl.matches(regex)) {
+                if (foundOneMatch) {
                     addExcludeFromContext(apikey, contextName, sessionUrl);
                 } else {
                     foundOneMatch = true;
                 }
             }
         }
-        if(!foundOneMatch){
-            throw new Exception("Unexpected result: No url found in site tree matching regex " + regex);
+        if (!foundOneMatch) {
+            throw new Exception(
+                    "Unexpected result: No url found in site tree matching regex " + regex);
         }
-
     }
 
     /**
-     * Includes just one of the nodes that match the given regular expression in the context with the given name.
-     * <p>
-     * Nodes that do not match the regular expression are excluded.
+     * Includes just one of the nodes that match the given regular expression in the context with
+     * the given name.
+     *
+     * <p>Nodes that do not match the regular expression are excluded.
      *
      * @param contextName the name of the context.
      * @param regex the regular expression to match the node/URL.
@@ -511,7 +527,8 @@ public class ClientApi {
             }
         }
         if (!foundOneMatch) {
-            throw new Exception("Unexpected result: No url found in site tree matching regex " + regex);
+            throw new Exception(
+                    "Unexpected result: No url found in site tree matching regex " + regex);
         }
     }
 
@@ -519,10 +536,11 @@ public class ClientApi {
         List<String> sessionUrls = new ArrayList<>();
         ApiResponse response = core.urls();
         if (response != null && response instanceof ApiResponseList) {
-            ApiResponseElement urlList = (ApiResponseElement) ((ApiResponseList) response).getItems().get(0);
-            for (ApiResponse element: ((ApiResponseList) response).getItems()){
-                URL url = new URL(((ApiResponseElement)element).getValue());
-                sessionUrls.add(url.getProtocol()+"://"+url.getHost()+url.getPath());
+            ApiResponseElement urlList =
+                    (ApiResponseElement) ((ApiResponseList) response).getItems().get(0);
+            for (ApiResponse element : ((ApiResponseList) response).getItems()) {
+                URL url = new URL(((ApiResponseElement) element).getValue());
+                sessionUrls.add(url.getProtocol() + "://" + url.getHost() + url.getPath());
             }
             System.out.println(urlList);
         }
@@ -531,14 +549,14 @@ public class ClientApi {
 
     /**
      * Active scans the given site, that's in scope.
-     * <p>
-     * The method returns only after the scan has finished.
-     * 
+     *
+     * <p>The method returns only after the scan has finished.
+     *
      * @param apikey the API key, might be {@code null}.
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
-     * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be set using one of
-     *             the {@code ClientApi} constructors.
+     * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be
+     *     set using one of the {@code ClientApi} constructors.
      */
     @Deprecated
     public void activeScanSiteInScope(String apikey, String url) throws Exception {
@@ -548,8 +566,8 @@ public class ClientApi {
 
     /**
      * Active scans the given site, that's in scope.
-     * <p>
-     * The method returns only after the scan has finished.
+     *
+     * <p>The method returns only after the scan has finished.
      *
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
@@ -563,12 +581,13 @@ public class ClientApi {
     private void waitForAScanToFinish(String targetUrl) throws ClientApiException {
         // Poll until spider finished
         int status = 0;
-        while ( status < 100) {
+        while (status < 100) {
             status = statusToInt(ascan.status(""));
-            if(debug){
+            if (debug) {
                 String format = "Scanning %s Progress: %d%%";
                 System.out.println(String.format(format, targetUrl, status));
-            }try {
+            }
+            try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 // Ignore
@@ -577,13 +596,16 @@ public class ClientApi {
     }
 
     /**
-     * Convenience method to wait for ZAP to be ready to receive API calls, when started programmatically.
-     * <p>
-     * It attempts to establish a connection to ZAP's proxy, in the given time, throwing an exception if the connection is not
-     * successful. The connection attempts might be polled in one second interval.
+     * Convenience method to wait for ZAP to be ready to receive API calls, when started
+     * programmatically.
+     *
+     * <p>It attempts to establish a connection to ZAP's proxy, in the given time, throwing an
+     * exception if the connection is not successful. The connection attempts might be polled in one
+     * second interval.
      *
      * @param timeoutInSeconds the (maximum) number of seconds to wait for ZAP to start
-     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while waiting
+     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while
+     *     waiting
      * @see #waitForSuccessfulConnectionToZap(int, int)
      */
     public void waitForSuccessfulConnectionToZap(int timeoutInSeconds) throws ClientApiException {
@@ -591,18 +613,22 @@ public class ClientApi {
     }
 
     /**
-     * Convenience method to wait for ZAP to be ready to receive API calls, when started programmatically.
-     * <p>
-     * It attempts to establish a connection to ZAP's proxy, in the given time, throwing an exception if the connection is not
-     * successful. The connection attempts are done with the given polling interval.
+     * Convenience method to wait for ZAP to be ready to receive API calls, when started
+     * programmatically.
+     *
+     * <p>It attempts to establish a connection to ZAP's proxy, in the given time, throwing an
+     * exception if the connection is not successful. The connection attempts are done with the
+     * given polling interval.
      *
      * @param timeoutInSeconds the (maximum) number of seconds to wait for ZAP to start
      * @param pollingIntervalInMs the interval, in milliseconds, for connection polling
-     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while waiting.
+     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while
+     *     waiting.
      * @throws IllegalArgumentException if the interval for connection polling is negative.
      * @see #waitForSuccessfulConnectionToZap(int)
      */
-    public void waitForSuccessfulConnectionToZap(int timeoutInSeconds, int pollingIntervalInMs) throws ClientApiException {
+    public void waitForSuccessfulConnectionToZap(int timeoutInSeconds, int pollingIntervalInMs)
+            throws ClientApiException {
         int timeoutInMs = (int) TimeUnit.SECONDS.toMillis(timeoutInSeconds);
         int connectionTimeoutInMs = timeoutInMs;
         boolean connectionSuccessful = false;
@@ -610,7 +636,8 @@ public class ClientApi {
         do {
             try (Socket socket = new Socket()) {
                 try {
-                    socket.connect(new InetSocketAddress(zapAddress, zapPort), connectionTimeoutInMs);
+                    socket.connect(
+                            new InetSocketAddress(zapAddress, zapPort), connectionTimeoutInMs);
                     connectionSuccessful = true;
                 } catch (SocketTimeoutException ignore) {
                     throw newTimeoutConnectionToZap(timeoutInSeconds);
@@ -638,13 +665,14 @@ public class ClientApi {
     }
 
     private static ClientApiException newTimeoutConnectionToZap(int timeoutInSeconds) {
-        return new ClientApiException("Unable to connect to ZAP's proxy after " + timeoutInSeconds + " seconds.");
+        return new ClientApiException(
+                "Unable to connect to ZAP's proxy after " + timeoutInSeconds + " seconds.");
     }
 
     /**
      * A simple HTTP request.
-     * <p>
-     * Contains the request URI and headers.
+     *
+     * <p>Contains the request URI and headers.
      */
     private static class HttpRequest {
 
@@ -667,8 +695,8 @@ public class ClientApi {
 
         /**
          * Adds a header with the given name and value.
-         * <p>
-         * If a header with the given name already exists it is replaced with the new value.
+         *
+         * <p>If a header with the given name already exists it is replaced with the new value.
          *
          * @param name the name of the header.
          * @param value the value of the header.
@@ -678,8 +706,8 @@ public class ClientApi {
         }
 
         /**
-         * Gets the headers of the HTTP request. An unmodifiable {@code Map} containing the headers (the keys correspond to the
-         * header names and the values for its contents).
+         * Gets the headers of the HTTP request. An unmodifiable {@code Map} containing the headers
+         * (the keys correspond to the header names and the values for its contents).
          *
          * @return an unmodifiable {@code Map} containing the headers.
          */

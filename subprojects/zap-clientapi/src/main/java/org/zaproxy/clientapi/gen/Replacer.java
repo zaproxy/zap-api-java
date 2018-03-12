@@ -25,68 +25,78 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Replacer {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Replacer(ClientApi api) {
-		this.api = api;
-	}
+    public Replacer(ClientApi api) {
+        this.api = api;
+    }
 
-	/**
-	 * Returns full details of all of the rules
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse rules() throws ClientApiException {
-		return api.callApi("replacer", "view", "rules", null);
-	}
+    /**
+     * Returns full details of all of the rules
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse rules() throws ClientApiException {
+        return api.callApi("replacer", "view", "rules", null);
+    }
 
-	/**
-	 * Adds a replacer rule. For the parameters: desc is a user friendly description, enabled is true or false, matchType is one of [REQ_HEADER, REQ_HEADER_STR, REQ_BODY_STR, RESP_HEADER, RESP_HEADER_STR, RESP_BODY_STR], matchRegex should be true if the matchString should be treated as a regex otherwise false, matchString is the string that will be matched against, replacement is the replacement string, initiators may be blank (for all initiators) or a comma separated list of integers as defined in <a href="https://github.com/zaproxy/zaproxy/blob/develop/src/org/parosproxy/paros/network/HttpSender.java">HttpSender</a>  
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse addRule(String description, String enabled, String matchtype, String matchregex, String matchstring, String replacement, String initiators) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("description", description);
-		map.put("enabled", enabled);
-		map.put("matchType", matchtype);
-		map.put("matchRegex", matchregex);
-		map.put("matchString", matchstring);
-		map.put("replacement", replacement);
-		if (initiators != null) {
-			map.put("initiators", initiators);
-		}
-		return api.callApi("replacer", "action", "addRule", map);
-	}
+    /**
+     * Adds a replacer rule. For the parameters: desc is a user friendly description, enabled is
+     * true or false, matchType is one of [REQ_HEADER, REQ_HEADER_STR, REQ_BODY_STR, RESP_HEADER,
+     * RESP_HEADER_STR, RESP_BODY_STR], matchRegex should be true if the matchString should be
+     * treated as a regex otherwise false, matchString is the string that will be matched against,
+     * replacement is the replacement string, initiators may be blank (for all initiators) or a
+     * comma separated list of integers as defined in <a
+     * href="https://github.com/zaproxy/zaproxy/blob/develop/src/org/parosproxy/paros/network/HttpSender.java">HttpSender</a>
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addRule(
+            String description,
+            String enabled,
+            String matchtype,
+            String matchregex,
+            String matchstring,
+            String replacement,
+            String initiators)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        map.put("enabled", enabled);
+        map.put("matchType", matchtype);
+        map.put("matchRegex", matchregex);
+        map.put("matchString", matchstring);
+        map.put("replacement", replacement);
+        if (initiators != null) {
+            map.put("initiators", initiators);
+        }
+        return api.callApi("replacer", "action", "addRule", map);
+    }
 
-	/**
-	 * Removes the rule with the given description
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse removeRule(String description) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("description", description);
-		return api.callApi("replacer", "action", "removeRule", map);
-	}
+    /**
+     * Removes the rule with the given description
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeRule(String description) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        return api.callApi("replacer", "action", "removeRule", map);
+    }
 
-	/**
-	 * Enables or disables the rule with the given description based on the bool parameter  
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse setEnabled(String description, String bool) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("description", description);
-		map.put("bool", bool);
-		return api.callApi("replacer", "action", "setEnabled", map);
-	}
-
+    /**
+     * Enables or disables the rule with the given description based on the bool parameter
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setEnabled(String description, String bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        map.put("bool", bool);
+        return api.callApi("replacer", "action", "setEnabled", map);
+    }
 }

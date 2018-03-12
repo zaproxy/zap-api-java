@@ -22,14 +22,13 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class StopZapTask extends ZapTask {
-	
-	@Override
-	public void execute() throws BuildException {
-		try {
-			this.getClientApi().core.shutdown();
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
 
+    @Override
+    public void execute() throws BuildException {
+        try {
+            this.getClientApi().core.shutdown();
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
 }

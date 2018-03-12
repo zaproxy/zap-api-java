@@ -22,24 +22,24 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class NewSessionTask extends ZapTask {
-	
-	private String name;
 
-	@Override
-	public void execute() throws BuildException {
-		try {
-			this.getClientApi().core.newSession(name, "true");
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
+    private String name;
 
-	public String getName() {
-		return name;
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            this.getClientApi().core.newSession(name, "true");
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

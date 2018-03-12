@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class AscanDeprecated {
 
@@ -39,8 +36,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse scan(
@@ -50,7 +48,8 @@ public class AscanDeprecated {
             String inscopeonly,
             String scanpolicyname,
             String method,
-            String postdata) throws ClientApiException {
+            String postdata)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -75,8 +74,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse scanAsUser(
@@ -87,7 +87,8 @@ public class AscanDeprecated {
             String recurse,
             String scanpolicyname,
             String method,
-            String postdata) throws ClientApiException {
+            String postdata)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -111,8 +112,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse pause(String apikey, String scanid) throws ClientApiException {
@@ -125,8 +127,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse resume(String apikey, String scanid) throws ClientApiException {
@@ -139,8 +142,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse stop(String apikey, String scanid) throws ClientApiException {
@@ -153,8 +157,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse removeScan(String apikey, String scanid) throws ClientApiException {
@@ -167,8 +172,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse pauseAllScans(String apikey) throws ClientApiException {
@@ -180,8 +186,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse resumeAllScans(String apikey) throws ClientApiException {
@@ -193,8 +200,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse stopAllScans(String apikey) throws ClientApiException {
@@ -206,8 +214,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse removeAllScans(String apikey) throws ClientApiException {
@@ -219,8 +228,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse clearExcludedFromScan(String apikey) throws ClientApiException {
@@ -232,8 +242,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse excludeFromScan(String apikey, String regex) throws ClientApiException {
@@ -246,11 +257,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse enableAllScanners(String apikey, String scanpolicyname) throws ClientApiException {
+    public ApiResponse enableAllScanners(String apikey, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -262,11 +275,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse disableAllScanners(String apikey, String scanpolicyname) throws ClientApiException {
+    public ApiResponse disableAllScanners(String apikey, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -278,11 +293,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse enableScanners(String apikey, String ids, String scanpolicyname) throws ClientApiException {
+    public ApiResponse enableScanners(String apikey, String ids, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -295,11 +312,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse disableScanners(String apikey, String ids, String scanpolicyname) throws ClientApiException {
+    public ApiResponse disableScanners(String apikey, String ids, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -312,11 +331,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setEnabledPolicies(String apikey, String ids, String scanpolicyname) throws ClientApiException {
+    public ApiResponse setEnabledPolicies(String apikey, String ids, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -329,11 +350,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setPolicyAttackStrength(String apikey, String id, String attackstrength, String scanpolicyname)
+    public ApiResponse setPolicyAttackStrength(
+            String apikey, String id, String attackstrength, String scanpolicyname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
@@ -348,11 +371,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setPolicyAlertThreshold(String apikey, String id, String alertthreshold, String scanpolicyname)
+    public ApiResponse setPolicyAlertThreshold(
+            String apikey, String id, String alertthreshold, String scanpolicyname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
@@ -367,11 +392,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setScannerAttackStrength(String apikey, String id, String attackstrength, String scanpolicyname)
+    public ApiResponse setScannerAttackStrength(
+            String apikey, String id, String attackstrength, String scanpolicyname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
@@ -386,11 +413,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setScannerAlertThreshold(String apikey, String id, String alertthreshold, String scanpolicyname)
+    public ApiResponse setScannerAlertThreshold(
+            String apikey, String id, String alertthreshold, String scanpolicyname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
@@ -405,11 +434,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse addScanPolicy(String apikey, String scanpolicyname) throws ClientApiException {
+    public ApiResponse addScanPolicy(String apikey, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -419,11 +450,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse removeScanPolicy(String apikey, String scanpolicyname) throws ClientApiException {
+    public ApiResponse removeScanPolicy(String apikey, String scanpolicyname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -433,11 +466,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionAttackPolicy(String apikey, String string) throws ClientApiException {
+    public ApiResponse setOptionAttackPolicy(String apikey, String string)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -447,11 +482,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionDefaultPolicy(String apikey, String string) throws ClientApiException {
+    public ApiResponse setOptionDefaultPolicy(String apikey, String string)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -461,11 +498,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionAllowAttackOnStart(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionAllowAttackOnStart(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -475,8 +514,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionDelayInMs(String apikey, int i) throws ClientApiException {
@@ -489,11 +529,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionHandleAntiCSRFTokens(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionHandleAntiCSRFTokens(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -503,8 +545,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionHostPerScan(String apikey, int i) throws ClientApiException {
@@ -517,11 +560,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionInjectPluginIdInHeader(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionInjectPluginIdInHeader(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -531,8 +576,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxChartTimeInMins(String apikey, int i) throws ClientApiException {
@@ -545,8 +591,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxResultsToList(String apikey, int i) throws ClientApiException {
@@ -559,8 +606,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxScansInUI(String apikey, int i) throws ClientApiException {
@@ -573,11 +621,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionPromptInAttackMode(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionPromptInAttackMode(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -587,11 +637,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionPromptToClearFinishedScans(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionPromptToClearFinishedScans(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -601,11 +653,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionRescanInAttackMode(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionRescanInAttackMode(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -615,11 +669,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionScanHeadersAllRequests(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionScanHeadersAllRequests(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -629,11 +685,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionShowAdvancedDialog(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionShowAdvancedDialog(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -643,11 +701,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionTargetParamsEnabledRPC(String apikey, int i) throws ClientApiException {
+    public ApiResponse setOptionTargetParamsEnabledRPC(String apikey, int i)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -657,11 +717,13 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionTargetParamsInjectable(String apikey, int i) throws ClientApiException {
+    public ApiResponse setOptionTargetParamsInjectable(String apikey, int i)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -671,8 +733,9 @@ public class AscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionThreadPerHost(String apikey, int i) throws ClientApiException {
@@ -683,5 +746,4 @@ public class AscanDeprecated {
         map.put("Integer", Integer.toString(i));
         return api.callApi("ascan", "action", "setOptionThreadPerHost", map);
     }
-
 }

@@ -19,44 +19,42 @@
  */
 package org.zaproxy.clientapi.core;
 
-
 public class ClientApiException extends Exception {
 
-	private static final long serialVersionUID = 1L;
-	
-	private final String code;
-	private final String detail;
-	
-	public ClientApiException(Exception e) {
-		super(e);
-		this.code = null;
-		this.detail = null;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public ClientApiException(String s) {
-		super(s);
-		this.code = null;
-		this.detail = null;
-	}
+    private final String code;
+    private final String detail;
 
-	public ClientApiException(String message, Exception cause) {
-		super(message, cause);
-		this.code = null;
-		this.detail = null;
-	}
+    public ClientApiException(Exception e) {
+        super(e);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public ClientApiException(String message, String code, String detail) {
-		super(message);
-		this.code = code;
-		this.detail = detail;
-	}
+    public ClientApiException(String s) {
+        super(s);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public ClientApiException(String message, Exception cause) {
+        super(message, cause);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public String getDetail() {
-		return detail;
-	}
-	
+    public ClientApiException(String message, String code, String detail) {
+        super(message);
+        this.code = code;
+        this.detail = detail;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
 }

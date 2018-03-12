@@ -25,38 +25,34 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Reveal extends org.zaproxy.clientapi.gen.deprecated.RevealDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Reveal(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public Reveal(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	/**
-	 * Tells if shows hidden fields and enables disabled fields
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse reveal() throws ClientApiException {
-		return api.callApi("reveal", "view", "reveal", null);
-	}
+    /**
+     * Tells if shows hidden fields and enables disabled fields
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse reveal() throws ClientApiException {
+        return api.callApi("reveal", "view", "reveal", null);
+    }
 
-	/**
-	 * Sets if shows hidden fields and enables disabled fields
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse setReveal(String reveal) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("reveal", reveal);
-		return api.callApi("reveal", "action", "setReveal", map);
-	}
-
+    /**
+     * Sets if shows hidden fields and enables disabled fields
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setReveal(String reveal) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("reveal", reveal);
+        return api.callApi("reveal", "action", "setReveal", map);
+    }
 }

@@ -19,24 +19,22 @@
  */
 package org.zaproxy.clientapi.core;
 
-
 public abstract class ApiResponse {
 
-	private String name = null;
+    private String name = null;
 
-	public ApiResponse(String name) {
-		super();
-		this.name = name;
-	}
+    public ApiResponse(String name) {
+        super();
+        this.name = name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public abstract String toString(int indent);
-
+    public abstract String toString(int indent);
 }

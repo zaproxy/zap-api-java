@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class AjaxSpiderDeprecated {
 
@@ -40,9 +37,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed.
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse scan(String apikey, String url, String inscope) throws ClientApiException {
@@ -61,9 +59,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse stop(String apikey) throws ClientApiException {
@@ -76,9 +75,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionBrowserId(String apikey, String string) throws ClientApiException {
@@ -92,12 +92,14 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionClickDefaultElems(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionClickDefaultElems(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -108,12 +110,14 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionClickElemsOnce(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionClickElemsOnce(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -124,9 +128,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionEventWait(String apikey, int i) throws ClientApiException {
@@ -140,9 +145,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxCrawlDepth(String apikey, int i) throws ClientApiException {
@@ -156,9 +162,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxCrawlStates(String apikey, int i) throws ClientApiException {
@@ -172,9 +179,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxDuration(String apikey, int i) throws ClientApiException {
@@ -188,9 +196,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionNumberOfBrowsers(String apikey, int i) throws ClientApiException {
@@ -204,12 +213,14 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionRandomInputs(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionRandomInputs(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -220,9 +231,10 @@ public class AjaxSpiderDeprecated {
 
     /**
      * This component is optional and therefore the API will only work if it is installed
-     * 
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     *
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionReloadWait(String apikey, int i) throws ClientApiException {

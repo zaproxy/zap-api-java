@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class SpiderDeprecated {
 
@@ -39,8 +36,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse scan(
@@ -49,7 +47,8 @@ public class SpiderDeprecated {
             String maxchildren,
             String recurse,
             String contextname,
-            String subtreeonly) throws ClientApiException {
+            String subtreeonly)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -73,8 +72,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse scanAsUser(
@@ -84,7 +84,8 @@ public class SpiderDeprecated {
             String url,
             String maxchildren,
             String recurse,
-            String subtreeonly) throws ClientApiException {
+            String subtreeonly)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -107,8 +108,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse pause(String apikey, String scanid) throws ClientApiException {
@@ -121,8 +123,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse resume(String apikey, String scanid) throws ClientApiException {
@@ -135,8 +138,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse stop(String apikey, String scanid) throws ClientApiException {
@@ -151,8 +155,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse removeScan(String apikey, String scanid) throws ClientApiException {
@@ -165,8 +170,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse pauseAllScans(String apikey) throws ClientApiException {
@@ -178,8 +184,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse resumeAllScans(String apikey) throws ClientApiException {
@@ -191,8 +198,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse stopAllScans(String apikey) throws ClientApiException {
@@ -204,8 +212,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse removeAllScans(String apikey) throws ClientApiException {
@@ -217,8 +226,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse clearExcludedFromScan(String apikey) throws ClientApiException {
@@ -230,8 +240,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse excludeFromScan(String apikey, String regex) throws ClientApiException {
@@ -244,11 +255,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionHandleParameters(String apikey, String string) throws ClientApiException {
+    public ApiResponse setOptionHandleParameters(String apikey, String string)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -258,11 +271,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionScopeString(String apikey, String string) throws ClientApiException {
+    public ApiResponse setOptionScopeString(String apikey, String string)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -272,11 +287,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionSkipURLString(String apikey, String string) throws ClientApiException {
+    public ApiResponse setOptionSkipURLString(String apikey, String string)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -286,8 +303,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionUserAgent(String apikey, String string) throws ClientApiException {
@@ -300,11 +318,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionHandleODataParametersVisited(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionHandleODataParametersVisited(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -314,8 +334,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxDepth(String apikey, int i) throws ClientApiException {
@@ -328,8 +349,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxDuration(String apikey, int i) throws ClientApiException {
@@ -342,8 +364,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionMaxScansInUI(String apikey, int i) throws ClientApiException {
@@ -356,11 +379,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionParseComments(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionParseComments(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -370,8 +395,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionParseGit(String apikey, boolean bool) throws ClientApiException {
@@ -384,11 +410,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionParseRobotsTxt(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionParseRobotsTxt(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -398,11 +426,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionParseSVNEntries(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionParseSVNEntries(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -412,11 +442,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionParseSitemapXml(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionParseSitemapXml(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -426,8 +458,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionPostForm(String apikey, boolean bool) throws ClientApiException {
@@ -440,8 +473,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionProcessForm(String apikey, boolean bool) throws ClientApiException {
@@ -454,8 +488,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionRequestWaitTime(String apikey, int i) throws ClientApiException {
@@ -468,11 +503,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionSendRefererHeader(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionSendRefererHeader(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -482,11 +519,13 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setOptionShowAdvancedDialog(String apikey, boolean bool) throws ClientApiException {
+    public ApiResponse setOptionShowAdvancedDialog(String apikey, boolean bool)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -496,8 +535,9 @@ public class SpiderDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setOptionThreadCount(String apikey, int i) throws ClientApiException {
@@ -508,5 +548,4 @@ public class SpiderDeprecated {
         map.put("Integer", Integer.toString(i));
         return api.callApi("spider", "action", "setOptionThreadCount", map);
     }
-
 }

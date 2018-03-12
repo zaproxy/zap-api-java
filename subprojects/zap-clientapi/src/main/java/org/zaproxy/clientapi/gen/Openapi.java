@@ -25,42 +25,38 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Openapi {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Openapi(ClientApi api) {
-		this.api = api;
-	}
+    public Openapi(ClientApi api) {
+        this.api = api;
+    }
 
-	/**
-	 * Import an Open API definition from a local file.
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse importFile(String file) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("file", file);
-		return api.callApi("openapi", "action", "importFile", map);
-	}
+    /**
+     * Import an Open API definition from a local file.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importFile(String file) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("file", file);
+        return api.callApi("openapi", "action", "importFile", map);
+    }
 
-	/**
-	 * Import an Open API definition from a URL, hostOverride allows the host to be replaced
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse importUrl(String url, String hostoverride) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("url", url);
-		if (hostoverride != null) {
-			map.put("hostOverride", hostoverride);
-		}
-		return api.callApi("openapi", "action", "importUrl", map);
-	}
-
+    /**
+     * Import an Open API definition from a URL, hostOverride allows the host to be replaced
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importUrl(String url, String hostoverride) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("url", url);
+        if (hostoverride != null) {
+            map.put("hostOverride", hostoverride);
+        }
+        return api.callApi("openapi", "action", "importUrl", map);
+    }
 }

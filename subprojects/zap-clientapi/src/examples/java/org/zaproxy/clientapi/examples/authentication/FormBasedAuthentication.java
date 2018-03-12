@@ -23,7 +23,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ApiResponseElement;
 import org.zaproxy.clientapi.core.ApiResponseList;
@@ -34,155 +33,181 @@ import org.zaproxy.clientapi.core.ClientApiException;
 /**
  * An example of how to set up authentication via the API and get information about existing
  * configuration.
- * 
- * Some important aspects regarding the Authentication API:
+ *
+ * <p>Some important aspects regarding the Authentication API:
+ *
  * <ul>
- * <li>
- * since the AuthenticationMethods are loaded dynamically, there's no way to generate a 'static' API
- * for each auth method. That's why, when setting up the authentication method, depending on the
- * method, different values are passed to the setAuthenticationMethod . This is where the
- * getSupportedAuthenticationMethods and getAuthenticationMethodConfigParams methods come into play.
- * Basically the first one gives a list of available/loaded authentication methods while the second
- * one gives info about the parameters required to configure each authentication method type.</li>
- * <li>when setting up the authentication method for a context, the setAuthenticationMethod method
- * is used. It takes the context id on which we're working, the name of the authentication method
- * and a 'authMethodConfigParams' parameter which contains all the configuration for the method. The
- * format of the value passed for 'authMethodConfigParams' matches the www-form-urlencoded style:
- * parameterName = urlEncodedValue. Check out the referenced example to see how the configuration is
- * build for the BodgeIt store login. The pseudocode for generating the config would be:<br/>
- * <code>paramA + "=" + urlEncode(paramAValue) + "&" + paramB + "=" + urlEncode(paramBValue) + ...</code>
- * </li>
- * <li>
- * for formBasedAuthentication, the places filled in with the credentials are marked via {%username%}
- * and {%password%}, in either the requestUrl or the requestBody</li>
+ *   <li>since the AuthenticationMethods are loaded dynamically, there's no way to generate a
+ *       'static' API for each auth method. That's why, when setting up the authentication method,
+ *       depending on the method, different values are passed to the setAuthenticationMethod . This
+ *       is where the getSupportedAuthenticationMethods and getAuthenticationMethodConfigParams
+ *       methods come into play. Basically the first one gives a list of available/loaded
+ *       authentication methods while the second one gives info about the parameters required to
+ *       configure each authentication method type.
+ *   <li>when setting up the authentication method for a context, the setAuthenticationMethod method
+ *       is used. It takes the context id on which we're working, the name of the authentication
+ *       method and a 'authMethodConfigParams' parameter which contains all the configuration for
+ *       the method. The format of the value passed for 'authMethodConfigParams' matches the
+ *       www-form-urlencoded style: parameterName = urlEncodedValue. Check out the referenced
+ *       example to see how the configuration is build for the BodgeIt store login. The pseudocode
+ *       for generating the config would be:<br>
+ *       <code>
+ *       paramA + "=" + urlEncode(paramAValue) + "&" + paramB + "=" + urlEncode(paramBValue) + ...
+ *       </code>
+ *   <li>for formBasedAuthentication, the places filled in with the credentials are marked via
+ *       {%username%} and {%password%}, in either the requestUrl or the requestBody
  * </ul>
  */
 public class FormBasedAuthentication {
 
-	private static final String ZAP_ADDRESS = "localhost";
-	private static final int ZAP_PORT = 8090;
-	private static final String ZAP_API_KEY = null;
+    private static final String ZAP_ADDRESS = "localhost";
+    private static final int ZAP_PORT = 8090;
+    private static final String ZAP_API_KEY = null;
 
-	private static void listAuthInformation(ClientApi clientApi) throws ClientApiException {
-		// Check out which authentication methods are supported by the API
-		List<String> supportedMethodNames = new LinkedList<>();
-		ApiResponseList authMethodsList = (ApiResponseList) clientApi.authentication.getSupportedAuthenticationMethods();
-		for (ApiResponse authMethod : authMethodsList.getItems()) {
-			supportedMethodNames.add(((ApiResponseElement) authMethod).getValue());
-		}
-		System.out.println("Supported authentication methods: " + supportedMethodNames);
+    private static void listAuthInformation(ClientApi clientApi) throws ClientApiException {
+        // Check out which authentication methods are supported by the API
+        List<String> supportedMethodNames = new LinkedList<>();
+        ApiResponseList authMethodsList =
+                (ApiResponseList) clientApi.authentication.getSupportedAuthenticationMethods();
+        for (ApiResponse authMethod : authMethodsList.getItems()) {
+            supportedMethodNames.add(((ApiResponseElement) authMethod).getValue());
+        }
+        System.out.println("Supported authentication methods: " + supportedMethodNames);
 
-		// Check out which are the config parameters of the authentication methods
-		for (String methodName : supportedMethodNames) {
+        // Check out which are the config parameters of the authentication methods
+        for (String methodName : supportedMethodNames) {
 
-			ApiResponseList configParamsList = (ApiResponseList) clientApi.authentication
-					.getAuthenticationMethodConfigParams(methodName);
+            ApiResponseList configParamsList =
+                    (ApiResponseList)
+                            clientApi.authentication.getAuthenticationMethodConfigParams(
+                                    methodName);
 
-			for (ApiResponse r : configParamsList.getItems()) {
-				ApiResponseSet set = (ApiResponseSet) r;
-				System.out.println("'" + methodName + "' config param: " + set.getValue("name") + " ("
-						+ (set.getValue("mandatory").equals("true") ? "mandatory" : "optional") + ")");
-			}
-		}
-	}
+            for (ApiResponse r : configParamsList.getItems()) {
+                ApiResponseSet set = (ApiResponseSet) r;
+                System.out.println(
+                        "'"
+                                + methodName
+                                + "' config param: "
+                                + set.getValue("name")
+                                + " ("
+                                + (set.getValue("mandatory").equals("true")
+                                        ? "mandatory"
+                                        : "optional")
+                                + ")");
+            }
+        }
+    }
 
-	private static void listUserConfigInformation(ClientApi clientApi) throws ClientApiException {
-		// Check out which are the config parameters required to set up an user with the currently
-		// set authentication methods
-		String contextId = "1";
-		ApiResponseList configParamsList = (ApiResponseList) clientApi.users
-				.getAuthenticationCredentialsConfigParams(contextId);
+    private static void listUserConfigInformation(ClientApi clientApi) throws ClientApiException {
+        // Check out which are the config parameters required to set up an user with the currently
+        // set authentication methods
+        String contextId = "1";
+        ApiResponseList configParamsList =
+                (ApiResponseList)
+                        clientApi.users.getAuthenticationCredentialsConfigParams(contextId);
 
-		StringBuilder sb = new StringBuilder("Users' config params: ");
-		for (ApiResponse r : configParamsList.getItems()) {
-			ApiResponseSet set = (ApiResponseSet) r;
-			sb.append(set.getValue("name")).append(" (");
-			sb.append((set.getValue("mandatory").equals("true") ? "mandatory" : "optional"));
-			sb.append("), ");
-		}
-		System.out.println(sb.deleteCharAt(sb.length() - 2).toString());
-	}
+        StringBuilder sb = new StringBuilder("Users' config params: ");
+        for (ApiResponse r : configParamsList.getItems()) {
+            ApiResponseSet set = (ApiResponseSet) r;
+            sb.append(set.getValue("name")).append(" (");
+            sb.append((set.getValue("mandatory").equals("true") ? "mandatory" : "optional"));
+            sb.append("), ");
+        }
+        System.out.println(sb.deleteCharAt(sb.length() - 2).toString());
+    }
 
-	private static void setLoggedInIndicator(ClientApi clientApi) throws ClientApiException {
-		// Prepare values to set, with the logged in indicator as a regex matching the logout link
-		String loggedInIndicator = "<a href=\"logout.jsp\"></a>";
-		String contextId = "1";
+    private static void setLoggedInIndicator(ClientApi clientApi) throws ClientApiException {
+        // Prepare values to set, with the logged in indicator as a regex matching the logout link
+        String loggedInIndicator = "<a href=\"logout.jsp\"></a>";
+        String contextId = "1";
 
-		// Actually set the logged in indicator
-		clientApi.authentication.setLoggedInIndicator(contextId, java.util.regex.Pattern.quote(loggedInIndicator));
+        // Actually set the logged in indicator
+        clientApi.authentication.setLoggedInIndicator(
+                contextId, java.util.regex.Pattern.quote(loggedInIndicator));
 
-		// Check out the logged in indicator that is set
-		System.out.println("Configured logged in indicator regex: "
-				+ ((ApiResponseElement) clientApi.authentication.getLoggedInIndicator(contextId)).getValue());
-	}
+        // Check out the logged in indicator that is set
+        System.out.println(
+                "Configured logged in indicator regex: "
+                        + ((ApiResponseElement)
+                                        clientApi.authentication.getLoggedInIndicator(contextId))
+                                .getValue());
+    }
 
-	private static void setFormBasedAuthenticationForBodgeit(ClientApi clientApi) throws ClientApiException,
-			UnsupportedEncodingException {
-		// Setup the authentication method
-		String contextId = "1";
-		String loginUrl = "http://localhost:8080/bodgeit/login.jsp";
-		String loginRequestData = "username={%username%}&password={%password%}";
+    private static void setFormBasedAuthenticationForBodgeit(ClientApi clientApi)
+            throws ClientApiException, UnsupportedEncodingException {
+        // Setup the authentication method
+        String contextId = "1";
+        String loginUrl = "http://localhost:8080/bodgeit/login.jsp";
+        String loginRequestData = "username={%username%}&password={%password%}";
 
-		// Prepare the configuration in a format similar to how URL parameters are formed. This
-		// means that any value we add for the configuration values has to be URL encoded.
-		StringBuilder formBasedConfig = new StringBuilder();
-		formBasedConfig.append("loginUrl=").append(URLEncoder.encode(loginUrl, "UTF-8"));
-		formBasedConfig.append("&loginRequestData=").append(URLEncoder.encode(loginRequestData, "UTF-8"));
+        // Prepare the configuration in a format similar to how URL parameters are formed. This
+        // means that any value we add for the configuration values has to be URL encoded.
+        StringBuilder formBasedConfig = new StringBuilder();
+        formBasedConfig.append("loginUrl=").append(URLEncoder.encode(loginUrl, "UTF-8"));
+        formBasedConfig
+                .append("&loginRequestData=")
+                .append(URLEncoder.encode(loginRequestData, "UTF-8"));
 
-		System.out.println("Setting form based authentication configuration as: "
-				+ formBasedConfig.toString());
-		clientApi.authentication.setAuthenticationMethod(contextId, "formBasedAuthentication",
-				formBasedConfig.toString());
+        System.out.println(
+                "Setting form based authentication configuration as: "
+                        + formBasedConfig.toString());
+        clientApi.authentication.setAuthenticationMethod(
+                contextId, "formBasedAuthentication", formBasedConfig.toString());
 
-		// Check if everything is set up ok
-		System.out
-				.println("Authentication config: " + clientApi.authentication.getAuthenticationMethod(contextId).toString(0));
-	}
+        // Check if everything is set up ok
+        System.out.println(
+                "Authentication config: "
+                        + clientApi.authentication.getAuthenticationMethod(contextId).toString(0));
+    }
 
-	private static void setUserAuthConfigForBodgeit(ClientApi clientApi) throws ClientApiException, UnsupportedEncodingException {
-		// Prepare info
-		String contextId = "1";
-		String user = "Test User";
-		String username = "test@example.com";
-		String password = "weakPassword";
+    private static void setUserAuthConfigForBodgeit(ClientApi clientApi)
+            throws ClientApiException, UnsupportedEncodingException {
+        // Prepare info
+        String contextId = "1";
+        String user = "Test User";
+        String username = "test@example.com";
+        String password = "weakPassword";
 
-		// Make sure we have at least one user
-		String userId = extractUserId(clientApi.users.newUser(contextId, user));
+        // Make sure we have at least one user
+        String userId = extractUserId(clientApi.users.newUser(contextId, user));
 
-		// Prepare the configuration in a format similar to how URL parameters are formed. This
-		// means that any value we add for the configuration values has to be URL encoded.
-		StringBuilder userAuthConfig = new StringBuilder();
-		userAuthConfig.append("username=").append(URLEncoder.encode(username, "UTF-8"));
-		userAuthConfig.append("&password=").append(URLEncoder.encode(password, "UTF-8"));
+        // Prepare the configuration in a format similar to how URL parameters are formed. This
+        // means that any value we add for the configuration values has to be URL encoded.
+        StringBuilder userAuthConfig = new StringBuilder();
+        userAuthConfig.append("username=").append(URLEncoder.encode(username, "UTF-8"));
+        userAuthConfig.append("&password=").append(URLEncoder.encode(password, "UTF-8"));
 
-		System.out.println("Setting user authentication configuration as: " + userAuthConfig.toString());
-		clientApi.users.setAuthenticationCredentials(contextId, userId, userAuthConfig.toString());
+        System.out.println(
+                "Setting user authentication configuration as: " + userAuthConfig.toString());
+        clientApi.users.setAuthenticationCredentials(contextId, userId, userAuthConfig.toString());
 
-		// Check if everything is set up ok
-		System.out.println("Authentication config: " + clientApi.users.getUserById(contextId, userId).toString(0));
-	}
+        // Check if everything is set up ok
+        System.out.println(
+                "Authentication config: "
+                        + clientApi.users.getUserById(contextId, userId).toString(0));
+    }
 
-	private static String extractUserId(ApiResponse response) {
-		return ((ApiResponseElement) response).getValue();
-	}
+    private static String extractUserId(ApiResponse response) {
+        return ((ApiResponseElement) response).getValue();
+    }
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 * @throws Exception if an error occurred while accessing the API
-	 */
-	public static void main(String[] args) throws Exception {
-		ClientApi clientApi = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
+    /**
+     * The main method.
+     *
+     * @param args the arguments
+     * @throws Exception if an error occurred while accessing the API
+     */
+    public static void main(String[] args) throws Exception {
+        ClientApi clientApi = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
-		listAuthInformation(clientApi);
-		System.out.println("-------------");
-		setFormBasedAuthenticationForBodgeit(clientApi);
-		System.out.println("-------------");
-		setLoggedInIndicator(clientApi);
-		System.out.println("-------------");
-		listUserConfigInformation(clientApi);
-		System.out.println("-------------");
-		setUserAuthConfigForBodgeit(clientApi);
-	}
+        listAuthInformation(clientApi);
+        System.out.println("-------------");
+        setFormBasedAuthenticationForBodgeit(clientApi);
+        System.out.println("-------------");
+        setLoggedInIndicator(clientApi);
+        System.out.println("-------------");
+        listUserConfigInformation(clientApi);
+        System.out.println("-------------");
+        setUserAuthConfigForBodgeit(clientApi);
+    }
 }
