@@ -25,70 +25,71 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Authentication extends org.zaproxy.clientapi.gen.deprecated.AuthenticationDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Authentication(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public Authentication(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	public ApiResponse getSupportedAuthenticationMethods() throws ClientApiException {
-		return api.callApi("authentication", "view", "getSupportedAuthenticationMethods", null);
-	}
+    public ApiResponse getSupportedAuthenticationMethods() throws ClientApiException {
+        return api.callApi("authentication", "view", "getSupportedAuthenticationMethods", null);
+    }
 
-	public ApiResponse getAuthenticationMethodConfigParams(String authmethodname) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("authMethodName", authmethodname);
-		return api.callApi("authentication", "view", "getAuthenticationMethodConfigParams", map);
-	}
+    public ApiResponse getAuthenticationMethodConfigParams(String authmethodname)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("authMethodName", authmethodname);
+        return api.callApi("authentication", "view", "getAuthenticationMethodConfigParams", map);
+    }
 
-	public ApiResponse getAuthenticationMethod(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		return api.callApi("authentication", "view", "getAuthenticationMethod", map);
-	}
+    public ApiResponse getAuthenticationMethod(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        return api.callApi("authentication", "view", "getAuthenticationMethod", map);
+    }
 
-	public ApiResponse getLoggedInIndicator(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		return api.callApi("authentication", "view", "getLoggedInIndicator", map);
-	}
+    public ApiResponse getLoggedInIndicator(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        return api.callApi("authentication", "view", "getLoggedInIndicator", map);
+    }
 
-	public ApiResponse getLoggedOutIndicator(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		return api.callApi("authentication", "view", "getLoggedOutIndicator", map);
-	}
+    public ApiResponse getLoggedOutIndicator(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        return api.callApi("authentication", "view", "getLoggedOutIndicator", map);
+    }
 
-	public ApiResponse setAuthenticationMethod(String contextid, String authmethodname, String authmethodconfigparams) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("authMethodName", authmethodname);
-		if (authmethodconfigparams != null) {
-			map.put("authMethodConfigParams", authmethodconfigparams);
-		}
-		return api.callApi("authentication", "action", "setAuthenticationMethod", map);
-	}
+    public ApiResponse setAuthenticationMethod(
+            String contextid, String authmethodname, String authmethodconfigparams)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("authMethodName", authmethodname);
+        if (authmethodconfigparams != null) {
+            map.put("authMethodConfigParams", authmethodconfigparams);
+        }
+        return api.callApi("authentication", "action", "setAuthenticationMethod", map);
+    }
 
-	public ApiResponse setLoggedInIndicator(String contextid, String loggedinindicatorregex) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("loggedInIndicatorRegex", loggedinindicatorregex);
-		return api.callApi("authentication", "action", "setLoggedInIndicator", map);
-	}
+    public ApiResponse setLoggedInIndicator(String contextid, String loggedinindicatorregex)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("loggedInIndicatorRegex", loggedinindicatorregex);
+        return api.callApi("authentication", "action", "setLoggedInIndicator", map);
+    }
 
-	public ApiResponse setLoggedOutIndicator(String contextid, String loggedoutindicatorregex) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("loggedOutIndicatorRegex", loggedoutindicatorregex);
-		return api.callApi("authentication", "action", "setLoggedOutIndicator", map);
-	}
-
+    public ApiResponse setLoggedOutIndicator(String contextid, String loggedoutindicatorregex)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("loggedOutIndicatorRegex", loggedoutindicatorregex);
+        return api.callApi("authentication", "action", "setLoggedOutIndicator", map);
+    }
 }

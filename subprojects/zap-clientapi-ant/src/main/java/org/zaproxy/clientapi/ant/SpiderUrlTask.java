@@ -22,31 +22,31 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class SpiderUrlTask extends ZapTask {
-	
-	private String url;
 
-	@Override
-	public void execute() throws BuildException {
-		try {
-			String scanId = extractValue(this.getClientApi().spider.scan(url, "", "", null, null));
+    private String url;
 
-			int progress;
-			do {
-				progress = Integer.parseInt(extractValue(this.getClientApi().spider.status(scanId)));
-				Thread.sleep(1000);
-			} while (progress < 100);
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            String scanId = extractValue(this.getClientApi().spider.scan(url, "", "", null, null));
 
-	public String getUrl() {
-		return url;
-	}
+            int progress;
+            do {
+                progress =
+                        Integer.parseInt(extractValue(this.getClientApi().spider.status(scanId)));
+                Thread.sleep(1000);
+            } while (progress < 100);
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

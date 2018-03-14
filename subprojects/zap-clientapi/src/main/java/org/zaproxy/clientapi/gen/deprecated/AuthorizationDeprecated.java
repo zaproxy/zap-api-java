@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class AuthorizationDeprecated {
 
@@ -39,8 +36,9 @@ public class AuthorizationDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setBasicAuthorizationDetectionMethod(
@@ -49,7 +47,8 @@ public class AuthorizationDeprecated {
             String headerregex,
             String bodyregex,
             String statuscode,
-            String logicaloperator) throws ClientApiException {
+            String logicaloperator)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -69,5 +68,4 @@ public class AuthorizationDeprecated {
         }
         return api.callApi("authorization", "action", "setBasicAuthorizationDetectionMethod", map);
     }
-
 }

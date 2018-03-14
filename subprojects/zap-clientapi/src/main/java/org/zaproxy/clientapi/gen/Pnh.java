@@ -25,83 +25,63 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Pnh extends org.zaproxy.clientapi.gen.deprecated.PnhDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Pnh(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public Pnh(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse monitor(String id, String message) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		map.put("message", message);
-		return api.callApi("pnh", "action", "monitor", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse monitor(String id, String message) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("message", message);
+        return api.callApi("pnh", "action", "monitor", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse oracle(String id) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		return api.callApi("pnh", "action", "oracle", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse oracle(String id) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        return api.callApi("pnh", "action", "oracle", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse startMonitoring(String url) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("url", url);
-		return api.callApi("pnh", "action", "startMonitoring", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse startMonitoring(String url) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("url", url);
+        return api.callApi("pnh", "action", "startMonitoring", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse stopMonitoring(String id) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("id", id);
-		return api.callApi("pnh", "action", "stopMonitoring", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse stopMonitoring(String id) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        return api.callApi("pnh", "action", "stopMonitoring", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public byte[] pnh() throws ClientApiException {
-		return api.callApiOther("pnh", "other", "pnh", null);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public byte[] pnh() throws ClientApiException {
+        return api.callApiOther("pnh", "other", "pnh", null);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public byte[] manifest() throws ClientApiException {
-		return api.callApiOther("pnh", "other", "manifest", null);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public byte[] manifest() throws ClientApiException {
+        return api.callApiOther("pnh", "other", "manifest", null);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public byte[] service() throws ClientApiException {
-		return api.callApiOther("pnh", "other", "service", null);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public byte[] service() throws ClientApiException {
+        return api.callApiOther("pnh", "other", "service", null);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public byte[] fx_pnhxpi() throws ClientApiException {
-		return api.callApiOther("pnh", "other", "fx_pnh.xpi", null);
-	}
-
+    /** This component is optional and therefore the API will only work if it is installed */
+    public byte[] fx_pnhxpi() throws ClientApiException {
+        return api.callApiOther("pnh", "other", "fx_pnh.xpi", null);
+    }
 }

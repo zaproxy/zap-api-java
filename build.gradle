@@ -28,6 +28,8 @@ subprojects {
     spotless {
         java {
             licenseHeaderFile "$rootDir/gradle/spotless/license.java"
+
+            googleJavaFormat().style('AOSP')
         }
     }
 }

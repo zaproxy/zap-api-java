@@ -25,74 +25,80 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class AlertFilter {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public AlertFilter(ClientApi api) {
-		this.api = api;
-	}
+    public AlertFilter(ClientApi api) {
+        this.api = api;
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse alertFilterList(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		if (contextid != null) {
-			map.put("contextId", contextid);
-		}
-		return api.callApi("alertFilter", "view", "alertFilterList", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse alertFilterList(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (contextid != null) {
+            map.put("contextId", contextid);
+        }
+        return api.callApi("alertFilter", "view", "alertFilterList", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse addAlertFilter(String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("ruleId", ruleid);
-		map.put("newLevel", newlevel);
-		if (url != null) {
-			map.put("url", url);
-		}
-		if (urlisregex != null) {
-			map.put("urlIsRegex", urlisregex);
-		}
-		if (parameter != null) {
-			map.put("parameter", parameter);
-		}
-		if (enabled != null) {
-			map.put("enabled", enabled);
-		}
-		return api.callApi("alertFilter", "action", "addAlertFilter", map);
-	}
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse addAlertFilter(
+            String contextid,
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("ruleId", ruleid);
+        map.put("newLevel", newlevel);
+        if (url != null) {
+            map.put("url", url);
+        }
+        if (urlisregex != null) {
+            map.put("urlIsRegex", urlisregex);
+        }
+        if (parameter != null) {
+            map.put("parameter", parameter);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("alertFilter", "action", "addAlertFilter", map);
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse removeAlertFilter(String contextid, String ruleid, String newlevel, String url, String urlisregex, String parameter, String enabled) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("ruleId", ruleid);
-		map.put("newLevel", newlevel);
-		if (url != null) {
-			map.put("url", url);
-		}
-		if (urlisregex != null) {
-			map.put("urlIsRegex", urlisregex);
-		}
-		if (parameter != null) {
-			map.put("parameter", parameter);
-		}
-		if (enabled != null) {
-			map.put("enabled", enabled);
-		}
-		return api.callApi("alertFilter", "action", "removeAlertFilter", map);
-	}
-
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse removeAlertFilter(
+            String contextid,
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("ruleId", ruleid);
+        map.put("newLevel", newlevel);
+        if (url != null) {
+            map.put("url", url);
+        }
+        if (urlisregex != null) {
+            map.put("urlIsRegex", urlisregex);
+        }
+        if (parameter != null) {
+            map.put("parameter", parameter);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("alertFilter", "action", "removeAlertFilter", map);
+    }
 }

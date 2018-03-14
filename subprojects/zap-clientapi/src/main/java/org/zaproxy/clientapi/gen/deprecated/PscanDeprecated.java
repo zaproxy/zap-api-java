@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class PscanDeprecated {
 
@@ -39,8 +36,9 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse setEnabled(String apikey, String enabled) throws ClientApiException {
@@ -53,8 +51,9 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse enableAllScanners(String apikey) throws ClientApiException {
@@ -66,8 +65,9 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse disableAllScanners(String apikey) throws ClientApiException {
@@ -79,8 +79,9 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse enableScanners(String apikey, String ids) throws ClientApiException {
@@ -93,8 +94,9 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse disableScanners(String apikey, String ids) throws ClientApiException {
@@ -107,11 +109,13 @@ public class PscanDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse setScannerAlertThreshold(String apikey, String id, String alertthreshold) throws ClientApiException {
+    public ApiResponse setScannerAlertThreshold(String apikey, String id, String alertthreshold)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -120,5 +124,4 @@ public class PscanDeprecated {
         map.put("alertThreshold", alertthreshold);
         return api.callApi("pscan", "action", "setScannerAlertThreshold", map);
     }
-
 }

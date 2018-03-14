@@ -22,52 +22,51 @@ package org.zaproxy.clientapi.core;
 import org.w3c.dom.Node;
 
 public class ApiResponseElement extends ApiResponse {
-	
-	public static ApiResponseElement OK = new ApiResponseElement("Result", "OK"); 
-	public static ApiResponseElement FAIL = new ApiResponseElement("Result", "FAIL"); 
-	
-	private String value = null;
 
-	public ApiResponseElement(String name) {
-		super(name);
-	}
+    public static ApiResponseElement OK = new ApiResponseElement("Result", "OK");
+    public static ApiResponseElement FAIL = new ApiResponseElement("Result", "FAIL");
 
-	public ApiResponseElement(String name, String value) {
-		super(name);
-		this.value = value;
-	}
+    private String value = null;
 
-	public ApiResponseElement(Node node, ApiResponse template) {
-		super(node.getNodeName());
-		this.value = node.getTextContent();
+    public ApiResponseElement(String name) {
+        super(name);
+    }
 
-	}
+    public ApiResponseElement(String name, String value) {
+        super(name);
+        this.value = value;
+    }
 
-	public ApiResponseElement(Node node) {
-		super(node.getNodeName());
-		this.value = node.getTextContent();
-	}
+    public ApiResponseElement(Node node, ApiResponse template) {
+        super(node.getNodeName());
+        this.value = node.getTextContent();
+    }
 
-	public String getValue() {
-		return value;
-	}
+    public ApiResponseElement(Node node) {
+        super(node.getNodeName());
+        this.value = node.getTextContent();
+    }
 
-	@Override
-	public String toString(int indent) {
-		StringBuilder sb = new StringBuilder();
-		for (int i=0 ; i < indent; i++) {
-			sb.append("\t");
-		}
-		sb.append("ApiResponseElement ");
-		sb.append(this.getName());
-		sb.append(" = " );
-		sb.append(this.getValue());
-		sb.append("\n");
-		return sb.toString();
-	}
+    public String getValue() {
+        return value;
+    }
 
-	@Override
-	public String toString() {
-		return getValue();
-	}
+    @Override
+    public String toString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < indent; i++) {
+            sb.append("\t");
+        }
+        sb.append("ApiResponseElement ");
+        sb.append(this.getName());
+        sb.append(" = ");
+        sb.append(this.getValue());
+        sb.append("\n");
+        return sb.toString();
+    }
+
+    @Override
+    public String toString() {
+        return getValue();
+    }
 }

@@ -25,28 +25,24 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Params {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Params(ClientApi api) {
-		this.api = api;
-	}
+    public Params(ClientApi api) {
+        this.api = api;
+    }
 
-	/**
-	 * Shows the parameters for the specified site, or for all sites if the site is not specified
-	 */
-	public ApiResponse params(String site) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		if (site != null) {
-			map.put("site", site);
-		}
-		return api.callApi("params", "view", "params", map);
-	}
-
+    /**
+     * Shows the parameters for the specified site, or for all sites if the site is not specified
+     */
+    public ApiResponse params(String site) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (site != null) {
+            map.put("site", site);
+        }
+        return api.callApi("params", "view", "params", map);
+    }
 }

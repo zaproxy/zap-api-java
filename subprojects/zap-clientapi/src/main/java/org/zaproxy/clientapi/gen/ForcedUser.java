@@ -25,53 +25,41 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class ForcedUser extends org.zaproxy.clientapi.gen.deprecated.ForcedUserDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public ForcedUser(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public ForcedUser(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	/**
-	 * Returns 'true' if 'forced user' mode is enabled, 'false' otherwise
-	 */
-	public ApiResponse isForcedUserModeEnabled() throws ClientApiException {
-		return api.callApi("forcedUser", "view", "isForcedUserModeEnabled", null);
-	}
+    /** Returns 'true' if 'forced user' mode is enabled, 'false' otherwise */
+    public ApiResponse isForcedUserModeEnabled() throws ClientApiException {
+        return api.callApi("forcedUser", "view", "isForcedUserModeEnabled", null);
+    }
 
-	/**
-	 * Gets the user (ID) set as 'forced user' for the given context (ID)
-	 */
-	public ApiResponse getForcedUser(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		return api.callApi("forcedUser", "view", "getForcedUser", map);
-	}
+    /** Gets the user (ID) set as 'forced user' for the given context (ID) */
+    public ApiResponse getForcedUser(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        return api.callApi("forcedUser", "view", "getForcedUser", map);
+    }
 
-	/**
-	 * Sets the user (ID) that should be used in 'forced user' mode for the given context (ID)
-	 */
-	public ApiResponse setForcedUser(String contextid, String userid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("userId", userid);
-		return api.callApi("forcedUser", "action", "setForcedUser", map);
-	}
+    /** Sets the user (ID) that should be used in 'forced user' mode for the given context (ID) */
+    public ApiResponse setForcedUser(String contextid, String userid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        return api.callApi("forcedUser", "action", "setForcedUser", map);
+    }
 
-	/**
-	 * Sets if 'forced user' mode should be enabled or not
-	 */
-	public ApiResponse setForcedUserModeEnabled(boolean bool) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("boolean", Boolean.toString(bool));
-		return api.callApi("forcedUser", "action", "setForcedUserModeEnabled", map);
-	}
-
+    /** Sets if 'forced user' mode should be enabled or not */
+    public ApiResponse setForcedUserModeEnabled(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("boolean", Boolean.toString(bool));
+        return api.callApi("forcedUser", "action", "setForcedUserModeEnabled", map);
+    }
 }

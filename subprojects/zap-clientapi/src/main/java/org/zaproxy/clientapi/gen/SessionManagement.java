@@ -25,44 +25,46 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class SessionManagement extends org.zaproxy.clientapi.gen.deprecated.SessionManagementDeprecated {
+public class SessionManagement
+        extends org.zaproxy.clientapi.gen.deprecated.SessionManagementDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public SessionManagement(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public SessionManagement(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	public ApiResponse getSupportedSessionManagementMethods() throws ClientApiException {
-		return api.callApi("sessionManagement", "view", "getSupportedSessionManagementMethods", null);
-	}
+    public ApiResponse getSupportedSessionManagementMethods() throws ClientApiException {
+        return api.callApi(
+                "sessionManagement", "view", "getSupportedSessionManagementMethods", null);
+    }
 
-	public ApiResponse getSessionManagementMethodConfigParams(String methodname) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("methodName", methodname);
-		return api.callApi("sessionManagement", "view", "getSessionManagementMethodConfigParams", map);
-	}
+    public ApiResponse getSessionManagementMethodConfigParams(String methodname)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("methodName", methodname);
+        return api.callApi(
+                "sessionManagement", "view", "getSessionManagementMethodConfigParams", map);
+    }
 
-	public ApiResponse getSessionManagementMethod(String contextid) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		return api.callApi("sessionManagement", "view", "getSessionManagementMethod", map);
-	}
+    public ApiResponse getSessionManagementMethod(String contextid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        return api.callApi("sessionManagement", "view", "getSessionManagementMethod", map);
+    }
 
-	public ApiResponse setSessionManagementMethod(String contextid, String methodname, String methodconfigparams) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("contextId", contextid);
-		map.put("methodName", methodname);
-		if (methodconfigparams != null) {
-			map.put("methodConfigParams", methodconfigparams);
-		}
-		return api.callApi("sessionManagement", "action", "setSessionManagementMethod", map);
-	}
-
+    public ApiResponse setSessionManagementMethod(
+            String contextid, String methodname, String methodconfigparams)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("methodName", methodname);
+        if (methodconfigparams != null) {
+            map.put("methodConfigParams", methodconfigparams);
+        }
+        return api.callApi("sessionManagement", "action", "setSessionManagementMethod", map);
+    }
 }

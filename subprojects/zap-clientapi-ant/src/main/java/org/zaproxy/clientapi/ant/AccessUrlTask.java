@@ -22,24 +22,24 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class AccessUrlTask extends ZapTask {
-	
-	private String url;
-	
-	@Override
-	public void execute() throws BuildException {
-		try {
-			this.getClientApi().accessUrl(url);
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
 
-	public String getUrl() {
-		return url;
-	}
+    private String url;
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            this.getClientApi().accessUrl(url);
+
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

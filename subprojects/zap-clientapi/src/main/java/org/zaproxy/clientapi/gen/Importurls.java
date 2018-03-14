@@ -25,26 +25,20 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Importurls {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Importurls(ClientApi api) {
-		this.api = api;
-	}
+    public Importurls(ClientApi api) {
+        this.api = api;
+    }
 
-	/**
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse importurls(String filepath) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("filePath", filepath);
-		return api.callApi("importurls", "action", "importurls", map);
-	}
-
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse importurls(String filepath) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("filePath", filepath);
+        return api.callApi("importurls", "action", "importurls", map);
+    }
 }
