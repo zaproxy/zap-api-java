@@ -4,6 +4,9 @@ Summary of the changes done in each version.
 
 ## 1.6.0 (Not yet released)
 
+### Changes
+
+ - Explicitly disable HTTP caching, to always obtain a fresh response from ZAP.
 
 ## 1.5.0 (2017-11-30)
 
