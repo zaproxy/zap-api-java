@@ -351,6 +351,7 @@ public class ClientApi {
 
     private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
         HttpURLConnection uc = (HttpURLConnection) request.getRequestUri().openConnection(proxy);
+        uc.setUseCaches(false);
         for (Entry<String, String> header : request.getHeaders().entrySet()) {
             uc.setRequestProperty(header.getKey(), header.getValue());
         }
