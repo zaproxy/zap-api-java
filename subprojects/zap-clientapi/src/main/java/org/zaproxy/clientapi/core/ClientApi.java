@@ -72,6 +72,7 @@ import org.zaproxy.clientapi.gen.SessionManagement;
 import org.zaproxy.clientapi.gen.Spider;
 import org.zaproxy.clientapi.gen.Stats;
 import org.zaproxy.clientapi.gen.Users;
+import org.zaproxy.clientapi.gen.Websocket;
 
 public class ClientApi {
 
@@ -117,6 +118,7 @@ public class ClientApi {
     public Spider spider = new Spider(this);
     public Stats stats = new Stats(this);
     public Users users = new Users(this);
+    public Websocket websocket = new Websocket(this);
 
     public ClientApi(String zapAddress, int zapPort) {
         this(zapAddress, zapPort, false);
