@@ -2,6 +2,8 @@
 
 Summary of the changes done in each version.
 
+## 1.7.0-SNAPSHOT (Not yet released)
+
 ## 1.6.0 (2018-04-10)
 
 ### Changes

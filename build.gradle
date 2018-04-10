@@ -14,8 +14,8 @@ subprojects {
 
     group = 'org.zaproxy'
 
-    version '1.6.0'
-    ext.versionBC = '1.5.0'
+    version '1.7.0-SNAPSHOT'
+    ext.versionBC = '1.6.0'
 
     repositories {
         mavenLocal()
