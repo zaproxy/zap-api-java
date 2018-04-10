@@ -3,13 +3,13 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2011 The Zed Attack Proxy Team
+ * Copyright 2011 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,31 +22,31 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class SpiderUrlTask extends ZapTask {
-	
-	private String url;
 
-	@Override
-	public void execute() throws BuildException {
-		try {
-			String scanId = extractValue(this.getClientApi().spider.scan(url, "", "", null, null));
+    private String url;
 
-			int progress;
-			do {
-				progress = Integer.parseInt(extractValue(this.getClientApi().spider.status(scanId)));
-				Thread.sleep(1000);
-			} while (progress < 100);
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            String scanId = extractValue(this.getClientApi().spider.scan(url, "", "", null, null));
 
-	public String getUrl() {
-		return url;
-	}
+            int progress;
+            do {
+                progress =
+                        Integer.parseInt(extractValue(this.getClientApi().spider.status(scanId)));
+                Thread.sleep(1000);
+            } while (progress < 100);
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

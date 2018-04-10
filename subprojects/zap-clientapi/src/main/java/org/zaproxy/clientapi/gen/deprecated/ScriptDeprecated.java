@@ -1,10 +1,10 @@
 /*
  * Zed Attack Proxy (ZAP) and its related class files.
- * 
+ *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
- * 
+ *
  * Copyright 2017 The ZAP Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,14 +21,11 @@ package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/**
- * API implementation with deprecated methods, (re)moved from generated class.
- */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
 public class ScriptDeprecated {
 
@@ -39,8 +36,9 @@ public class ScriptDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse enable(String apikey, String scriptname) throws ClientApiException {
@@ -53,8 +51,9 @@ public class ScriptDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse disable(String apikey, String scriptname) throws ClientApiException {
@@ -67,8 +66,9 @@ public class ScriptDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse load(
@@ -77,7 +77,8 @@ public class ScriptDeprecated {
             String scripttype,
             String scriptengine,
             String filename,
-            String scriptdescription) throws ClientApiException {
+            String scriptdescription)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -93,8 +94,9 @@ public class ScriptDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
     public ApiResponse remove(String apikey, String scriptname) throws ClientApiException {
@@ -107,11 +109,13 @@ public class ScriptDeprecated {
     }
 
     /**
-     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi} constructors that allow to
-     *             set the API key (e.g. {@link ClientApi#ClientApi(String, int, String)}).
+     * @deprecated (1.1.0) Use the method without the API key and use one of the {@code ClientApi}
+     *     constructors that allow to set the API key (e.g. {@link ClientApi#ClientApi(String, int,
+     *     String)}).
      */
     @Deprecated
-    public ApiResponse runStandAloneScript(String apikey, String scriptname) throws ClientApiException {
+    public ApiResponse runStandAloneScript(String apikey, String scriptname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (apikey != null) {
             map.put("apikey", apikey);
@@ -121,9 +125,16 @@ public class ScriptDeprecated {
     }
 
     /**
-     * Loads a script into ZAP from the given local file, with the given name, type and engine, optionally with a description
+     * Loads a script into ZAP from the given local file, with the given name, type and engine,
+     * optionally with a description
      */
-    public ApiResponse load(String scriptname, String scripttype, String scriptengine, String filename, String scriptdescription) throws ClientApiException {
+    public ApiResponse load(
+            String scriptname,
+            String scripttype,
+            String scriptengine,
+            String filename,
+            String scriptdescription)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scriptName", scriptname);
         map.put("scriptType", scripttype);

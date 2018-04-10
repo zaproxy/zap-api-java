@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2011 The ZAP Development Team
+ * Copyright $YEAR The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zaproxy.clientapi.ant;
-
-import org.apache.tools.ant.BuildException;
-
-public class NewSessionTask extends ZapTask {
-
-    private String name;
-
-    @Override
-    public void execute() throws BuildException {
-        try {
-            this.getClientApi().core.newSession(name, "true");
-
-        } catch (Exception e) {
-            throw new BuildException(e);
-        }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}

@@ -1,14 +1,15 @@
-/* Zed Attack Proxy (ZAP) and its related class files.
+/*
+ * Zed Attack Proxy (ZAP) and its related class files.
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2017 the ZAP development team
+ * Copyright 2017 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -16,8 +17,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-
 package org.zaproxy.clientapi.gen;
 
 import java.util.HashMap;
@@ -26,38 +25,34 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-
-/**
- * This file was automatically generated.
- */
+/** This file was automatically generated. */
 @SuppressWarnings("javadoc")
 public class Reveal extends org.zaproxy.clientapi.gen.deprecated.RevealDeprecated {
 
-	private final ClientApi api;
+    private final ClientApi api;
 
-	public Reveal(ClientApi api) {
-		super(api);
-		this.api = api;
-	}
+    public Reveal(ClientApi api) {
+        super(api);
+        this.api = api;
+    }
 
-	/**
-	 * Tells if shows hidden fields and enables disabled fields
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse reveal() throws ClientApiException {
-		return api.callApi("reveal", "view", "reveal", null);
-	}
+    /**
+     * Tells if shows hidden fields and enables disabled fields
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse reveal() throws ClientApiException {
+        return api.callApi("reveal", "view", "reveal", null);
+    }
 
-	/**
-	 * Sets if shows hidden fields and enables disabled fields
-	 * <p>
-	 * This component is optional and therefore the API will only work if it is installed
-	 */
-	public ApiResponse setReveal(String reveal) throws ClientApiException {
-		Map<String, String> map = new HashMap<>();
-		map.put("reveal", reveal);
-		return api.callApi("reveal", "action", "setReveal", map);
-	}
-
+    /**
+     * Sets if shows hidden fields and enables disabled fields
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setReveal(String reveal) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("reveal", reveal);
+        return api.callApi("reveal", "action", "setReveal", map);
+    }
 }

@@ -1,11 +1,10 @@
 plugins {
-    id "me.champeau.gradle.japicmp" version "0.2.5"
-    id "org.owasp.dependencycheck" version "1.4.4.1"
+    id "me.champeau.gradle.japicmp" version "0.2.6"
+    id "org.owasp.dependencycheck" version "3.1.1"
 }
 
 apply plugin: 'maven'
 apply plugin: 'signing'
-apply plugin: 'org.owasp.dependencycheck'
 
 dependencies { compile 'org.jdom:jdom:1.1.3' }
 
@@ -28,10 +27,16 @@ dependencies {
     japicmpBaseline ("${project.group}:${project.name}:$versionBC") { force = true }
 }
 
+dependencyCheck {
+    skipConfigurations += "japicmpBaseline"
+}
+
 task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     group 'verification'
     description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
-    check.dependsOn 'japicmp'
+    if (!JavaVersion.current().isJava9Compatible()) {
+        check.dependsOn 'japicmp'
+    }
     inputs.file(jar)
 
     oldClasspath = configurations.japicmpBaseline

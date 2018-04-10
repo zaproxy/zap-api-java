@@ -3,13 +3,13 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2012 The Zed Attack Proxy Team
+ * Copyright 2012 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,44 +19,42 @@
  */
 package org.zaproxy.clientapi.core;
 
-
 public class ClientApiException extends Exception {
 
-	private static final long serialVersionUID = 1L;
-	
-	private final String code;
-	private final String detail;
-	
-	public ClientApiException(Exception e) {
-		super(e);
-		this.code = null;
-		this.detail = null;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public ClientApiException(String s) {
-		super(s);
-		this.code = null;
-		this.detail = null;
-	}
+    private final String code;
+    private final String detail;
 
-	public ClientApiException(String message, Exception cause) {
-		super(message, cause);
-		this.code = null;
-		this.detail = null;
-	}
+    public ClientApiException(Exception e) {
+        super(e);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public ClientApiException(String message, String code, String detail) {
-		super(message);
-		this.code = code;
-		this.detail = detail;
-	}
+    public ClientApiException(String s) {
+        super(s);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public String getCode() {
-		return code;
-	}
+    public ClientApiException(String message, Exception cause) {
+        super(message, cause);
+        this.code = null;
+        this.detail = null;
+    }
 
-	public String getDetail() {
-		return detail;
-	}
-	
+    public ClientApiException(String message, String code, String detail) {
+        super(message);
+        this.code = code;
+        this.detail = detail;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
 }

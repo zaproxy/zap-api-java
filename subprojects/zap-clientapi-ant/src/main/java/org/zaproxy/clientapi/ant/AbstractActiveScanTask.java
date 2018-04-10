@@ -1,10 +1,10 @@
 /*
  * Zed Attack Proxy (ZAP) and its related class files.
- * 
+ *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
- * 
+ *
  * Copyright 2017 The ZAP Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -25,32 +25,32 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 public abstract class AbstractActiveScanTask extends ZapTask {
 
-	private String url;
+    private String url;
 
-	public String getUrl() {
-		return url;
-	}
+    public String getUrl() {
+        return url;
+    }
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
-	@Override
-	public void execute() throws BuildException {
-		try {
-			waitForActiveScan(extractValue(startScan()));
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            waitForActiveScan(extractValue(startScan()));
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
 
-	protected abstract ApiResponse startScan() throws ClientApiException;
+    protected abstract ApiResponse startScan() throws ClientApiException;
 
-	private void waitForActiveScan(String scanId) throws ClientApiException, InterruptedException {
-		int progress;
-		do {
-			progress = Integer.parseInt(extractValue(getClientApi().ascan.status(scanId)));
-			Thread.sleep(1000);
-		} while (progress < 100);
-	}
+    private void waitForActiveScan(String scanId) throws ClientApiException, InterruptedException {
+        int progress;
+        do {
+            progress = Integer.parseInt(extractValue(getClientApi().ascan.status(scanId)));
+            Thread.sleep(1000);
+        } while (progress < 100);
+    }
 }

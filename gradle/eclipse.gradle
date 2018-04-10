@@ -1,4 +1,0 @@
-allprojects {
-    apply plugin: 'eclipse'
-
-}

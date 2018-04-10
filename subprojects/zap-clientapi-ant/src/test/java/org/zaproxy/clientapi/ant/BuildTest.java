@@ -1,10 +1,10 @@
 /*
  * Zed Attack Proxy (ZAP) and its related class files.
- * 
+ *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
- * 
+ *
  * Copyright 2017 The ZAP Development Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,13 +21,13 @@ package org.zaproxy.clientapi.ant;
 
 import static org.junit.Assert.assertTrue;
 
+import fi.iki.elonen.NanoHTTPD;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.BuildFileRule;
 import org.apache.tools.ant.filters.StringInputStream;
@@ -39,11 +39,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-import fi.iki.elonen.NanoHTTPD;
-
-/**
- * Tests that the tasks accept the expected attributes and nested elements.
- */
+/** Tests that the tasks accept the expected attributes and nested elements. */
 public class BuildTest {
 
     private static final String BUILD_FILE_NAME = "build.xml";
@@ -52,17 +48,16 @@ public class BuildTest {
     private static SimpleServer zap;
     private static SimpleServer targetSite;
 
-    @Rule
-    public final TemporaryFolder buildDir = new TemporaryFolder();
+    @Rule public final TemporaryFolder buildDir = new TemporaryFolder();
 
-    @Rule
-    public final BuildFileRule buildRule = new BuildFileRule();
+    @Rule public final BuildFileRule buildRule = new BuildFileRule();
 
     @BeforeClass
     public static void setUp() throws IOException {
-        zap = new SimpleServer(
-                "text/xml; charset=UTF-8",
-                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><response>OK</response>");
+        zap =
+                new SimpleServer(
+                        "text/xml; charset=UTF-8",
+                        "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><response>OK</response>");
 
         targetSite = new SimpleServer("text/plain", "");
     }
@@ -88,7 +83,9 @@ public class BuildTest {
         buildRule.getProject().setProperty("zap.addr", "localhost");
         buildRule.getProject().setProperty("zap.port", Integer.toString(zap.getListeningPort()));
         buildRule.getProject().setProperty("zap.key", "API_KEY");
-        buildRule.getProject().setProperty("zap.targetUrl", "http://localhost:" + targetSite.getListeningPort());
+        buildRule
+                .getProject()
+                .setProperty("zap.targetUrl", "http://localhost:" + targetSite.getListeningPort());
         buildRule.getProject().setProperty("zap.session", "session");
         buildRule.getProject().setProperty("zap.report.path", REPORT_PATH);
         buildRule.getProject().setProperty("zap.report.type", "html");
@@ -197,7 +194,11 @@ public class BuildTest {
             if (response == null) {
                 response = defaultResponse;
             }
-            return new Response(Response.Status.OK, mimeType, new StringInputStream(response), response.length()) {
+            return new Response(
+                    Response.Status.OK,
+                    mimeType,
+                    new StringInputStream(response),
+                    response.length()) {
                 // Extend to access the constructor.
             };
         }

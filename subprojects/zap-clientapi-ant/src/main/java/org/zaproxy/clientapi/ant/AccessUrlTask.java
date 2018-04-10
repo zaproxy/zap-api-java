@@ -3,13 +3,13 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2011 The Zed Attack Proxy Team
+ * Copyright 2011 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *   http://www.apache.org/licenses/LICENSE-2.0
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,24 +22,24 @@ package org.zaproxy.clientapi.ant;
 import org.apache.tools.ant.BuildException;
 
 public class AccessUrlTask extends ZapTask {
-	
-	private String url;
-	
-	@Override
-	public void execute() throws BuildException {
-		try {
-			this.getClientApi().accessUrl(url);
-			
-		} catch (Exception e) {
-			throw new BuildException(e);
-		}
-	}
 
-	public String getUrl() {
-		return url;
-	}
+    private String url;
 
-	public void setUrl(String url) {
-		this.url = url;
-	}
+    @Override
+    public void execute() throws BuildException {
+        try {
+            this.getClientApi().accessUrl(url);
+
+        } catch (Exception e) {
+            throw new BuildException(e);
+        }
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
