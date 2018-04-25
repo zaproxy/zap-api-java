@@ -90,7 +90,7 @@ public class FormBasedAuthentication {
                                 + "' config param: "
                                 + set.getValue("name")
                                 + " ("
-                                + (set.getValue("mandatory").equals("true")
+                                + (set.getStringValue("mandatory").equals("true")
                                         ? "mandatory"
                                         : "optional")
                                 + ")");
@@ -110,7 +110,7 @@ public class FormBasedAuthentication {
         for (ApiResponse r : configParamsList.getItems()) {
             ApiResponseSet set = (ApiResponseSet) r;
             sb.append(set.getValue("name")).append(" (");
-            sb.append((set.getValue("mandatory").equals("true") ? "mandatory" : "optional"));
+            sb.append((set.getStringValue("mandatory").equals("true") ? "mandatory" : "optional"));
             sb.append("), ");
         }
         System.out.println(sb.deleteCharAt(sb.length() - 2).toString());
