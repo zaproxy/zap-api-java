@@ -7,8 +7,6 @@ dependencies {
     testCompile 'org.nanohttpd:nanohttpd:2.3.1'
 }
 
-sourceSets { examples }
-
 jar {
     manifest {
         attributes 'Implementation-Title': 'OWASP ZAP Ant API Client',

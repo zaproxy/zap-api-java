@@ -1,6 +1,6 @@
 plugins {
     id "me.champeau.gradle.japicmp" version "0.2.6"
-    id "org.owasp.dependencycheck" version "3.1.1"
+    id "org.owasp.dependencycheck" version "3.1.2"
 }
 
 apply plugin: 'maven'
@@ -37,7 +37,7 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     if (!JavaVersion.current().isJava9Compatible()) {
         check.dependsOn 'japicmp'
     }
-    inputs.file(jar)
+    inputs.files(jar)
 
     oldClasspath = configurations.japicmpBaseline
     newClasspath = configurations.runtime + files(jar)
