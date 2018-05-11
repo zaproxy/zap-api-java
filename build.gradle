@@ -9,7 +9,7 @@ task wrapper(type: Wrapper) {
 apply from: "gradle/compile.gradle"
 
 subprojects {
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'com.diffplug.gradle.spotless'
 
     group = 'org.zaproxy'

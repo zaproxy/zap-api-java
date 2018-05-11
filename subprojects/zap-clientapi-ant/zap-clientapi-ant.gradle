@@ -1,10 +1,10 @@
 
 dependencies {
-    compile project(':zap-clientapi')
+    implementation project(':zap-clientapi')
     compileOnly 'org.apache.ant:ant:1.9.7'
 
-    testCompile 'org.apache.ant:ant-testutil:1.9.7'
-    testCompile 'org.nanohttpd:nanohttpd:2.3.1'
+    testImplementation 'org.apache.ant:ant-testutil:1.9.7'
+    testImplementation 'org.nanohttpd:nanohttpd:2.3.1'
 }
 
 jar {
