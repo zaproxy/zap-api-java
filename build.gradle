@@ -1,9 +1,10 @@
 plugins {
-    id "com.diffplug.gradle.spotless" version "3.10.0" apply false
+    id "com.diffplug.gradle.spotless" version "3.13.0" apply false
 }
 
 wrapper {
-    gradleVersion = '4.7'
+    gradleVersion = '4.8.1'
+    distributionType = Wrapper.DistributionType.ALL
 }
 
 apply from: "gradle/compile.gradle"

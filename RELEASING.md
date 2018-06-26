@@ -56,7 +56,7 @@ Create the artifacts/libraries necessary for the release:
 
 To upload the built artifacts to OSSRH you can run the following:
 
-    ./gradlew uploadArchives
+    ./gradlew publish
 
 Once uploaded continue with the release process in OSSRH:
 http://central.sonatype.org/pages/releasing-the-deployment.html
