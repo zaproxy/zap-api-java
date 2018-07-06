@@ -18,6 +18,8 @@
  * limitations under the License.
  */
 
+enableFeaturePreview('STABLE_PUBLISHING')
+
 include 'zap-clientapi'
 include 'zap-clientapi-ant'
 
