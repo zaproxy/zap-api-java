@@ -44,6 +44,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
@@ -89,6 +90,8 @@ public class ClientApi {
     private final int zapPort;
 
     private final String apiKey;
+
+    private DocumentBuilderFactory docBuilderFactory;
 
     // Note that any new API implementations added have to be added here manually
     public Acsrf acsrf = new Acsrf(this);
@@ -340,15 +343,34 @@ public class ClientApi {
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
-            // get the factory
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            // Using factory get an instance of document builder
-            DocumentBuilder db = dbf.newDocumentBuilder();
+            DocumentBuilder db = getDocumentBuilderFactory().newDocumentBuilder();
             // parse using builder to get DOM representation of the XML file
             return db.parse(getConnectionInputStream(request));
         } catch (Exception e) {
             throw new ClientApiException(e);
         }
+    }
+
+    /**
+     * Gets the {@code DocumentBuilderFactory} instance with XML External Entity (XXE) processing
+     * disabled.
+     *
+     * @return the {@code DocumentBuilderFactory} instance with XXE processing disabled.
+     * @throws ParserConfigurationException if an error occurred while disabling XXE processing.
+     * @see DocumentBuilderFactory
+     */
+    private DocumentBuilderFactory getDocumentBuilderFactory() throws ParserConfigurationException {
+        if (docBuilderFactory == null) {
+            // Disable XXE processing, not required by default.
+            // https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setExpandEntityReferences(false);
+            docBuilderFactory = factory;
+        }
+        return docBuilderFactory;
     }
 
     private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
