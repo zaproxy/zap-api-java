@@ -230,7 +230,7 @@ public class ClientApi {
                     results.get("ignoredAlerts"),
                     outputFile);
         } catch (Exception e) {
-            throw new ClientApiException(e);
+            throw new ClientApiException("Failed to save the alerts:", e);
         }
         if (alertsFound > 0 || alertsNotFound > 0) {
             throw new ClientApiException("Check Alerts Failed!\n" + resultsString);
