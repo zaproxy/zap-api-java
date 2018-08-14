@@ -17,14 +17,14 @@ This project produces two libraries:
 
 The latest released versions can be downloaded from the [Releases page](https://github.com/zaproxy/zap-api-java/releases).
 
-Or, if using a dependency management tool, for example [Maven](https://maven.apache.org/), the `zap-clientapi` library
+Or, if using a dependency management tool, for example [Maven](https://maven.apache.org/) or [Gradle](https://gradle.org/), the `zap-clientapi` library
 can be obtained from [Maven Central](http://search.maven.org/) with following coordinates:
 
  * GroupId: `org.zaproxy`
  * ArtifactId: `zap-clientapi`
  * Version: `1.6.0`
 
-Previous releases are also available, more details can be found in [Maven Central](http://search.maven.org/#search|ga|1|org.zaproxy).
+Previous releases are also available, more details can be found in [Maven Central](https://search.maven.org/search?q=g:org.zaproxy%20AND%20a:zap-clientapi&core=gav).
 
 ## Getting Help
 
