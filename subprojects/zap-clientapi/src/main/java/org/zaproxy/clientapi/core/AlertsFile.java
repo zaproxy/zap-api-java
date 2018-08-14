@@ -73,7 +73,7 @@ public class AlertsFile {
         writeAlertsToFile(outputFile, alertsDocument);
     }
 
-    private static void writeAlertsToFile(File outputFile, Document doc) {
+    private static void writeAlertsToFile(File outputFile, Document doc) throws IOException {
 
         XMLOutputter xmlOutput = new XMLOutputter();
 
@@ -81,8 +81,6 @@ public class AlertsFile {
         try (OutputStream os = Files.newOutputStream(outputFile.toPath())) {
             xmlOutput.output(doc, os);
             System.out.println("alert xml report saved to: " + outputFile.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
