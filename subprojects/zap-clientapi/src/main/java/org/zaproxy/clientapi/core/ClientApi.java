@@ -413,6 +413,20 @@ public class ClientApi {
         }
     }
 
+    /**
+     * Builds a request for the ZAP API with the given data.
+     *
+     * <p>As the API client proxies through ZAP the built API requests use a specific domain, {@code
+     * zap}, to ensure that they are always handled by ZAP (and not forward).
+     *
+     * @param format the desired format of the API response (e.g. XML, JSON, other).
+     * @param component the API component (e.g. core, spider).
+     * @param type the type of the API endpoint (e.g. action, view).
+     * @param method the name of the endpoint.
+     * @param params the parameters for the endpoint.
+     * @return the API request.
+     * @throws MalformedURLException if an error occurred while building the URL.
+     */
     private HttpRequest buildZapRequest(
             String format, String component, String type, String method, Map<String, String> params)
             throws MalformedURLException {
