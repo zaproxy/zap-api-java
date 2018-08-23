@@ -1,3 +1,12 @@
+buildscript {
+    repositories {
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath JavaVersion.current() == JavaVersion.VERSION_1_8 ? "net.ltgt.gradle:gradle-errorprone-plugin:0.0.16" : "net.ltgt.gradle:gradle-errorprone-javacplugin-plugin:0.3"
+    }
+}
+
 plugins {
     id "com.diffplug.gradle.spotless" version "3.13.0" apply false
 }
@@ -12,6 +21,7 @@ apply from: "gradle/compile.gradle"
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'com.diffplug.gradle.spotless'
+    apply plugin: JavaVersion.current() == JavaVersion.VERSION_1_8 ? "net.ltgt.errorprone" : "net.ltgt.errorprone-javacplugin"
 
     group = 'org.zaproxy'
 
@@ -32,5 +42,9 @@ subprojects {
 
             googleJavaFormat().style('AOSP')
         }
+    }
+
+    dependencies {
+        errorprone 'com.google.errorprone:error_prone_core:2.3.1'
     }
 }
