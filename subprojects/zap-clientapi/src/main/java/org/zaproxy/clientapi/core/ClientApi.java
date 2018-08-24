@@ -35,6 +35,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -305,9 +306,9 @@ public class ClientApi {
             HttpURLConnection uc = (HttpURLConnection) url.openConnection(proxy);
             uc.connect();
 
-            BufferedReader in;
-            try {
-                in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+            try (BufferedReader in =
+                    new BufferedReader(
+                            new InputStreamReader(uc.getInputStream(), StandardCharsets.UTF_8))) {
                 String inputLine;
 
                 while ((inputLine = in.readLine()) != null) {
@@ -315,7 +316,6 @@ public class ClientApi {
                         debugStream.println(inputLine);
                     }
                 }
-                in.close();
 
             } catch (IOException e) {
                 // Ignore
@@ -468,7 +468,7 @@ public class ClientApi {
     /**
      * Adds the given regular expression to the exclusion list of the given context.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
@@ -476,15 +476,15 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addExcludeFromContext(String apikey, String contextName, String regex)
+    public void addExcludeFromContext(String apiKey, String contextName, String regex)
             throws Exception {
-        context.excludeFromContext(apikey, contextName, regex);
+        context.excludeFromContext(apiKey, contextName, regex);
     }
 
     /**
      * Adds the given regular expression to the inclusion list of the given context.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
@@ -492,9 +492,9 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addIncludeInContext(String apikey, String contextName, String regex)
+    public void addIncludeInContext(String apiKey, String contextName, String regex)
             throws Exception {
-        context.includeInContext(apikey, contextName, regex);
+        context.includeInContext(apiKey, contextName, regex);
     }
 
     /**
@@ -503,21 +503,21 @@ public class ClientApi {
      *
      * <p>Nodes that do not match the regular expression are excluded.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to match the node/URL.
      * @throws Exception if an error occurred while calling the API.
      * @deprecated (1.1.0) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
      */
     @Deprecated
-    public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex)
+    public void includeOneMatchingNodeInContext(String apiKey, String contextName, String regex)
             throws Exception {
         List<String> sessionUrls = getSessionUrls();
         boolean foundOneMatch = false;
         for (String sessionUrl : sessionUrls) {
             if (sessionUrl.matches(regex)) {
                 if (foundOneMatch) {
-                    addExcludeFromContext(apikey, contextName, sessionUrl);
+                    addExcludeFromContext(apiKey, contextName, sessionUrl);
                 } else {
                     foundOneMatch = true;
                 }
@@ -577,15 +577,15 @@ public class ClientApi {
      *
      * <p>The method returns only after the scan has finished.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
      * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be
      *     set using one of the {@code ClientApi} constructors.
      */
     @Deprecated
-    public void activeScanSiteInScope(String apikey, String url) throws Exception {
-        ascan.scan(apikey, url, "true", "true", "", "", "");
+    public void activeScanSiteInScope(String apiKey, String url) throws Exception {
+        ascan.scan(apiKey, url, "true", "true", "", "", "");
         waitForAScanToFinish(url);
     }
 

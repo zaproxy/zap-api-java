@@ -19,6 +19,7 @@
  */
 package org.zaproxy.clientapi.examples;
 
+import java.nio.charset.StandardCharsets;
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ApiResponseElement;
 import org.zaproxy.clientapi.core.ClientApi;
@@ -89,7 +90,7 @@ public class SimpleExample {
             System.out.println("Active Scan complete");
 
             System.out.println("Alerts:");
-            System.out.println(new String(api.core.xmlreport()));
+            System.out.println(new String(api.core.xmlreport(), StandardCharsets.UTF_8));
 
         } catch (Exception e) {
             System.out.println("Exception : " + e.getMessage());

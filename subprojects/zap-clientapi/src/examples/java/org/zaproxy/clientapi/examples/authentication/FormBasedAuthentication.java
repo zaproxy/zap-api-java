@@ -21,7 +21,7 @@ package org.zaproxy.clientapi.examples.authentication;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ApiResponseElement;
@@ -66,7 +66,7 @@ public class FormBasedAuthentication {
 
     private static void listAuthInformation(ClientApi clientApi) throws ClientApiException {
         // Check out which authentication methods are supported by the API
-        List<String> supportedMethodNames = new LinkedList<>();
+        List<String> supportedMethodNames = new ArrayList<>();
         ApiResponseList authMethodsList =
                 (ApiResponseList) clientApi.authentication.getSupportedAuthenticationMethods();
         for (ApiResponse authMethod : authMethodsList.getItems()) {
