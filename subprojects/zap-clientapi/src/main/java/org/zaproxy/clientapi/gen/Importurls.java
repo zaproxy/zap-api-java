@@ -35,7 +35,11 @@ public class Importurls {
         this.api = api;
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Imports URLs (one per line) from the file with the given file system path.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse importurls(String filepath) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("filePath", filepath);

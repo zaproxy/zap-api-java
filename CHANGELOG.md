@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add API for SOAP Scanner add-on, version 3.
 
+### Changed
+- Update Replacer API, per release of version 7.
+- Add description to Importurls API endpoint.
+
 ### Fixed
 - Disable XXE processing when parsing ZAP API responses.
 - Ensure alerts file is always closed.
@@ -20,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Explicitly disable HTTP caching, to always obtain a fresh response from ZAP.
 
 ## [1.5.0] - 2017-11-30
-### Updated
+### Changed
 - Core APIs updated for ZAP version 2.7.0.
 
 ## [1.4.0] - 2017-07-13
