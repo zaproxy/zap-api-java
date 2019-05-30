@@ -36,10 +36,12 @@ public class Authentication extends org.zaproxy.clientapi.gen.deprecated.Authent
         this.api = api;
     }
 
+    /** Gets the name of the authentication methods. */
     public ApiResponse getSupportedAuthenticationMethods() throws ClientApiException {
         return api.callApi("authentication", "view", "getSupportedAuthenticationMethods", null);
     }
 
+    /** Gets the configuration parameters for the authentication method with the given name. */
     public ApiResponse getAuthenticationMethodConfigParams(String authmethodname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -47,24 +49,28 @@ public class Authentication extends org.zaproxy.clientapi.gen.deprecated.Authent
         return api.callApi("authentication", "view", "getAuthenticationMethodConfigParams", map);
     }
 
+    /** Gets the name of the authentication method for the context with the given ID. */
     public ApiResponse getAuthenticationMethod(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
         return api.callApi("authentication", "view", "getAuthenticationMethod", map);
     }
 
+    /** Gets the logged in indicator for the context with the given ID. */
     public ApiResponse getLoggedInIndicator(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
         return api.callApi("authentication", "view", "getLoggedInIndicator", map);
     }
 
+    /** Gets the logged out indicator for the context with the given ID. */
     public ApiResponse getLoggedOutIndicator(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
         return api.callApi("authentication", "view", "getLoggedOutIndicator", map);
     }
 
+    /** Sets the authentication method for the context with the given ID. */
     public ApiResponse setAuthenticationMethod(
             String contextid, String authmethodname, String authmethodconfigparams)
             throws ClientApiException {
@@ -77,6 +83,7 @@ public class Authentication extends org.zaproxy.clientapi.gen.deprecated.Authent
         return api.callApi("authentication", "action", "setAuthenticationMethod", map);
     }
 
+    /** Sets the logged in indicator for the context with the given ID. */
     public ApiResponse setLoggedInIndicator(String contextid, String loggedinindicatorregex)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -85,6 +92,7 @@ public class Authentication extends org.zaproxy.clientapi.gen.deprecated.Authent
         return api.callApi("authentication", "action", "setLoggedInIndicator", map);
     }
 
+    /** Sets the logged out indicator for the context with the given ID. */
     public ApiResponse setLoggedOutIndicator(String contextid, String loggedoutindicatorregex)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();

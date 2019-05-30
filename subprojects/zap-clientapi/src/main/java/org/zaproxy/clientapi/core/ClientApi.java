@@ -99,6 +99,7 @@ public class ClientApi {
     public Acsrf acsrf = new Acsrf(this);
     public AjaxSpider ajaxSpider = new AjaxSpider(this);
     public AlertFilter alertFilter = new AlertFilter(this);
+    public org.zaproxy.clientapi.gen.Alert alert = new org.zaproxy.clientapi.gen.Alert(this);
     public Ascan ascan = new Ascan(this);
     public Authentication authentication = new Authentication(this);
     public Authorization authorization = new Authorization(this);
@@ -246,7 +247,8 @@ public class ClientApi {
 
     public List<Alert> getAlerts(String baseUrl, int start, int count) throws ClientApiException {
         List<Alert> alerts = new ArrayList<Alert>();
-        ApiResponse response = core.alerts(baseUrl, String.valueOf(start), String.valueOf(count));
+        ApiResponse response =
+                alert.alerts(baseUrl, String.valueOf(start), String.valueOf(count), null);
         if (response != null && response instanceof ApiResponseList) {
             ApiResponseList alertList = (ApiResponseList) response;
             for (ApiResponse resp : alertList.getItems()) {

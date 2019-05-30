@@ -36,6 +36,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         this.api = api;
     }
 
+    /**
+     * Returns the URLs of the HTTP messages that match the given regular expression in the URL
+     * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse urlsByUrlRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -52,6 +56,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "urlsByUrlRegex", map);
     }
 
+    /**
+     * Returns the URLs of the HTTP messages that match the given regular expression in the request
+     * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse urlsByRequestRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -68,6 +76,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "urlsByRequestRegex", map);
     }
 
+    /**
+     * Returns the URLs of the HTTP messages that match the given regular expression in the response
+     * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse urlsByResponseRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -84,6 +96,11 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "urlsByResponseRegex", map);
     }
 
+    /**
+     * Returns the URLs of the HTTP messages that match the given regular expression in the
+     * header(s) optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
     public ApiResponse urlsByHeaderRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -100,6 +117,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "urlsByHeaderRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages that match the given regular expression in the URL optionally
+     * filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse messagesByUrlRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -116,6 +137,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "messagesByUrlRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages that match the given regular expression in the request optionally
+     * filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse messagesByRequestRegex(
             String regex, String baseurl, String start, String count) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -132,6 +157,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "messagesByRequestRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages that match the given regular expression in the response optionally
+     * filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse messagesByResponseRegex(
             String regex, String baseurl, String start, String count) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -148,6 +177,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "messagesByResponseRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages that match the given regular expression in the header(s) optionally
+     * filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public ApiResponse messagesByHeaderRegex(
             String regex, String baseurl, String start, String count) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -164,6 +197,10 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApi("search", "view", "messagesByHeaderRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages, in HAR format, that match the given regular expression in the URL
+     * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
     public byte[] harByUrlRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -180,6 +217,11 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApiOther("search", "other", "harByUrlRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages, in HAR format, that match the given regular expression in the
+     * request optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
     public byte[] harByRequestRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -196,6 +238,11 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApiOther("search", "other", "harByRequestRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages, in HAR format, that match the given regular expression in the
+     * response optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
     public byte[] harByResponseRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -212,6 +259,11 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
         return api.callApiOther("search", "other", "harByResponseRegex", map);
     }
 
+    /**
+     * Returns the HTTP messages, in HAR format, that match the given regular expression in the
+     * header(s) optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
     public byte[] harByHeaderRegex(String regex, String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();

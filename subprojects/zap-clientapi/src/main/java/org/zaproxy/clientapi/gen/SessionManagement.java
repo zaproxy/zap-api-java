@@ -37,11 +37,13 @@ public class SessionManagement
         this.api = api;
     }
 
+    /** Gets the name of the session management methods. */
     public ApiResponse getSupportedSessionManagementMethods() throws ClientApiException {
         return api.callApi(
                 "sessionManagement", "view", "getSupportedSessionManagementMethods", null);
     }
 
+    /** Gets the configuration parameters for the session management method with the given name. */
     public ApiResponse getSessionManagementMethodConfigParams(String methodname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -50,12 +52,14 @@ public class SessionManagement
                 "sessionManagement", "view", "getSessionManagementMethodConfigParams", map);
     }
 
+    /** Gets the name of the session management method for the context with the given ID. */
     public ApiResponse getSessionManagementMethod(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
         return api.callApi("sessionManagement", "view", "getSessionManagementMethod", map);
     }
 
+    /** Sets the session management method for the context with the given ID. */
     public ApiResponse setSessionManagementMethod(
             String contextid, String methodname, String methodconfigparams)
             throws ClientApiException {

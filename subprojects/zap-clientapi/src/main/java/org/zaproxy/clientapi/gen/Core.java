@@ -36,59 +36,6 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         this.api = api;
     }
 
-    /**
-     * Gets the alert with the given ID, the corresponding HTTP message can be obtained with the
-     * 'messageId' field and 'message' API method
-     */
-    public ApiResponse alert(String id) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        return api.callApi("core", "view", "alert", map);
-    }
-
-    /**
-     * Gets the alerts raised by ZAP, optionally filtering by URL or riskId, and paginating with
-     * 'start' position and 'count' of alerts
-     */
-    public ApiResponse alerts(String baseurl, String start, String count, String riskid)
-            throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        if (baseurl != null) {
-            map.put("baseurl", baseurl);
-        }
-        if (start != null) {
-            map.put("start", start);
-        }
-        if (count != null) {
-            map.put("count", count);
-        }
-        if (riskid != null) {
-            map.put("riskId", riskid);
-        }
-        return api.callApi("core", "view", "alerts", map);
-    }
-
-    /** Gets number of alerts grouped by each risk level, optionally filtering by URL */
-    public ApiResponse alertsSummary(String baseurl) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        if (baseurl != null) {
-            map.put("baseurl", baseurl);
-        }
-        return api.callApi("core", "view", "alertsSummary", map);
-    }
-
-    /** Gets the number of alerts, optionally filtering by URL or riskId */
-    public ApiResponse numberOfAlerts(String baseurl, String riskid) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        if (baseurl != null) {
-            map.put("baseurl", baseurl);
-        }
-        if (riskid != null) {
-            map.put("riskId", riskid);
-        }
-        return api.callApi("core", "view", "numberOfAlerts", map);
-    }
-
     /** Gets the name of the hosts accessed through/by ZAP */
     public ApiResponse hosts() throws ClientApiException {
         return api.callApi("core", "view", "hosts", null);
@@ -106,6 +53,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
             map.put("baseurl", baseurl);
         }
         return api.callApi("core", "view", "urls", map);
+    }
+
+    /** Gets the child nodes underneath the specified URL in the Sites tree */
+    public ApiResponse childNodes(String url) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (url != null) {
+            map.put("url", url);
+        }
+        return api.callApi("core", "view", "childNodes", map);
     }
 
     /**
@@ -236,6 +192,75 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     }
 
     /**
+     * Gets the alert with the given ID, the corresponding HTTP message can be obtained with the
+     * 'messageId' field and 'message' API method
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse alert(String id) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        return api.callApi("core", "view", "alert", map);
+    }
+
+    /**
+     * Gets the alerts raised by ZAP, optionally filtering by URL or riskId, and paginating with
+     * 'start' position and 'count' of alerts
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse alerts(String baseurl, String start, String count, String riskid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (start != null) {
+            map.put("start", start);
+        }
+        if (count != null) {
+            map.put("count", count);
+        }
+        if (riskid != null) {
+            map.put("riskId", riskid);
+        }
+        return api.callApi("core", "view", "alerts", map);
+    }
+
+    /**
+     * Gets number of alerts grouped by each risk level, optionally filtering by URL
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse alertsSummary(String baseurl) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        return api.callApi("core", "view", "alertsSummary", map);
+    }
+
+    /**
+     * Gets the number of alerts, optionally filtering by URL or riskId
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse numberOfAlerts(String baseurl, String riskid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (riskid != null) {
+            map.put("riskId", riskid);
+        }
+        return api.callApi("core", "view", "numberOfAlerts", map);
+    }
+
+    /**
      * Gets the user agent that ZAP should use when creating HTTP messages (for example, spider
      * messages or CONNECT requests to outgoing proxy).
      */
@@ -272,6 +297,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "view", "optionProxyChainUserName", null);
     }
 
+    /** Gets the connection time out, in seconds. */
     public ApiResponse optionTimeoutInSecs() throws ClientApiException {
         return api.callApi("core", "view", "optionTimeoutInSecs", null);
     }
@@ -354,8 +380,21 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "saveSession", map);
     }
 
-    public ApiResponse snapshotSession() throws ClientApiException {
-        return api.callApi("core", "action", "snapshotSession", null);
+    /**
+     * Snapshots the session, optionally with the given name, and overwriting existing files. If no
+     * name is specified the name of the current session with a timestamp appended is used. If a
+     * relative path is specified it will be resolved against the "session" directory in ZAP "home"
+     * dir.
+     */
+    public ApiResponse snapshotSession(String name, String overwrite) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (name != null) {
+            map.put("name", name);
+        }
+        if (overwrite != null) {
+            map.put("overwrite", overwrite);
+        }
+        return api.callApi("core", "action", "snapshotSession", map);
     }
 
     /** Clears the regexes of URLs excluded from the local proxies. */
@@ -402,18 +441,6 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
             map.put("followRedirects", followredirects);
         }
         return api.callApi("core", "action", "sendRequest", map);
-    }
-
-    /** Deletes all alerts of the current session. */
-    public ApiResponse deleteAllAlerts() throws ClientApiException {
-        return api.callApi("core", "action", "deleteAllAlerts", null);
-    }
-
-    /** Deletes the alert with the given ID. */
-    public ApiResponse deleteAlert(String id) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("id", id);
-        return api.callApi("core", "action", "deleteAlert", map);
     }
 
     public ApiResponse runGarbageCollection() throws ClientApiException {
@@ -524,6 +551,48 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     }
 
     /**
+     * Enables use of a PKCS12 client certificate for the certificate with the given file system
+     * path, password, and optional index.
+     */
+    public ApiResponse enablePKCS12ClientCertificate(String filepath, String password, String index)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("filePath", filepath);
+        map.put("password", password);
+        if (index != null) {
+            map.put("index", index);
+        }
+        return api.callApi("core", "action", "enablePKCS12ClientCertificate", map);
+    }
+
+    /** Disables the option for use of client certificates. */
+    public ApiResponse disableClientCertificate() throws ClientApiException {
+        return api.callApi("core", "action", "disableClientCertificate", null);
+    }
+
+    /**
+     * Deletes all alerts of the current session.
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse deleteAllAlerts() throws ClientApiException {
+        return api.callApi("core", "action", "deleteAllAlerts", null);
+    }
+
+    /**
+     * Deletes the alert with the given ID.
+     *
+     * @deprecated Use the API endpoint with the same name in the 'alert' component instead.
+     */
+    @Deprecated
+    public ApiResponse deleteAlert(String id) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        return api.callApi("core", "action", "deleteAlert", map);
+    }
+
+    /**
      * Sets the user agent that ZAP should use when creating HTTP messages (for example, spider
      * messages or CONNECT requests to outgoing proxy).
      */
@@ -554,7 +623,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Use actions [add|modify|remove]ProxyChainExcludedDomain instead.
      *
-     * @deprecated
+     * @deprecated Option no longer in effective use.
      */
     @Deprecated
     public ApiResponse setOptionProxyChainSkipName(String string) throws ClientApiException {
@@ -600,6 +669,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "setOptionSingleCookieRequestHeader", map);
     }
 
+    /** Sets the connection time out, in seconds. */
     public ApiResponse setOptionTimeoutInSecs(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
