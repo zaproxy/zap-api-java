@@ -51,6 +51,11 @@ public class Autoupdate extends org.zaproxy.clientapi.gen.deprecated.AutoupdateD
         return api.callApi("autoupdate", "view", "installedAddons", null);
     }
 
+    /** Returns a list with all local add-ons, installed or not. */
+    public ApiResponse localAddons() throws ClientApiException {
+        return api.callApi("autoupdate", "view", "localAddons", null);
+    }
+
     /**
      * Return a list of any add-ons that have been added to the Marketplace since the last check for
      * updates
@@ -137,6 +142,12 @@ public class Autoupdate extends org.zaproxy.clientapi.gen.deprecated.AutoupdateD
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         return api.callApi("autoupdate", "action", "installAddon", map);
+    }
+
+    public ApiResponse installLocalAddon(String file) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("file", file);
+        return api.callApi("autoupdate", "action", "installLocalAddon", map);
     }
 
     /** Uninstalls the specified add-on */

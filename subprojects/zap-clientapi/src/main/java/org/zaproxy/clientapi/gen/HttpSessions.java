@@ -68,6 +68,11 @@ public class HttpSessions extends org.zaproxy.clientapi.gen.deprecated.HttpSessi
         return api.callApi("httpSessions", "view", "sessionTokens", map);
     }
 
+    /** Gets the default session tokens. */
+    public ApiResponse defaultSessionTokens() throws ClientApiException {
+        return api.callApi("httpSessions", "view", "defaultSessionTokens", null);
+    }
+
     /** Creates an empty session for the given site. Optionally with the given name. */
     public ApiResponse createEmptySession(String site, String session) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -138,5 +143,32 @@ public class HttpSessions extends org.zaproxy.clientapi.gen.deprecated.HttpSessi
         map.put("oldSessionName", oldsessionname);
         map.put("newSessionName", newsessionname);
         return api.callApi("httpSessions", "action", "renameSession", map);
+    }
+
+    /** Adds a default session token with the given name and enabled state. */
+    public ApiResponse addDefaultSessionToken(String sessiontoken, String tokenenabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("sessionToken", sessiontoken);
+        if (tokenenabled != null) {
+            map.put("tokenEnabled", tokenenabled);
+        }
+        return api.callApi("httpSessions", "action", "addDefaultSessionToken", map);
+    }
+
+    /** Sets whether or not the default session token with the given name is enabled. */
+    public ApiResponse setDefaultSessionTokenEnabled(String sessiontoken, String tokenenabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("sessionToken", sessiontoken);
+        map.put("tokenEnabled", tokenenabled);
+        return api.callApi("httpSessions", "action", "setDefaultSessionTokenEnabled", map);
+    }
+
+    /** Removes the default session token with the given name. */
+    public ApiResponse removeDefaultSessionToken(String sessiontoken) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("sessionToken", sessiontoken);
+        return api.callApi("httpSessions", "action", "removeDefaultSessionToken", map);
     }
 }

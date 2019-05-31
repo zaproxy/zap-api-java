@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add API for SOAP Scanner add-on, version 3.
 
 ### Changed
+- Core APIs updated for ZAP version 2.8.0.
 - Update Replacer API, per release of version 7.
 - Add description to Importurls API endpoint.
 

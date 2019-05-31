@@ -646,4 +646,8 @@ public class CoreDeprecated {
     public ApiResponse urls() throws ClientApiException {
         return api.callApi("core", "view", "urls", null);
     }
+
+    public ApiResponse snapshotSession() throws ClientApiException {
+        return api.callApi("core", "action", "snapshotSession", null);
+    }
 }

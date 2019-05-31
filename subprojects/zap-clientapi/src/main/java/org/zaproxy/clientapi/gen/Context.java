@@ -81,6 +81,13 @@ public class Context extends org.zaproxy.clientapi.gen.deprecated.ContextDepreca
         return api.callApi("context", "view", "excludedTechnologyList", map);
     }
 
+    /** Lists the URLs accessed through/by ZAP, that belong to the context with the given name. */
+    public ApiResponse urls(String contextname) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        return api.callApi("context", "view", "urls", map);
+    }
+
     /** Add exclude regex to context */
     public ApiResponse excludeFromContext(String contextname, String regex)
             throws ClientApiException {
@@ -97,6 +104,16 @@ public class Context extends org.zaproxy.clientapi.gen.deprecated.ContextDepreca
         map.put("contextName", contextname);
         map.put("regex", regex);
         return api.callApi("context", "action", "includeInContext", map);
+    }
+
+    /** Set the regexs to include and exclude for a context, both supplied as JSON string arrays */
+    public ApiResponse setContextRegexs(String contextname, String incregexs, String excregexs)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        map.put("incRegexs", incregexs);
+        map.put("excRegexs", excregexs);
+        return api.callApi("context", "action", "setContextRegexs", map);
     }
 
     /** Creates a new context with the given name in the current session */

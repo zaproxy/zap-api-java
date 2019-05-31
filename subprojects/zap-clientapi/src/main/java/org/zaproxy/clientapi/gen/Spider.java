@@ -121,6 +121,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "optionMaxChildren", null);
     }
 
+    /** Gets the maximum depth the spider can crawl, 0 if unlimited. */
     public ApiResponse optionMaxDepth() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxDepth", null);
     }
@@ -391,7 +392,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Use actions [add|modify|remove]DomainAlwaysInScope instead.
      *
-     * @deprecated
+     * @deprecated Option no longer in effective use.
      */
     @Deprecated
     public ApiResponse setOptionScopeString(String string) throws ClientApiException {
@@ -433,6 +434,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "setOptionMaxChildren", map);
     }
 
+    /** Sets the maximum depth the spider can crawl, 0 for unlimited depth. */
     public ApiResponse setOptionMaxDepth(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
