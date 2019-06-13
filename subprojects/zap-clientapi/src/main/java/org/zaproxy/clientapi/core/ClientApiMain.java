@@ -194,7 +194,7 @@ public class ClientApiMain {
             }
             setTask(args[0]);
             for (String arg : args) {
-                String[] pair = arg.split("=");
+                String[] pair = arg.split("=", 2);
                 if (pair.length == 2) {
                     if (pair[0].equalsIgnoreCase("zapaddr")) {
                         zapaddr = pair[1];
@@ -247,7 +247,6 @@ public class ClientApiMain {
                             + "\tsaveSession\n"
                             + "\tnewSession\n";
         } else {
-            // TODO add case for activeScanSiteInScope
             switch (task) {
                 case stop:
                     help =
@@ -315,9 +314,18 @@ public class ClientApiMain {
                             "usage: activeScanUrl url={url} [zapaddr={ip}] [zapport={port}]\n\n"
                                     + "Examples:\n\t"
                                     + "1. Type 'java -jar zap-api.jar activeScanUrl url=http://myurl.com/' \n\t\t"
-                                    + "Execute and active scan on http://myurl.com/ using zap listening on localhost:8090\n\t"
+                                    + "Execute an active scan on http://myurl.com/ using zap listening on localhost:8090\n\t"
                                     + "2. Type 'java -jar zap-api.jar activeScanUrl url=http://myurl.com/' zapaddr=192.168.1.1 zapport=7080' \n\t\t"
-                                    + "Execute and active scan on http://myurl.com/ using zap listening on 192.168.1.1:7080\n\t";
+                                    + "Execute an active scan on http://myurl.com/ using zap listening on 192.168.1.1:7080\n\t";
+                    break;
+                case activeScanSiteInScope:
+                    help =
+                            "usage: activeScanSiteInScope url={url} [zapaddr={ip}] [zapport={port}]\n\n"
+                                    + "Examples:\n\t"
+                                    + "1. Type 'java -jar zap-api.jar activeScanSiteInScope url=http://example.com/' \n\t\t"
+                                    + "Execute an active scan for URLs in scope under http://example.com/ using zap listening on localhost:8090\n\t"
+                                    + "2. Type 'java -jar zap-api.jar activeScanSiteInScope url=http://example.com/' zapaddr=192.168.1.1 zapport=7080' \n\t\t"
+                                    + "Execute an active scan for URLs in scope under http://example.com/ using zap listening on 192.168.1.1:7080\n\t";
                     break;
                 case addExcludeRegexToContext:
                     help =

@@ -35,6 +35,7 @@ import java.net.Socket;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -44,6 +45,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
@@ -69,6 +71,7 @@ import org.zaproxy.clientapi.gen.Script;
 import org.zaproxy.clientapi.gen.Search;
 import org.zaproxy.clientapi.gen.Selenium;
 import org.zaproxy.clientapi.gen.SessionManagement;
+import org.zaproxy.clientapi.gen.Soap;
 import org.zaproxy.clientapi.gen.Spider;
 import org.zaproxy.clientapi.gen.Stats;
 import org.zaproxy.clientapi.gen.Users;
@@ -90,10 +93,13 @@ public class ClientApi {
 
     private final String apiKey;
 
+    private DocumentBuilderFactory docBuilderFactory;
+
     // Note that any new API implementations added have to be added here manually
     public Acsrf acsrf = new Acsrf(this);
     public AjaxSpider ajaxSpider = new AjaxSpider(this);
     public AlertFilter alertFilter = new AlertFilter(this);
+    public org.zaproxy.clientapi.gen.Alert alert = new org.zaproxy.clientapi.gen.Alert(this);
     public Ascan ascan = new Ascan(this);
     public Authentication authentication = new Authentication(this);
     public Authorization authorization = new Authorization(this);
@@ -115,6 +121,7 @@ public class ClientApi {
     public Script script = new Script(this);
     public Selenium selenium = new Selenium(this);
     public SessionManagement sessionManagement = new SessionManagement(this);
+    public Soap soap = new Soap(this);
     public Spider spider = new Spider(this);
     public Stats stats = new Stats(this);
     public Users users = new Users(this);
@@ -227,7 +234,7 @@ public class ClientApi {
                     results.get("ignoredAlerts"),
                     outputFile);
         } catch (Exception e) {
-            throw new ClientApiException(e);
+            throw new ClientApiException("Failed to save the alerts:", e);
         }
         if (alertsFound > 0 || alertsNotFound > 0) {
             throw new ClientApiException("Check Alerts Failed!\n" + resultsString);
@@ -240,7 +247,8 @@ public class ClientApi {
 
     public List<Alert> getAlerts(String baseUrl, int start, int count) throws ClientApiException {
         List<Alert> alerts = new ArrayList<Alert>();
-        ApiResponse response = core.alerts(baseUrl, String.valueOf(start), String.valueOf(count));
+        ApiResponse response =
+                alert.alerts(baseUrl, String.valueOf(start), String.valueOf(count), null);
         if (response != null && response instanceof ApiResponseList) {
             ApiResponseList alertList = (ApiResponseList) response;
             for (ApiResponse resp : alertList.getItems()) {
@@ -302,9 +310,9 @@ public class ClientApi {
             HttpURLConnection uc = (HttpURLConnection) url.openConnection(proxy);
             uc.connect();
 
-            BufferedReader in;
-            try {
-                in = new BufferedReader(new InputStreamReader(uc.getInputStream()));
+            try (BufferedReader in =
+                    new BufferedReader(
+                            new InputStreamReader(uc.getInputStream(), StandardCharsets.UTF_8))) {
                 String inputLine;
 
                 while ((inputLine = in.readLine()) != null) {
@@ -312,7 +320,6 @@ public class ClientApi {
                         debugStream.println(inputLine);
                     }
                 }
-                in.close();
 
             } catch (IOException e) {
                 // Ignore
@@ -340,15 +347,34 @@ public class ClientApi {
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
-            // get the factory
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            // Using factory get an instance of document builder
-            DocumentBuilder db = dbf.newDocumentBuilder();
+            DocumentBuilder db = getDocumentBuilderFactory().newDocumentBuilder();
             // parse using builder to get DOM representation of the XML file
             return db.parse(getConnectionInputStream(request));
         } catch (Exception e) {
             throw new ClientApiException(e);
         }
+    }
+
+    /**
+     * Gets the {@code DocumentBuilderFactory} instance with XML External Entity (XXE) processing
+     * disabled.
+     *
+     * @return the {@code DocumentBuilderFactory} instance with XXE processing disabled.
+     * @throws ParserConfigurationException if an error occurred while disabling XXE processing.
+     * @see DocumentBuilderFactory
+     */
+    private DocumentBuilderFactory getDocumentBuilderFactory() throws ParserConfigurationException {
+        if (docBuilderFactory == null) {
+            // Disable XXE processing, not required by default.
+            // https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+            factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+            factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+            factory.setExpandEntityReferences(false);
+            docBuilderFactory = factory;
+        }
+        return docBuilderFactory;
     }
 
     private InputStream getConnectionInputStream(HttpRequest request) throws IOException {
@@ -391,6 +417,20 @@ public class ClientApi {
         }
     }
 
+    /**
+     * Builds a request for the ZAP API with the given data.
+     *
+     * <p>As the API client proxies through ZAP the built API requests use a specific domain, {@code
+     * zap}, to ensure that they are always handled by ZAP (and not forward).
+     *
+     * @param format the desired format of the API response (e.g. XML, JSON, other).
+     * @param component the API component (e.g. core, spider).
+     * @param type the type of the API endpoint (e.g. action, view).
+     * @param method the name of the endpoint.
+     * @param params the parameters for the endpoint.
+     * @return the API request.
+     * @throws MalformedURLException if an error occurred while building the URL.
+     */
     private HttpRequest buildZapRequest(
             String format, String component, String type, String method, Map<String, String> params)
             throws MalformedURLException {
@@ -446,7 +486,7 @@ public class ClientApi {
     /**
      * Adds the given regular expression to the exclusion list of the given context.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
@@ -454,15 +494,15 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addExcludeFromContext(String apikey, String contextName, String regex)
+    public void addExcludeFromContext(String apiKey, String contextName, String regex)
             throws Exception {
-        context.excludeFromContext(apikey, contextName, regex);
+        context.excludeFromContext(apiKey, contextName, regex);
     }
 
     /**
      * Adds the given regular expression to the inclusion list of the given context.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to add.
      * @throws Exception if an error occurred while calling the API.
@@ -470,9 +510,9 @@ public class ClientApi {
      * @see #context
      */
     @Deprecated
-    public void addIncludeInContext(String apikey, String contextName, String regex)
+    public void addIncludeInContext(String apiKey, String contextName, String regex)
             throws Exception {
-        context.includeInContext(apikey, contextName, regex);
+        context.includeInContext(apiKey, contextName, regex);
     }
 
     /**
@@ -481,21 +521,21 @@ public class ClientApi {
      *
      * <p>Nodes that do not match the regular expression are excluded.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param contextName the name of the context.
      * @param regex the regular expression to match the node/URL.
      * @throws Exception if an error occurred while calling the API.
      * @deprecated (1.1.0) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
      */
     @Deprecated
-    public void includeOneMatchingNodeInContext(String apikey, String contextName, String regex)
+    public void includeOneMatchingNodeInContext(String apiKey, String contextName, String regex)
             throws Exception {
         List<String> sessionUrls = getSessionUrls();
         boolean foundOneMatch = false;
         for (String sessionUrl : sessionUrls) {
             if (sessionUrl.matches(regex)) {
                 if (foundOneMatch) {
-                    addExcludeFromContext(apikey, contextName, sessionUrl);
+                    addExcludeFromContext(apiKey, contextName, sessionUrl);
                 } else {
                     foundOneMatch = true;
                 }
@@ -555,15 +595,15 @@ public class ClientApi {
      *
      * <p>The method returns only after the scan has finished.
      *
-     * @param apikey the API key, might be {@code null}.
+     * @param apiKey the API key, might be {@code null}.
      * @param url the site to scan
      * @throws Exception if an error occurred while calling the API.
      * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be
      *     set using one of the {@code ClientApi} constructors.
      */
     @Deprecated
-    public void activeScanSiteInScope(String apikey, String url) throws Exception {
-        ascan.scan(apikey, url, "true", "true", "", "", "");
+    public void activeScanSiteInScope(String apiKey, String url) throws Exception {
+        ascan.scan(apiKey, url, "true", "true", "", "", "");
         waitForAScanToFinish(url);
     }
 

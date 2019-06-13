@@ -53,6 +53,16 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         return api.callApi("pscan", "view", "scanners", null);
     }
 
+    /** Show information about the passive scan rule currently being run (if any). */
+    public ApiResponse currentRule() throws ClientApiException {
+        return api.callApi("pscan", "view", "currentRule", null);
+    }
+
+    /** Gets the maximum number of alerts a passive scan rule should raise. */
+    public ApiResponse maxAlertsPerRule() throws ClientApiException {
+        return api.callApi("pscan", "view", "maxAlertsPerRule", null);
+    }
+
     /**
      * Sets whether or not the passive scanning is enabled (Note: the enabled state is not
      * persisted).
@@ -106,5 +116,12 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         map.put("id", id);
         map.put("alertThreshold", alertthreshold);
         return api.callApi("pscan", "action", "setScannerAlertThreshold", map);
+    }
+
+    /** Sets the maximum number of alerts a passive scan rule should raise. */
+    public ApiResponse setMaxAlertsPerRule(String maxalerts) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("maxAlerts", maxalerts);
+        return api.callApi("pscan", "action", "setMaxAlertsPerRule", map);
     }
 }

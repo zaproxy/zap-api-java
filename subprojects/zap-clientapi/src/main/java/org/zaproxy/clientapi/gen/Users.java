@@ -36,6 +36,10 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         this.api = api;
     }
 
+    /**
+     * Gets a list of users that belong to the context with the given ID, or all users if none
+     * provided.
+     */
     public ApiResponse usersList(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (contextid != null) {
@@ -44,17 +48,17 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "view", "usersList", map);
     }
 
+    /**
+     * Gets the data of the user with the given ID that belongs to the context with the given ID.
+     */
     public ApiResponse getUserById(String contextid, String userid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        if (contextid != null) {
-            map.put("contextId", contextid);
-        }
-        if (userid != null) {
-            map.put("userId", userid);
-        }
+        map.put("contextId", contextid);
+        map.put("userId", userid);
         return api.callApi("users", "view", "getUserById", map);
     }
 
+    /** Gets the configuration parameters for the credentials of the context with the given ID. */
     public ApiResponse getAuthenticationCredentialsConfigParams(String contextid)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -62,6 +66,10 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "view", "getAuthenticationCredentialsConfigParams", map);
     }
 
+    /**
+     * Gets the authentication credentials of the user with given ID that belongs to the context
+     * with the given ID.
+     */
     public ApiResponse getAuthenticationCredentials(String contextid, String userid)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -70,6 +78,7 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "view", "getAuthenticationCredentials", map);
     }
 
+    /** Creates a new user with the given name for the context with the given ID. */
     public ApiResponse newUser(String contextid, String name) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
@@ -77,6 +86,7 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "action", "newUser", map);
     }
 
+    /** Removes the user with the given ID that belongs to the context with the given ID. */
     public ApiResponse removeUser(String contextid, String userid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
@@ -84,6 +94,10 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "action", "removeUser", map);
     }
 
+    /**
+     * Sets whether or not the user, with the given ID that belongs to the context with the given
+     * ID, should be enabled.
+     */
     public ApiResponse setUserEnabled(String contextid, String userid, String enabled)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -93,6 +107,7 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "action", "setUserEnabled", map);
     }
 
+    /** Renames the user with the given ID that belongs to the context with the given ID. */
     public ApiResponse setUserName(String contextid, String userid, String name)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -102,6 +117,10 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "action", "setUserName", map);
     }
 
+    /**
+     * Sets the authentication credentials for the user with the given ID that belongs to the
+     * context with the given ID.
+     */
     public ApiResponse setAuthenticationCredentials(
             String contextid, String userid, String authcredentialsconfigparams)
             throws ClientApiException {

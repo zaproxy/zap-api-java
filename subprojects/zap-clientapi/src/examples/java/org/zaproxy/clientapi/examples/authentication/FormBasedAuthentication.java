@@ -21,7 +21,7 @@ package org.zaproxy.clientapi.examples.authentication;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ApiResponseElement;
@@ -66,7 +66,7 @@ public class FormBasedAuthentication {
 
     private static void listAuthInformation(ClientApi clientApi) throws ClientApiException {
         // Check out which authentication methods are supported by the API
-        List<String> supportedMethodNames = new LinkedList<>();
+        List<String> supportedMethodNames = new ArrayList<>();
         ApiResponseList authMethodsList =
                 (ApiResponseList) clientApi.authentication.getSupportedAuthenticationMethods();
         for (ApiResponse authMethod : authMethodsList.getItems()) {
@@ -90,7 +90,7 @@ public class FormBasedAuthentication {
                                 + "' config param: "
                                 + set.getValue("name")
                                 + " ("
-                                + (set.getValue("mandatory").equals("true")
+                                + (set.getStringValue("mandatory").equals("true")
                                         ? "mandatory"
                                         : "optional")
                                 + ")");
@@ -110,7 +110,7 @@ public class FormBasedAuthentication {
         for (ApiResponse r : configParamsList.getItems()) {
             ApiResponseSet set = (ApiResponseSet) r;
             sb.append(set.getValue("name")).append(" (");
-            sb.append((set.getValue("mandatory").equals("true") ? "mandatory" : "optional"));
+            sb.append((set.getStringValue("mandatory").equals("true") ? "mandatory" : "optional"));
             sb.append("), ");
         }
         System.out.println(sb.deleteCharAt(sb.length() - 2).toString());

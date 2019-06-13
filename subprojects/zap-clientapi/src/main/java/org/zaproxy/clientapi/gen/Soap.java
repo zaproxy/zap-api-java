@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 The ZAP Development Team
+ * Copyright 2018 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,22 +27,33 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class Importurls {
+public class Soap {
 
     private final ClientApi api;
 
-    public Importurls(ClientApi api) {
+    public Soap(ClientApi api) {
         this.api = api;
     }
 
     /**
-     * Imports URLs (one per line) from the file with the given file system path.
+     * Import a WSDL definition from local file.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importurls(String filepath) throws ClientApiException {
+    public ApiResponse importFile(String file) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        map.put("filePath", filepath);
-        return api.callApi("importurls", "action", "importurls", map);
+        map.put("file", file);
+        return api.callApi("soap", "action", "importFile", map);
+    }
+
+    /**
+     * Import a WSDL definition from a URL.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importUrl(String url) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("url", url);
+        return api.callApi("soap", "action", "importUrl", map);
     }
 }

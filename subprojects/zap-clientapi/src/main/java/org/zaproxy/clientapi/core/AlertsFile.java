@@ -20,8 +20,9 @@
 package org.zaproxy.clientapi.core;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import org.jdom.Document;
@@ -72,16 +73,14 @@ public class AlertsFile {
         writeAlertsToFile(outputFile, alertsDocument);
     }
 
-    private static void writeAlertsToFile(File outputFile, Document doc) {
+    private static void writeAlertsToFile(File outputFile, Document doc) throws IOException {
 
         XMLOutputter xmlOutput = new XMLOutputter();
 
         xmlOutput.setFormat(Format.getPrettyFormat());
-        try {
-            xmlOutput.output(doc, new FileWriter(outputFile));
+        try (OutputStream os = Files.newOutputStream(outputFile.toPath())) {
+            xmlOutput.output(doc, os);
             System.out.println("alert xml report saved to: " + outputFile.getAbsolutePath());
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

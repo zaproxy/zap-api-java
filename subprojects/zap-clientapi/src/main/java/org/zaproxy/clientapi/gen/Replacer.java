@@ -70,7 +70,9 @@ public class Replacer {
         map.put("matchType", matchtype);
         map.put("matchRegex", matchregex);
         map.put("matchString", matchstring);
-        map.put("replacement", replacement);
+        if (replacement != null) {
+            map.put("replacement", replacement);
+        }
         if (initiators != null) {
             map.put("initiators", initiators);
         }

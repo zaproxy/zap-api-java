@@ -85,6 +85,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "excludedFromScan", null);
     }
 
+    /**
+     * Gets the scanners, optionally, of the given scan policy and/or scanner policy/category ID.
+     */
     public ApiResponse scanners(String scanpolicyname, String policyid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanpolicyname != null) {
@@ -187,6 +190,14 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
     public ApiResponse optionThreadPerHost() throws ClientApiException {
         return api.callApi("ascan", "view", "optionThreadPerHost", null);
+    }
+
+    /**
+     * Tells whether or not the active scanner should add a query parameter to GET request that
+     * don't have parameters to start with.
+     */
+    public ApiResponse optionAddQueryParam() throws ClientApiException {
+        return api.callApi("ascan", "view", "optionAddQueryParam", null);
     }
 
     public ApiResponse optionAllowAttackOnStart() throws ClientApiException {
@@ -368,6 +379,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "excludeFromScan", map);
     }
 
+    /**
+     * Enables all scanners of the scan policy with the given name, or the default if none given.
+     */
     public ApiResponse enableAllScanners(String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanpolicyname != null) {
@@ -376,6 +390,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "enableAllScanners", map);
     }
 
+    /**
+     * Disables all scanners of the scan policy with the given name, or the default if none given.
+     */
     public ApiResponse disableAllScanners(String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanpolicyname != null) {
@@ -384,6 +401,10 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "disableAllScanners", map);
     }
 
+    /**
+     * Enables the scanners with the given IDs (comma separated list of IDs) of the scan policy with
+     * the given name, or the default if none given.
+     */
     public ApiResponse enableScanners(String ids, String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
@@ -393,6 +414,10 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "enableScanners", map);
     }
 
+    /**
+     * Disables the scanners with the given IDs (comma separated list of IDs) of the scan policy
+     * with the given name, or the default if none given.
+     */
     public ApiResponse disableScanners(String ids, String scanpolicyname)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -570,6 +595,16 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("ascan", "action", "setOptionDefaultPolicy", map);
+    }
+
+    /**
+     * Sets whether or not the active scanner should add a query param to GET requests which do not
+     * have parameters to start with.
+     */
+    public ApiResponse setOptionAddQueryParam(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("ascan", "action", "setOptionAddQueryParam", map);
     }
 
     public ApiResponse setOptionAllowAttackOnStart(boolean bool) throws ClientApiException {

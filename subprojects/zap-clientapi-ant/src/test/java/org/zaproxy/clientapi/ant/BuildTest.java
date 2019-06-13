@@ -20,6 +20,7 @@
 package org.zaproxy.clientapi.ant;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import fi.iki.elonen.NanoHTTPD;
 import java.io.File;
@@ -126,6 +127,7 @@ public class BuildTest {
     public void shouldExecuteTargetAlertCheck() {
         try {
             buildRule.executeTarget("alertCheck");
+            fail("Expected BuildException.");
         } catch (BuildException e) {
             assertTrue(e.getCause() instanceof ClientApiException);
             assertTrue(e.getCause().getMessage().startsWith("Not found 1 alerts"));
