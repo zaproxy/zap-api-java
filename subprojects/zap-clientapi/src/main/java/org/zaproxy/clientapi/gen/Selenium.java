@@ -63,11 +63,8 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "view", "optionFirefoxDriverPath", null);
     }
 
-    /**
-     * Returns the current path to IEDriverServer
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
+    /** This component is optional and therefore the API will only work if it is installed */
+    @Deprecated
     public ApiResponse optionIeDriverPath() throws ClientApiException {
         return api.callApi("selenium", "view", "optionIeDriverPath", null);
     }
@@ -114,11 +111,8 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "action", "setOptionFirefoxDriverPath", map);
     }
 
-    /**
-     * Sets the current path to IEDriverServer
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
+    /** This component is optional and therefore the API will only work if it is installed */
+    @Deprecated
     public ApiResponse setOptionIeDriverPath(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);

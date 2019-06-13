@@ -11,7 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Core APIs updated for ZAP version 2.8.0.
 - Update Replacer API, per release of version 7.
-- Add description to Importurls API endpoint.
+- Update Websocket API, per release of version 19.
+- Update Selenium API, per release of version 15.0.0.
+- Add description to Importurls and AlertFilter API endpoints.
 
 ### Fixed
 - Disable XXE processing when parsing ZAP API responses.
