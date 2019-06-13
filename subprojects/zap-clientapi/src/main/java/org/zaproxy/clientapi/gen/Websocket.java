@@ -84,6 +84,15 @@ public class Websocket {
     }
 
     /**
+     * Returns a text representation of an intercepted websockets message
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse breakTextMessage() throws ClientApiException {
+        return api.callApi("websocket", "view", "breakTextMessage", null);
+    }
+
+    /**
      * Sends the specified message on the channel specified by channelId, if outgoing is 'True' then
      * the message will be sent to the server and if it is 'False' then it will be sent to the
      * client
@@ -97,5 +106,18 @@ public class Websocket {
         map.put("outgoing", outgoing);
         map.put("message", message);
         return api.callApi("websocket", "action", "sendTextMessage", map);
+    }
+
+    /**
+     * Sets the text message for an intercepted websockets message
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setBreakTextMessage(String message, String outgoing)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("message", message);
+        map.put("outgoing", outgoing);
+        return api.callApi("websocket", "action", "setBreakTextMessage", map);
     }
 }

@@ -35,16 +35,22 @@ public class AlertFilter {
         this.api = api;
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Lists the alert filters of the context with the given ID.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse alertFilterList(String contextid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        if (contextid != null) {
-            map.put("contextId", contextid);
-        }
+        map.put("contextId", contextid);
         return api.callApi("alertFilter", "view", "alertFilterList", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Adds a new alert filter for the context with the given ID.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse addAlertFilter(
             String contextid,
             String ruleid,
@@ -73,7 +79,11 @@ public class AlertFilter {
         return api.callApi("alertFilter", "action", "addAlertFilter", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Removes an alert filter from the context with the given ID.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse removeAlertFilter(
             String contextid,
             String ruleid,
