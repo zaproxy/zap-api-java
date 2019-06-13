@@ -20,8 +20,8 @@ subprojects {
 
     group = 'org.zaproxy'
 
-    version '1.7.0'
-    ext.versionBC = '1.6.0'
+    version '1.8.0-SNAPSHOT'
+    ext.versionBC = '1.7.0'
 
     repositories {
         mavenCentral()
