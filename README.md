@@ -22,7 +22,7 @@ can be obtained from [Maven Central](https://search.maven.org/) with following c
 
  * GroupId: `org.zaproxy`
  * ArtifactId: `zap-clientapi`
- * Version: `1.6.0`
+ * Version: `1.7.0`
 
 Previous releases are also available, more details can be found in [Maven Central](https://search.maven.org/search?q=g:org.zaproxy%20AND%20a:zap-clientapi&core=gav).
 
