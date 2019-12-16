@@ -30,8 +30,7 @@ Previous releases are also available, more details can be found in [Maven Centra
 
 For help using OWASP ZAP API refer to:
   * [Examples](subprojects/zap-clientapi/src/examples/java/org/zaproxy/clientapi/examples) - collection of examples using the library;
-  * [OWASP ZAP User Group](https://groups.google.com/group/zaproxy-users) - for asking questions;
-  * IRC: irc.mozilla.org #websectools (eg [using Mibbit](http://chat.mibbit.com/?server=irc.mozilla.org%3A%2B6697&channel=%23websectools)) - chat with core ZAP developers (European office hours usually best)
+  * [The help section](https://github.com/zaproxy/zaproxy/blob/develop/README.md#for-help-using-zap) of the main ZAP repo;
   
 ## Issues
 
