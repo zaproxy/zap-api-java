@@ -74,7 +74,7 @@ the API key) from being used with ZAP versions <= 2.5.0.
 ## [1.1.0] - 2017-03-09
 ### Added
 - Context Alert Filters API, for more information refer to the help page:
-https://github.com/zaproxy/zap-extensions/wiki/HelpAddonsAlertFiltersAlertFilter
+https://www.zaproxy.org/docs/desktop/addons/alert-filters/
 - The `Alert` now exposes the alert ID, message ID, and scanner ID.
 - Added confidence "False Positive" (enum `Alert.Confidence`).
 
