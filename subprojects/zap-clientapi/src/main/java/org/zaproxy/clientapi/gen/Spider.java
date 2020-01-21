@@ -143,11 +143,13 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "optionRequestWaitTime", null);
     }
 
+    /** @deprecated Option no longer in effective use. */
     @Deprecated
     public ApiResponse optionScope() throws ClientApiException {
         return api.callApi("spider", "view", "optionScope", null);
     }
 
+    /** @deprecated Option no longer in effective use. */
     @Deprecated
     public ApiResponse optionScopeText() throws ClientApiException {
         return api.callApi("spider", "view", "optionScopeText", null);

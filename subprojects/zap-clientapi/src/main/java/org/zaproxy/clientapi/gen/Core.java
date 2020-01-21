@@ -366,11 +366,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "loadSession", map);
     }
 
-    /**
-     * Saves the session with the name supplied, optionally overwriting existing files. If a
-     * relative path is specified it will be resolved against the "session" directory in ZAP "home"
-     * dir.
-     */
+    /** Saves the session. */
     public ApiResponse saveSession(String name, String overwrite) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("name", name);

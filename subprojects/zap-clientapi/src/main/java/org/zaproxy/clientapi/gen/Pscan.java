@@ -124,4 +124,14 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         map.put("maxAlerts", maxalerts);
         return api.callApi("pscan", "action", "setMaxAlertsPerRule", map);
     }
+
+    /** Disables all passive scan tags. */
+    public ApiResponse disableAllTags() throws ClientApiException {
+        return api.callApi("pscan", "action", "disableAllTags", null);
+    }
+
+    /** Enables all passive scan tags. */
+    public ApiResponse enableAllTags() throws ClientApiException {
+        return api.callApi("pscan", "action", "enableAllTags", null);
+    }
 }

@@ -51,7 +51,7 @@ public class Replacer {
      * treated as a regex otherwise false, matchString is the string that will be matched against,
      * replacement is the replacement string, initiators may be blank (for all initiators) or a
      * comma separated list of integers as defined in <a
-     * href="https://github.com/zaproxy/zaproxy/blob/develop/src/org/parosproxy/paros/network/HttpSender.java">HttpSender</a>
+     * href="https://github.com/zaproxy/zaproxy/blob/develop/zap/src/main/java/org/parosproxy/paros/network/HttpSender.java">HttpSender</a>
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */

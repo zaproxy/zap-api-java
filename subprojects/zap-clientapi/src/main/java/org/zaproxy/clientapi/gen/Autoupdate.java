@@ -137,7 +137,9 @@ public class Autoupdate extends org.zaproxy.clientapi.gen.deprecated.AutoupdateD
         return api.callApi("autoupdate", "action", "downloadLatestRelease", null);
     }
 
-    /** Installs or updates the specified add-on, returning when complete (ie not asynchronously) */
+    /**
+     * Installs or updates the specified add-on, returning when complete (i.e. not asynchronously)
+     */
     public ApiResponse installAddon(String id) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
