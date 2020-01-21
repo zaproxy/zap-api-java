@@ -1,7 +1,7 @@
 plugins {
     id "maven-publish"
     id "signing"
-    id "me.champeau.gradle.japicmp" version "0.2.6"
+    id "me.champeau.gradle.japicmp" version "0.2.9"
     id "org.owasp.dependencycheck" version "3.2.1"
 }
 
@@ -25,29 +25,25 @@ jar {
     }
 }
 
-configurations {
-    japicmpBaseline
-}
-
-dependencies {
-    japicmpBaseline ("${project.group}:${project.name}:$versionBC") { force = true }
-}
-
-dependencyCheck {
-    skipConfigurations += "japicmpBaseline"
+File clientapiJar(version) {
+    def oldGroup = group
+    try {
+        // https://discuss.gradle.org/t/is-the-default-configuration-leaking-into-independent-configurations/2088/6
+        group = "virtual_group_for_japicmp"
+        def conf = configurations.detachedConfiguration(dependencies.create("$oldGroup:$name:$version"))
+        conf.transitive = false
+        return conf.singleFile
+    } finally {
+        group = oldGroup
+    }
 }
 
 task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     group 'verification'
     description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
-    // XXX Don't run by default with Java 9+, does not work (needs the module java.xml.bind). 
-    if (JavaVersion.current() == JavaVersion.VERSION_1_8) {
-        check.dependsOn 'japicmp'
-    }
-    inputs.files(jar)
 
-    oldClasspath = configurations.japicmpBaseline
-    newClasspath = configurations.runtimeClasspath + files(jar)
+    oldClasspath = files(clientapiJar(versionBC))
+    newClasspath = files(tasks.named(JavaPlugin.JAR_TASK_NAME).map { it.archivePath })
     onlyBinaryIncompatibleModified = true
     failOnModification = true
     ignoreMissingClasses = true
