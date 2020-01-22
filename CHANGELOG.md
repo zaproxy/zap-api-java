@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Core APIs from ZAP version 2.8.0.
+- APIs from add-ons:
+ - Access Control Testing;
+ - Export Report;
+ - Revisit;
+ - Wappalyzer - Technology Detection.
+
+### Changed
+- Core APIs updated for ZAP version 2.9.0.
+- Update APIs from add-ons:
+ - Alert Filters;
+ - OpenAPI Support;
+ - Replacer.
 
 ## [1.7.0] - 2019-06-13
 ### Added

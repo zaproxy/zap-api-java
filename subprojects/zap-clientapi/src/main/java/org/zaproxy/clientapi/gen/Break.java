@@ -83,7 +83,7 @@ public class Break extends org.zaproxy.clientapi.gen.deprecated.BreakDeprecated 
     }
 
     /**
-     * Submits the currently intercepted message and unsets the global request/response break points
+     * Submits the currently intercepted message and unsets the global request/response breakpoints
      */
     public ApiResponse cont() throws ClientApiException {
         return api.callApi("break", "action", "continue", null);
@@ -103,9 +103,9 @@ public class Break extends org.zaproxy.clientapi.gen.deprecated.BreakDeprecated 
     }
 
     /**
-     * Adds a custom HTTP breakpont. The string is the string to match. Location may be one of: url,
-     * request_header, request_body, response_header or response_body. Match may be: contains or
-     * regex. Inverse (match) may be true or false. Lastly, ignorecase (when matching the string)
+     * Adds a custom HTTP breakpoint. The string is the string to match. Location may be one of:
+     * url, request_header, request_body, response_header or response_body. Match may be: contains
+     * or regex. Inverse (match) may be true or false. Lastly, ignorecase (when matching the string)
      * may be true or false.
      */
     public ApiResponse addHttpBreakpoint(
@@ -120,7 +120,7 @@ public class Break extends org.zaproxy.clientapi.gen.deprecated.BreakDeprecated 
         return api.callApi("break", "action", "addHttpBreakpoint", map);
     }
 
-    /** Removes the specified break point */
+    /** Removes the specified breakpoint */
     public ApiResponse removeHttpBreakpoint(
             String string, String location, String match, String inverse, String ignorecase)
             throws ClientApiException {
