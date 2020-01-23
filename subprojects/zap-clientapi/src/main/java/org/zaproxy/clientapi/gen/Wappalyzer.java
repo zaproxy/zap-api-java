@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 The ZAP Development Team
+ * Copyright 2020 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,48 +27,40 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class Openapi {
+public class Wappalyzer {
 
     private final ClientApi api;
 
-    public Openapi(ClientApi api) {
+    public Wappalyzer(ClientApi api) {
         this.api = api;
     }
 
     /**
-     * Imports an Open API definition from a local file.
+     * Lists all the sites recognized by the wappalyzer addon.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importFile(String file) throws ClientApiException {
-        return importFile(file, null);
+    public ApiResponse listSites() throws ClientApiException {
+        return api.callApi("wappalyzer", "view", "listSites", null);
     }
 
     /**
-     * Imports an OpenAPI definition from a local file.
+     * Lists all sites and their associated applications (technologies).
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importFile(String file, String target) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("file", file);
-        if (target != null) {
-            map.put("target", target);
-        }
-        return api.callApi("openapi", "action", "importFile", map);
+    public ApiResponse listAll() throws ClientApiException {
+        return api.callApi("wappalyzer", "view", "listAll", null);
     }
 
     /**
-     * Imports an OpenAPI definition from a URL.
+     * Lists all the applications (technologies) associated with a specific site.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importUrl(String url, String hostoverride) throws ClientApiException {
+    public ApiResponse listSite(String site) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        map.put("url", url);
-        if (hostoverride != null) {
-            map.put("hostOverride", hostoverride);
-        }
-        return api.callApi("openapi", "action", "importUrl", map);
+        map.put("site", site);
+        return api.callApi("wappalyzer", "view", "listSite", map);
     }
 }

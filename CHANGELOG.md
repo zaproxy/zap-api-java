@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2020-01-23
+### Added
+- Core APIs.
+- APIs from add-ons:
+ - Access Control Testing;
+ - Export Report;
+ - Revisit;
+ - Wappalyzer - Technology Detection.
+
+### Changed
+- Core APIs updated for ZAP version 2.9.0.
+- Update APIs from add-ons:
+ - Alert Filters;
+ - OpenAPI Support;
+ - Replacer.
+
 ## [1.7.0] - 2019-06-13
 ### Added
 - Add API for SOAP Scanner add-on, version 3.
@@ -70,7 +86,7 @@ the API key) from being used with ZAP versions <= 2.5.0.
 ## [1.1.0] - 2017-03-09
 ### Added
 - Context Alert Filters API, for more information refer to the help page:
-https://github.com/zaproxy/zap-extensions/wiki/HelpAddonsAlertFiltersAlertFilter
+https://www.zaproxy.org/docs/desktop/addons/alert-filters/
 - The `Alert` now exposes the alert ID, message ID, and scanner ID.
 - Added confidence "False Positive" (enum `Alert.Confidence`).
 
@@ -99,6 +115,7 @@ of the alert (zaproxy/zaproxy#1341), older methods were deprecated.
  - First version as "stand alone library", it was migrated from the [zaproxy repository](https://github.com/zaproxy/zaproxy)
  and released to Maven Central.
 
+[1.8.0]: https://github.com/zaproxy/zap-api-java/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/zaproxy/zap-api-java/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/zaproxy/zap-api-java/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/zaproxy/zap-api-java/compare/v1.4.0...v1.5.0

@@ -47,6 +47,14 @@ public class AlertFilter {
     }
 
     /**
+     * Lists the global alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse globalAlertFilterList() throws ClientApiException {
+        return api.callApi("alertFilter", "view", "globalAlertFilterList", null);
+    }
+    /**
      * Adds a new alert filter for the context with the given ID.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -59,6 +67,40 @@ public class AlertFilter {
             String urlisregex,
             String parameter,
             String enabled)
+            throws ClientApiException {
+        return addAlertFilter(
+                contextid,
+                ruleid,
+                newlevel,
+                url,
+                urlisregex,
+                parameter,
+                enabled,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    /**
+     * Adds a new alert filter for the context with the given ID.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addAlertFilter(
+            String contextid,
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled,
+            String parameterisregex,
+            String attack,
+            String attackisregex,
+            String evidence,
+            String evidenceisregex)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
@@ -75,6 +117,21 @@ public class AlertFilter {
         }
         if (enabled != null) {
             map.put("enabled", enabled);
+        }
+        if (parameterisregex != null) {
+            map.put("parameterIsRegex", parameterisregex);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (attackisregex != null) {
+            map.put("attackIsRegex", attackisregex);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (evidenceisregex != null) {
+            map.put("evidenceIsRegex", evidenceisregex);
         }
         return api.callApi("alertFilter", "action", "addAlertFilter", map);
     }
@@ -93,6 +150,40 @@ public class AlertFilter {
             String parameter,
             String enabled)
             throws ClientApiException {
+        return removeAlertFilter(
+                contextid,
+                ruleid,
+                newlevel,
+                url,
+                urlisregex,
+                parameter,
+                enabled,
+                null,
+                null,
+                null,
+                null,
+                null);
+    }
+
+    /**
+     * Removes an alert filter from the context with the given ID.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeAlertFilter(
+            String contextid,
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled,
+            String parameterisregex,
+            String attack,
+            String attackisregex,
+            String evidence,
+            String evidenceisregex)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
         map.put("ruleId", ruleid);
@@ -109,6 +200,123 @@ public class AlertFilter {
         if (enabled != null) {
             map.put("enabled", enabled);
         }
+        if (parameterisregex != null) {
+            map.put("parameterIsRegex", parameterisregex);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (attackisregex != null) {
+            map.put("attackIsRegex", attackisregex);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (evidenceisregex != null) {
+            map.put("evidenceIsRegex", evidenceisregex);
+        }
         return api.callApi("alertFilter", "action", "removeAlertFilter", map);
+    }
+
+    /**
+     * Adds a new global alert filter.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addGlobalAlertFilter(
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled,
+            String parameterisregex,
+            String attack,
+            String attackisregex,
+            String evidence,
+            String evidenceisregex)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("ruleId", ruleid);
+        map.put("newLevel", newlevel);
+        if (url != null) {
+            map.put("url", url);
+        }
+        if (urlisregex != null) {
+            map.put("urlIsRegex", urlisregex);
+        }
+        if (parameter != null) {
+            map.put("parameter", parameter);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        if (parameterisregex != null) {
+            map.put("parameterIsRegex", parameterisregex);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (attackisregex != null) {
+            map.put("attackIsRegex", attackisregex);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (evidenceisregex != null) {
+            map.put("evidenceIsRegex", evidenceisregex);
+        }
+        return api.callApi("alertFilter", "action", "addGlobalAlertFilter", map);
+    }
+
+    /**
+     * Removes a global alert filter.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeGlobalAlertFilter(
+            String ruleid,
+            String newlevel,
+            String url,
+            String urlisregex,
+            String parameter,
+            String enabled,
+            String parameterisregex,
+            String attack,
+            String attackisregex,
+            String evidence,
+            String evidenceisregex)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("ruleId", ruleid);
+        map.put("newLevel", newlevel);
+        if (url != null) {
+            map.put("url", url);
+        }
+        if (urlisregex != null) {
+            map.put("urlIsRegex", urlisregex);
+        }
+        if (parameter != null) {
+            map.put("parameter", parameter);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        if (parameterisregex != null) {
+            map.put("parameterIsRegex", parameterisregex);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (attackisregex != null) {
+            map.put("attackIsRegex", attackisregex);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (evidenceisregex != null) {
+            map.put("evidenceIsRegex", evidenceisregex);
+        }
+        return api.callApi("alertFilter", "action", "removeGlobalAlertFilter", map);
     }
 }

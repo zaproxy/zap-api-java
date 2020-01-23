@@ -47,6 +47,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
+import org.zaproxy.clientapi.gen.AccessControl;
 import org.zaproxy.clientapi.gen.Acsrf;
 import org.zaproxy.clientapi.gen.AjaxSpider;
 import org.zaproxy.clientapi.gen.AlertFilter;
@@ -57,16 +58,20 @@ import org.zaproxy.clientapi.gen.Autoupdate;
 import org.zaproxy.clientapi.gen.Break;
 import org.zaproxy.clientapi.gen.Context;
 import org.zaproxy.clientapi.gen.Core;
+import org.zaproxy.clientapi.gen.Exportreport;
 import org.zaproxy.clientapi.gen.ForcedUser;
 import org.zaproxy.clientapi.gen.HttpSessions;
 import org.zaproxy.clientapi.gen.ImportLogFiles;
 import org.zaproxy.clientapi.gen.Importurls;
+import org.zaproxy.clientapi.gen.LocalProxies;
 import org.zaproxy.clientapi.gen.Openapi;
 import org.zaproxy.clientapi.gen.Params;
 import org.zaproxy.clientapi.gen.Pnh;
 import org.zaproxy.clientapi.gen.Pscan;
 import org.zaproxy.clientapi.gen.Replacer;
 import org.zaproxy.clientapi.gen.Reveal;
+import org.zaproxy.clientapi.gen.Revisit;
+import org.zaproxy.clientapi.gen.RuleConfig;
 import org.zaproxy.clientapi.gen.Script;
 import org.zaproxy.clientapi.gen.Search;
 import org.zaproxy.clientapi.gen.Selenium;
@@ -75,6 +80,7 @@ import org.zaproxy.clientapi.gen.Soap;
 import org.zaproxy.clientapi.gen.Spider;
 import org.zaproxy.clientapi.gen.Stats;
 import org.zaproxy.clientapi.gen.Users;
+import org.zaproxy.clientapi.gen.Wappalyzer;
 import org.zaproxy.clientapi.gen.Websocket;
 
 public class ClientApi {
@@ -96,6 +102,7 @@ public class ClientApi {
     private DocumentBuilderFactory docBuilderFactory;
 
     // Note that any new API implementations added have to be added here manually
+    public AccessControl accessControl = new AccessControl(this);
     public Acsrf acsrf = new Acsrf(this);
     public AjaxSpider ajaxSpider = new AjaxSpider(this);
     public AlertFilter alertFilter = new AlertFilter(this);
@@ -107,16 +114,20 @@ public class ClientApi {
     public Break brk = new Break(this);
     public Context context = new Context(this);
     public Core core = new Core(this);
+    public Exportreport exportreport = new Exportreport(this);
     public ForcedUser forcedUser = new ForcedUser(this);
     public HttpSessions httpSessions = new HttpSessions(this);
     public ImportLogFiles logImportFiles = new ImportLogFiles(this);
     public Importurls importurls = new Importurls(this);
+    public LocalProxies localProxies = new LocalProxies(this);
     public Openapi openapi = new Openapi(this);
     public Params params = new Params(this);
     public Pnh pnh = new Pnh(this);
     public Pscan pscan = new Pscan(this);
     public Replacer replacer = new Replacer(this);
     public Reveal reveal = new Reveal(this);
+    public Revisit revisit = new Revisit(this);
+    public RuleConfig ruleConfig = new RuleConfig(this);
     public Search search = new Search(this);
     public Script script = new Script(this);
     public Selenium selenium = new Selenium(this);
@@ -125,6 +136,7 @@ public class ClientApi {
     public Spider spider = new Spider(this);
     public Stats stats = new Stats(this);
     public Users users = new Users(this);
+    public Wappalyzer wappalyzer = new Wappalyzer(this);
     public Websocket websocket = new Websocket(this);
 
     public ClientApi(String zapAddress, int zapPort) {

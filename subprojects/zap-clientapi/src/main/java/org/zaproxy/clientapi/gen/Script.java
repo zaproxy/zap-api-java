@@ -62,9 +62,27 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
         return api.callApi("script", "view", "globalVar", map);
     }
 
+    /**
+     * Gets the value (string representation) of a global custom variable. Returns an API error
+     * (DOES_NOT_EXIST) if no value was previously set.
+     */
+    public ApiResponse globalCustomVar(String varkey) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("varKey", varkey);
+        return api.callApi("script", "view", "globalCustomVar", map);
+    }
+
     /** Gets all the global variables (key/value pairs). */
     public ApiResponse globalVars() throws ClientApiException {
         return api.callApi("script", "view", "globalVars", null);
+    }
+
+    /**
+     * Gets all the global custom variables (key/value pairs, the value is the string
+     * representation).
+     */
+    public ApiResponse globalCustomVars() throws ClientApiException {
+        return api.callApi("script", "view", "globalCustomVars", null);
     }
 
     /**
@@ -79,6 +97,17 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
     }
 
     /**
+     * Gets the value (string representation) of a custom variable. Returns an API error
+     * (DOES_NOT_EXIST) if no script with the given name exists or if no value was previously set.
+     */
+    public ApiResponse scriptCustomVar(String scriptname, String varkey) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("scriptName", scriptname);
+        map.put("varKey", varkey);
+        return api.callApi("script", "view", "scriptCustomVar", map);
+    }
+
+    /**
      * Gets all the variables (key/value pairs) of the given script. Returns an API error
      * (DOES_NOT_EXIST) if no script with the given name exists.
      */
@@ -86,6 +115,16 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
         Map<String, String> map = new HashMap<>();
         map.put("scriptName", scriptname);
         return api.callApi("script", "view", "scriptVars", map);
+    }
+
+    /**
+     * Gets all the custom variables (key/value pairs, the value is the string representation) of a
+     * script. Returns an API error (DOES_NOT_EXIST) if no script with the given name exists.
+     */
+    public ApiResponse scriptCustomVars(String scriptname) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("scriptName", scriptname);
+        return api.callApi("script", "view", "scriptCustomVars", map);
     }
 
     /** Enables the script with the given name */
@@ -150,6 +189,13 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
         return api.callApi("script", "action", "clearGlobalVar", map);
     }
 
+    /** Clears a global custom variable. */
+    public ApiResponse clearGlobalCustomVar(String varkey) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("varKey", varkey);
+        return api.callApi("script", "action", "clearGlobalCustomVar", map);
+    }
+
     /** Clears the global variables. */
     public ApiResponse clearGlobalVars() throws ClientApiException {
         return api.callApi("script", "action", "clearGlobalVars", null);
@@ -164,6 +210,15 @@ public class Script extends org.zaproxy.clientapi.gen.deprecated.ScriptDeprecate
         map.put("scriptName", scriptname);
         map.put("varKey", varkey);
         return api.callApi("script", "action", "clearScriptVar", map);
+    }
+
+    /** Clears a script custom variable. */
+    public ApiResponse clearScriptCustomVar(String scriptname, String varkey)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("scriptName", scriptname);
+        map.put("varKey", varkey);
+        return api.callApi("script", "action", "clearScriptCustomVar", map);
     }
 
     /**

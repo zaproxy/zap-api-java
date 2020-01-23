@@ -127,4 +127,105 @@ public class Alert {
         map.put("id", id);
         return api.callApi("alert", "action", "deleteAlert", map);
     }
+
+    /** Update the alert with the given ID, with the provided details. */
+    public ApiResponse updateAlert(
+            String id,
+            String name,
+            String riskid,
+            String confidenceid,
+            String description,
+            String param,
+            String attack,
+            String otherinfo,
+            String solution,
+            String references,
+            String evidence,
+            String cweid,
+            String wascid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name", name);
+        map.put("riskId", riskid);
+        map.put("confidenceId", confidenceid);
+        map.put("description", description);
+        if (param != null) {
+            map.put("param", param);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (otherinfo != null) {
+            map.put("otherInfo", otherinfo);
+        }
+        if (solution != null) {
+            map.put("solution", solution);
+        }
+        if (references != null) {
+            map.put("references", references);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (cweid != null) {
+            map.put("cweId", cweid);
+        }
+        if (wascid != null) {
+            map.put("wascId", wascid);
+        }
+        return api.callApi("alert", "action", "updateAlert", map);
+    }
+
+    /**
+     * Add an alert associated with the given message ID, with the provided details. (The ID of the
+     * created alert is returned.)
+     */
+    public ApiResponse addAlert(
+            String messageid,
+            String name,
+            String riskid,
+            String confidenceid,
+            String description,
+            String param,
+            String attack,
+            String otherinfo,
+            String solution,
+            String references,
+            String evidence,
+            String cweid,
+            String wascid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("messageId", messageid);
+        map.put("name", name);
+        map.put("riskId", riskid);
+        map.put("confidenceId", confidenceid);
+        map.put("description", description);
+        if (param != null) {
+            map.put("param", param);
+        }
+        if (attack != null) {
+            map.put("attack", attack);
+        }
+        if (otherinfo != null) {
+            map.put("otherInfo", otherinfo);
+        }
+        if (solution != null) {
+            map.put("solution", solution);
+        }
+        if (references != null) {
+            map.put("references", references);
+        }
+        if (evidence != null) {
+            map.put("evidence", evidence);
+        }
+        if (cweid != null) {
+            map.put("cweId", cweid);
+        }
+        if (wascid != null) {
+            map.put("wascId", wascid);
+        }
+        return api.callApi("alert", "action", "addAlert", map);
+    }
 }

@@ -5,7 +5,7 @@
 [![Build Status](https://api.travis-ci.com/zaproxy/zap-api-java.svg?branch=develop)](https://travis-ci.com/zaproxy/zap-api-java)
 [![Known Vulnerabilities](https://snyk.io/test/github/zaproxy/zap-api-java/badge.svg)](https://snyk.io/test/github/zaproxy/zap-api-java)
 
-The Java implementation to access the [OWASP ZAP API](https://github.com/zaproxy/zaproxy/wiki/ApiDetails). For more information
+The Java implementation to access the [OWASP ZAP API](https://www.zaproxy.org/docs/api/). For more information
 about OWASP ZAP consult the (main) [OWASP ZAP project](https://github.com/zaproxy/zaproxy/).
 
 This project produces two libraries:
@@ -22,7 +22,7 @@ can be obtained from [Maven Central](https://search.maven.org/) with following c
 
  * GroupId: `org.zaproxy`
  * ArtifactId: `zap-clientapi`
- * Version: `1.7.0`
+ * Version: `1.8.0`
 
 Previous releases are also available, more details can be found in [Maven Central](https://search.maven.org/search?q=g:org.zaproxy%20AND%20a:zap-clientapi&core=gav).
 
@@ -30,8 +30,8 @@ Previous releases are also available, more details can be found in [Maven Centra
 
 For help using OWASP ZAP API refer to:
   * [Examples](subprojects/zap-clientapi/src/examples/java/org/zaproxy/clientapi/examples) - collection of examples using the library;
-  * [OWASP ZAP User Group](https://groups.google.com/group/zaproxy-users) - for asking questions;
-  * IRC: irc.mozilla.org #websectools (eg [using Mibbit](http://chat.mibbit.com/?server=irc.mozilla.org%3A%2B6697&channel=%23websectools)) - chat with core ZAP developers (European office hours usually best)
+  * [API Documentation](https://www.zaproxy.org/docs/api/)
+  * [OWASP ZAP User Group](https://groups.google.com/group/zaproxy-users) - for asking questions
   
 ## Issues
 
