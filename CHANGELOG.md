@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+
+## [1.8.0] - 2020-01-23
 ### Added
-- Core APIs from ZAP version 2.8.0.
+- Core APIs.
 - APIs from add-ons:
  - Access Control Testing;
  - Export Report;
@@ -115,7 +118,8 @@ of the alert (zaproxy/zaproxy#1341), older methods were deprecated.
  - First version as "stand alone library", it was migrated from the [zaproxy repository](https://github.com/zaproxy/zaproxy)
  and released to Maven Central.
 
-[Unreleased]: https://github.com/zaproxy/zap-api-java/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/zaproxy/zap-api-java/compare/v1.8.0...HEAD
+[1.8.0]: https://github.com/zaproxy/zap-api-java/compare/v1.7.0...v1.8.0
 [1.7.0]: https://github.com/zaproxy/zap-api-java/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/zaproxy/zap-api-java/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/zaproxy/zap-api-java/compare/v1.4.0...v1.5.0
