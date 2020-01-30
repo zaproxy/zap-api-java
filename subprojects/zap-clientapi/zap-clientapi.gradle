@@ -107,7 +107,7 @@ publishing {
 
                 organization {
                     name = 'OWASP'
-                    url = 'https://www.owasp.org/index.php/ZAP'
+                    url = 'https://www.zaproxy.org/'
                 }
 
                 mailingLists {
