@@ -128,6 +128,23 @@ public class Alert {
         return api.callApi("alert", "action", "deleteAlert", map);
     }
 
+    /** Update the confidence of the alerts. */
+    public ApiResponse updateAlertsConfidence(String ids, String confidenceid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("ids", ids);
+        map.put("confidenceId", confidenceid);
+        return api.callApi("alert", "action", "updateAlertsConfidence", map);
+    }
+
+    /** Update the risk of the alerts. */
+    public ApiResponse updateAlertsRisk(String ids, String riskid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("ids", ids);
+        map.put("riskId", riskid);
+        return api.callApi("alert", "action", "updateAlertsRisk", map);
+    }
+
     /** Update the alert with the given ID, with the provided details. */
     public ApiResponse updateAlert(
             String id,
