@@ -41,6 +41,11 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
         return api.callApi("acsrf", "view", "optionTokensNames", null);
     }
 
+    /** Define if ZAP should detect CSRF tokens by searching for partial matches */
+    public ApiResponse optionPartialMatchingEnabled() throws ClientApiException {
+        return api.callApi("acsrf", "view", "optionPartialMatchingEnabled", null);
+    }
+
     /** Adds an anti-CSRF token with the given name, enabled by default */
     public ApiResponse addOptionToken(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -53,6 +58,13 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("acsrf", "action", "removeOptionToken", map);
+    }
+
+    /** Define if ZAP should detect CSRF tokens by searching for partial matches. */
+    public ApiResponse setOptionPartialMatchingEnabled(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("acsrf", "action", "setOptionPartialMatchingEnabled", map);
     }
 
     /** Generate a form for testing lack of anti-CSRF tokens - typically invoked via ZAP */

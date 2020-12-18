@@ -37,6 +37,11 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     }
 
     /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse allowedResources() throws ClientApiException {
+        return api.callApi("ajaxSpider", "view", "allowedResources", null);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse status() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "status", null);
     }
@@ -114,10 +119,7 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     }
 
     /**
-     * Runs the spider against the given URL and/or context, optionally, spidering everything in
-     * scope. The parameter 'contextName' can be used to constrain the scan to a Context, the option
-     * 'in scope' is ignored if a context was also specified. The parameter 'subtreeOnly' allows to
-     * restrict the spider under a site's subtree (using the specified 'url').
+     * Runs the AJAX Spider against a given target.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
@@ -140,10 +142,7 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     }
 
     /**
-     * Runs the spider from the perspective of a User, obtained using the given context name and
-     * user name. The parameter 'url' allows to specify the starting point for the spider, otherwise
-     * it's used an existing URL from the context (if any). The parameter 'subtreeOnly' allows to
-     * restrict the spider under a site's subtree (using the specified 'url').
+     * Runs the AJAX Spider from the perspective of a User of the web application.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
@@ -165,6 +164,32 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse stop() throws ClientApiException {
         return api.callApi("ajaxSpider", "action", "stop", null);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse addAllowedResource(String regex, String enabled) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("ajaxSpider", "action", "addAllowedResource", map);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse removeAllowedResource(String regex) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        return api.callApi("ajaxSpider", "action", "removeAllowedResource", map);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse setEnabledAllowedResource(String regex, String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        map.put("enabled", enabled);
+        return api.callApi("ajaxSpider", "action", "setEnabledAllowedResource", map);
     }
 
     /** This component is optional and therefore the API will only work if it is installed */

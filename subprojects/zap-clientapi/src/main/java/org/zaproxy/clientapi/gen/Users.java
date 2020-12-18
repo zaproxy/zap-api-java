@@ -78,6 +78,30 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
         return api.callApi("users", "view", "getAuthenticationCredentials", map);
     }
 
+    /**
+     * Gets the authentication state information for the user identified by the Context and User
+     * Ids.
+     */
+    public ApiResponse getAuthenticationState(String contextid, String userid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        return api.callApi("users", "view", "getAuthenticationState", map);
+    }
+
+    /**
+     * Gets the authentication session information for the user identified by the Context and User
+     * Ids, e.g. cookies and realm credentials.
+     */
+    public ApiResponse getAuthenticationSession(String contextid, String userid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        return api.callApi("users", "view", "getAuthenticationSession", map);
+    }
+
     /** Creates a new user with the given name for the context with the given ID. */
     public ApiResponse newUser(String contextid, String name) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -131,5 +155,79 @@ public class Users extends org.zaproxy.clientapi.gen.deprecated.UsersDeprecated 
             map.put("authCredentialsConfigParams", authcredentialsconfigparams);
         }
         return api.callApi("users", "action", "setAuthenticationCredentials", map);
+    }
+
+    /**
+     * Tries to authenticate as the identified user, returning the authentication request and
+     * whether it appears to have succeeded.
+     */
+    public ApiResponse authenticateAsUser(String contextid, String userid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        return api.callApi("users", "action", "authenticateAsUser", map);
+    }
+
+    /**
+     * Tries to poll as the identified user, returning the authentication request and whether it
+     * appears to have succeeded. This will only work if the polling verification strategy has been
+     * configured.
+     */
+    public ApiResponse pollAsUser(String contextid, String userid) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        return api.callApi("users", "action", "pollAsUser", map);
+    }
+
+    /**
+     * Sets fields in the authentication state for the user identified by the Context and User Ids.
+     */
+    public ApiResponse setAuthenticationState(
+            String contextid,
+            String userid,
+            String lastpollresult,
+            String lastpolltimeinms,
+            String requestssincelastpoll)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        if (lastpollresult != null) {
+            map.put("lastPollResult", lastpollresult);
+        }
+        if (lastpolltimeinms != null) {
+            map.put("lastPollTimeInMs", lastpolltimeinms);
+        }
+        if (requestssincelastpoll != null) {
+            map.put("requestsSinceLastPoll", requestssincelastpoll);
+        }
+        return api.callApi("users", "action", "setAuthenticationState", map);
+    }
+
+    /** Sets the specified cookie for the user identified by the Context and User Ids. */
+    public ApiResponse setCookie(
+            String contextid,
+            String userid,
+            String domain,
+            String name,
+            String value,
+            String path,
+            String secure)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextId", contextid);
+        map.put("userId", userid);
+        map.put("domain", domain);
+        map.put("name", name);
+        map.put("value", value);
+        if (path != null) {
+            map.put("path", path);
+        }
+        if (secure != null) {
+            map.put("secure", secure);
+        }
+        return api.callApi("users", "action", "setCookie", map);
     }
 }

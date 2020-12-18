@@ -322,6 +322,11 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "view", "optionUseProxyChainAuth", null);
     }
 
+    /** Gets whether or not the SOCKS proxy should be used. */
+    public ApiResponse optionUseSocksProxy() throws ClientApiException {
+        return api.callApi("core", "view", "optionUseSocksProxy", null);
+    }
+
     /**
      * Convenient and simple action to access a URL, optionally following redirections. Returns the
      * request sent and response received and followed redirections, if any. Other actions are
@@ -686,6 +691,13 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("core", "action", "setOptionUseProxyChainAuth", map);
+    }
+
+    /** Sets whether or not the SOCKS proxy should be used. */
+    public ApiResponse setOptionUseSocksProxy(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("core", "action", "setOptionUseSocksProxy", map);
     }
 
     public byte[] proxypac() throws ClientApiException {

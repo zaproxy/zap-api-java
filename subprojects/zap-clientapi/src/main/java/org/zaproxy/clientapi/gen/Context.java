@@ -116,6 +116,40 @@ public class Context extends org.zaproxy.clientapi.gen.deprecated.ContextDepreca
         return api.callApi("context", "action", "setContextRegexs", map);
     }
 
+    /**
+     * Set the checking strategy for a context - this defines how ZAP checks that a request is
+     * authenticated
+     */
+    public ApiResponse setContextCheckingStrategy(
+            String contextname,
+            String checkingstrategy,
+            String pollurl,
+            String polldata,
+            String pollheaders,
+            String pollfrequency,
+            String pollfrequencyunits)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        map.put("checkingStrategy", checkingstrategy);
+        if (pollurl != null) {
+            map.put("pollUrl", pollurl);
+        }
+        if (polldata != null) {
+            map.put("pollData", polldata);
+        }
+        if (pollheaders != null) {
+            map.put("pollHeaders", pollheaders);
+        }
+        if (pollfrequency != null) {
+            map.put("pollFrequency", pollfrequency);
+        }
+        if (pollfrequencyunits != null) {
+            map.put("pollFrequencyUnits", pollfrequencyunits);
+        }
+        return api.callApi("context", "action", "setContextCheckingStrategy", map);
+    }
+
     /** Creates a new context with the given name in the current session */
     public ApiResponse newContext(String contextname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
