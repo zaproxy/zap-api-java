@@ -2,7 +2,6 @@
 
 [![Version](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
-[![Build Status](https://api.travis-ci.com/zaproxy/zap-api-java.svg?branch=develop)](https://travis-ci.com/zaproxy/zap-api-java)
 [![Known Vulnerabilities](https://snyk.io/test/github/zaproxy/zap-api-java/badge.svg)](https://snyk.io/test/github/zaproxy/zap-api-java)
 
 The Java implementation to access the [OWASP ZAP API](https://www.zaproxy.org/docs/api/). For more information
