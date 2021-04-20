@@ -2,7 +2,6 @@ plugins {
     id "maven-publish"
     id "signing"
     id "me.champeau.gradle.japicmp" version "0.2.9"
-    id "org.owasp.dependencycheck" version "3.2.1"
 }
 
 sourceSets { examples }
@@ -19,7 +18,7 @@ dependencies {
 jar {
     manifest {
         attributes 'Implementation-Title': 'OWASP ZAP API Client',
-        'Implementation-Version': version,
+        'Implementation-Version': archiveVersion.get(),
         'Main-Class': 'org.zaproxy.clientapi.core.ClientApiMain',
         'Create-Date': new Date().format("yyyy-MM-dd")
     }
@@ -63,10 +62,10 @@ task sourcesJar(type: Jar) {
 task uberJar(type: Jar) {
     group 'build'
     description 'Assembles a jar archive containing the main jar and its dependencies.'
-    baseName 'zap-api'
+    archiveBaseName.set('zap-api')
     manifest.from jar.manifest
     from {
-        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     } {
         exclude "META-INF/*.SF"
         exclude "META-INF/*.DSA"
