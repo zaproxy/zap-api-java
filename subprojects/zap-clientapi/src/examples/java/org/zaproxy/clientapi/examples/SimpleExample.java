@@ -67,8 +67,18 @@ public class SimpleExample {
             }
             System.out.println("Spider complete");
 
-            // Give the passive scanner a chance to complete
-            Thread.sleep(2000);
+            // Poll the number of records the passive scanner still has to scan until it completes
+            while (true) {
+                Thread.sleep(1000);
+                progress =
+                        Integer.parseInt(
+                                ((ApiResponseElement) api.pscan.recordsToScan()).getValue());
+                System.out.println("Passive Scan progress : " + progress + " records left");
+                if (progress < 1) {
+                    break;
+                }
+            }
+            System.out.println("Passive Scan complete");
 
             System.out.println("Active scan : " + TARGET);
             resp = api.ascan.scan(TARGET, "True", "False", null, null, null);
