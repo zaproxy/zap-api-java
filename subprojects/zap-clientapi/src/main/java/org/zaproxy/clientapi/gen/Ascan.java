@@ -232,6 +232,11 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "optionScanHeadersAllRequests", null);
     }
 
+    /** Tells whether or not the active scanner should scan null JSON values. */
+    public ApiResponse optionScanNullJsonValues() throws ClientApiException {
+        return api.callApi("ascan", "view", "optionScanNullJsonValues", null);
+    }
+
     public ApiResponse optionShowAdvancedDialog() throws ClientApiException {
         return api.callApi("ascan", "view", "optionShowAdvancedDialog", null);
     }
@@ -697,6 +702,13 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ascan", "action", "setOptionScanHeadersAllRequests", map);
+    }
+
+    /** Sets whether or not the active scanner should scan null JSON values. */
+    public ApiResponse setOptionScanNullJsonValues(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("ascan", "action", "setOptionScanNullJsonValues", map);
     }
 
     public ApiResponse setOptionShowAdvancedDialog(boolean bool) throws ClientApiException {

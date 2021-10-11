@@ -45,6 +45,24 @@ public class Graphql {
     }
 
     /**
+     * Returns whether or not lenient maximum query generation depth is enabled.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionLenientMaxQueryDepthEnabled() throws ClientApiException {
+        return api.callApi("graphql", "view", "optionLenientMaxQueryDepthEnabled", null);
+    }
+
+    /**
+     * Returns the current maximum additional query generation depth.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionMaxAdditionalQueryDepth() throws ClientApiException {
+        return api.callApi("graphql", "view", "optionMaxAdditionalQueryDepth", null);
+    }
+
+    /**
      * Returns the current maximum arguments generation depth.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -146,6 +164,29 @@ public class Graphql {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("graphql", "action", "setOptionRequestMethod", map);
+    }
+
+    /**
+     * Sets whether or not Maximum Query Depth is enforced leniently.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionLenientMaxQueryDepthEnabled(boolean bool)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("graphql", "action", "setOptionLenientMaxQueryDepthEnabled", map);
+    }
+
+    /**
+     * Sets the maximum additional query generation depth (used if enforced leniently).
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionMaxAdditionalQueryDepth(int i) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Integer", Integer.toString(i));
+        return api.callApi("graphql", "action", "setOptionMaxAdditionalQueryDepth", map);
     }
 
     /**

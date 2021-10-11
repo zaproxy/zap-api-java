@@ -319,4 +319,58 @@ public class AlertFilter {
         }
         return api.callApi("alertFilter", "action", "removeGlobalAlertFilter", map);
     }
+
+    /**
+     * Applies all currently enabled Global and Context alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse applyAll() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "applyAll", null);
+    }
+
+    /**
+     * Applies all currently enabled Context alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse applyContext() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "applyContext", null);
+    }
+
+    /**
+     * Applies all currently enabled Global alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse applyGlobal() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "applyGlobal", null);
+    }
+
+    /**
+     * Tests all currently enabled Global and Context alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse testAll() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "testAll", null);
+    }
+
+    /**
+     * Tests all currently enabled Context alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse testContext() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "testContext", null);
+    }
+
+    /**
+     * Tests all currently enabled Global alert filters.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse testGlobal() throws ClientApiException {
+        return api.callApi("alertFilter", "action", "testGlobal", null);
+    }
 }

@@ -58,6 +58,7 @@ public class ReportTask extends ZapTask {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void execute() throws BuildException {
         validateTaskAttributes();
 

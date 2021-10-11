@@ -39,6 +39,7 @@ public class SimpleExample {
 
     private static final String TARGET = "http://localhost:8080/bodgeit/";
 
+    @SuppressWarnings("deprecation")
     public static void main(String[] args) {
         ClientApi api = new ClientApi(ZAP_ADDRESS, ZAP_PORT, ZAP_API_KEY);
 
