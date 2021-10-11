@@ -26,7 +26,7 @@ public class Alert {
         Low,
         Medium,
         High
-    };
+    }
     /**
      * @deprecated (2.4.0) Replaced by {@link Confidence}. Use of reliability has been deprecated in
      *     favour of using confidence.
@@ -35,7 +35,7 @@ public class Alert {
     public enum Reliability {
         Suspicious,
         Warning
-    };
+    }
 
     public enum Confidence {
         FalsePositive,
@@ -43,7 +43,7 @@ public class Alert {
         Medium,
         High,
         Confirmed
-    };
+    }
 
     private String id;
     private String name;

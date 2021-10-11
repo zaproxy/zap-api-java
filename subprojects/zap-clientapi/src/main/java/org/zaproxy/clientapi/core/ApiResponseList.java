@@ -30,7 +30,7 @@ public class ApiResponseList extends ApiResponse {
 
     public ApiResponseList(String name) {
         super(name);
-        this.list = new ArrayList<ApiResponse>();
+        this.list = new ArrayList<>();
     }
 
     public ApiResponseList(Node node) throws ClientApiException {
@@ -45,7 +45,7 @@ public class ApiResponseList extends ApiResponse {
     public ApiResponseList(Node node, ApiResponseList template) throws ClientApiException {
         super(node.getNodeName());
         try {
-            this.list = new ArrayList<ApiResponse>();
+            this.list = new ArrayList<>();
             Class<? extends ApiResponse> clazz = template.getItemsClass();
             if (clazz != null) {
 
@@ -64,7 +64,7 @@ public class ApiResponseList extends ApiResponse {
 
     public ApiResponseList(String name, ApiResponse[] array) {
         super(name);
-        this.list = new ArrayList<ApiResponse>();
+        this.list = new ArrayList<>();
         for (ApiResponse resp : array) {
             list.add(resp);
         }

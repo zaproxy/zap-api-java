@@ -264,7 +264,7 @@ public class ClientApi {
     }
 
     public List<Alert> getAlerts(String baseUrl, int start, int count) throws ClientApiException {
-        List<Alert> alerts = new ArrayList<Alert>();
+        List<Alert> alerts = new ArrayList<>();
         ApiResponse response =
                 alert.alerts(baseUrl, String.valueOf(start), String.valueOf(count), null);
         if (response != null && response instanceof ApiResponseList) {
