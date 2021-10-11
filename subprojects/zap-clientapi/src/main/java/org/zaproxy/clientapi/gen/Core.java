@@ -124,10 +124,6 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "view", "excludedFromProxy", null);
     }
 
-    public ApiResponse homeDirectory() throws ClientApiException {
-        return api.callApi("core", "view", "homeDirectory", null);
-    }
-
     /** Gets the location of the current session file */
     public ApiResponse sessionLocation() throws ClientApiException {
         return api.callApi("core", "view", "sessionLocation", null);
@@ -139,6 +135,32 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
      */
     public ApiResponse proxyChainExcludedDomains() throws ClientApiException {
         return api.callApi("core", "view", "proxyChainExcludedDomains", null);
+    }
+
+    /** Gets the path to ZAP's home directory. */
+    public ApiResponse zapHomePath() throws ClientApiException {
+        return api.callApi("core", "view", "zapHomePath", null);
+    }
+
+    /** Gets the maximum number of alert instances to include in a report. */
+    public ApiResponse optionMaximumAlertInstances() throws ClientApiException {
+        return api.callApi("core", "view", "optionMaximumAlertInstances", null);
+    }
+
+    /** Gets whether or not related alerts will be merged in any reports generated. */
+    public ApiResponse optionMergeRelatedAlerts() throws ClientApiException {
+        return api.callApi("core", "view", "optionMergeRelatedAlerts", null);
+    }
+
+    /** Gets the path to the file with alert overrides. */
+    public ApiResponse optionAlertOverridesFilePath() throws ClientApiException {
+        return api.callApi("core", "view", "optionAlertOverridesFilePath", null);
+    }
+
+    /** @deprecated */
+    @Deprecated
+    public ApiResponse homeDirectory() throws ClientApiException {
+        return api.callApi("core", "view", "homeDirectory", null);
     }
 
     /**
@@ -169,26 +191,6 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     @Deprecated
     public ApiResponse optionProxyExcludedDomainsEnabled() throws ClientApiException {
         return api.callApi("core", "view", "optionProxyExcludedDomainsEnabled", null);
-    }
-
-    /** Gets the path to ZAP's home directory. */
-    public ApiResponse zapHomePath() throws ClientApiException {
-        return api.callApi("core", "view", "zapHomePath", null);
-    }
-
-    /** Gets the maximum number of alert instances to include in a report. */
-    public ApiResponse optionMaximumAlertInstances() throws ClientApiException {
-        return api.callApi("core", "view", "optionMaximumAlertInstances", null);
-    }
-
-    /** Gets whether or not related alerts will be merged in any reports generated. */
-    public ApiResponse optionMergeRelatedAlerts() throws ClientApiException {
-        return api.callApi("core", "view", "optionMergeRelatedAlerts", null);
-    }
-
-    /** Gets the path to the file with alert overrides. */
-    public ApiResponse optionAlertOverridesFilePath() throws ClientApiException {
-        return api.callApi("core", "view", "optionAlertOverridesFilePath", null);
     }
 
     /**
@@ -297,7 +299,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "view", "optionProxyChainUserName", null);
     }
 
-    /** Gets the connection time out, in seconds. */
+    /** Gets the connection time out (in seconds). */
     public ApiResponse optionTimeoutInSecs() throws ClientApiException {
         return api.callApi("core", "view", "optionTimeoutInSecs", null);
     }
@@ -670,7 +672,7 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "setOptionSingleCookieRequestHeader", map);
     }
 
-    /** Sets the connection time out, in seconds. */
+    /** Sets the connection time out (in seconds). */
     public ApiResponse setOptionTimeoutInSecs(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
@@ -715,22 +717,42 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApiOther("core", "other", "setproxy", map);
     }
 
-    /** Generates a report in XML format */
+    /**
+     * Generates a report in XML format
+     *
+     * @deprecated Use the 'generate' API endpoint the 'reports' component instead.
+     */
+    @Deprecated
     public byte[] xmlreport() throws ClientApiException {
         return api.callApiOther("core", "other", "xmlreport", null);
     }
 
-    /** Generates a report in HTML format */
+    /**
+     * Generates a report in HTML format
+     *
+     * @deprecated Use the 'generate' API endpoint the 'reports' component instead.
+     */
+    @Deprecated
     public byte[] htmlreport() throws ClientApiException {
         return api.callApiOther("core", "other", "htmlreport", null);
     }
 
-    /** Generates a report in JSON format */
+    /**
+     * Generates a report in JSON format
+     *
+     * @deprecated Use the 'generate' API endpoint the 'reports' component instead.
+     */
+    @Deprecated
     public byte[] jsonreport() throws ClientApiException {
         return api.callApiOther("core", "other", "jsonreport", null);
     }
 
-    /** Generates a report in Markdown format */
+    /**
+     * Generates a report in Markdown format
+     *
+     * @deprecated Use the 'generate' API endpoint the 'reports' component instead.
+     */
+    @Deprecated
     public byte[] mdreport() throws ClientApiException {
         return api.callApiOther("core", "other", "mdreport", null);
     }

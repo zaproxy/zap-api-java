@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2016 The ZAP Development Team
+ * Copyright 2021 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.zaproxy.clientapi.gen;
+package org.zaproxy.clientapi.gen.deprecated;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,15 +25,23 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/** This file was automatically generated. */
+/** API implementation with deprecated methods, (re)moved from generated class. */
 @SuppressWarnings("javadoc")
-public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDeprecated {
+public class OpenapiDeprecated {
 
     private final ClientApi api;
 
-    public Openapi(ClientApi api) {
-        super(api);
+    public OpenapiDeprecated(ClientApi api) {
         this.api = api;
+    }
+
+    /**
+     * Imports an Open API definition from a local file.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importFile(String file) throws ClientApiException {
+        return importFile(file, null);
     }
 
     /**
@@ -41,15 +49,11 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importFile(String file, String target, String contextid)
-            throws ClientApiException {
+    public ApiResponse importFile(String file, String target) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("file", file);
         if (target != null) {
             map.put("target", target);
-        }
-        if (contextid != null) {
-            map.put("contextId", contextid);
         }
         return api.callApi("openapi", "action", "importFile", map);
     }
@@ -59,15 +63,11 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importUrl(String url, String hostoverride, String contextid)
-            throws ClientApiException {
+    public ApiResponse importUrl(String url, String hostoverride) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("url", url);
         if (hostoverride != null) {
             map.put("hostOverride", hostoverride);
-        }
-        if (contextid != null) {
-            map.put("contextId", contextid);
         }
         return api.callApi("openapi", "action", "importUrl", map);
     }

@@ -36,17 +36,30 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         this.api = api;
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the allowed resources. The allowed resources are always fetched even if out of scope,
+     * allowing to include necessary resources (e.g. scripts) from 3rd-parties.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse allowedResources() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "allowedResources", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the current status of the crawler. Actual values are Stopped and Running.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse status() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "status", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the current results of the crawler.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse results(String start, String count) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (start != null) {
@@ -58,62 +71,115 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         return api.callApi("ajaxSpider", "view", "results", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the number of resources found.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse numberOfResults() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "numberOfResults", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the full crawled content detected by the AJAX Spider. Returns a set of values based on
+     * 'inScope' URLs, 'outOfScope' URLs, and 'errors' encountered during the last/current run of
+     * the AJAX Spider.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse fullResults() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "fullResults", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured browser to use for crawling.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionBrowserId() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionBrowserId", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the time to wait after an event (in milliseconds). For example: the wait delay after the
+     * cursor hovers over an element, in order for a menu to display, etc.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionEventWait() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionEventWait", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured value for the max crawl depth.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxCrawlDepth() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionMaxCrawlDepth", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured value for the maximum crawl states allowed.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxCrawlStates() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionMaxCrawlStates", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured max duration of the crawl, the value is in minutes.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxDuration() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionMaxDuration", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured number of browsers to be used.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionNumberOfBrowsers() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionNumberOfBrowsers", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured time to wait after reloading the page, this value is in milliseconds.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionReloadWait() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionReloadWait", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the configured value for 'Click Default Elements Only', HTML elements such as 'a',
+     * 'button', 'input', all associated with some action or links on the page.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionClickDefaultElems() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionClickDefaultElems", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets the value configured for the AJAX Spider to know if it should click on the elements only
+     * once.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionClickElemsOnce() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionClickElemsOnce", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Gets if the AJAX Spider will use random values in form fields when crawling, if set to true.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionRandomInputs() throws ClientApiException {
         return api.callApi("ajaxSpider", "view", "optionRandomInputs", null);
     }
@@ -161,12 +227,20 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         return api.callApi("ajaxSpider", "action", "scanAsUser", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Stops the AJAX Spider.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse stop() throws ClientApiException {
         return api.callApi("ajaxSpider", "action", "stop", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Adds an allowed resource.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse addAllowedResource(String regex, String enabled) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("regex", regex);
@@ -176,14 +250,22 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         return api.callApi("ajaxSpider", "action", "addAllowedResource", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Removes an allowed resource.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse removeAllowedResource(String regex) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("regex", regex);
         return api.callApi("ajaxSpider", "action", "removeAllowedResource", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets whether or not an allowed resource is enabled.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setEnabledAllowedResource(String regex, String enabled)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -192,70 +274,112 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         return api.callApi("ajaxSpider", "action", "setEnabledAllowedResource", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the configuration of the AJAX Spider to use one of the supported browsers.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionBrowserId(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("ajaxSpider", "action", "setOptionBrowserId", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets whether or not the the AJAX Spider will only click on the default HTML elements.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionClickDefaultElems(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ajaxSpider", "action", "setOptionClickDefaultElems", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * When enabled, the crawler attempts to interact with each element (e.g., by clicking) only
+     * once.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionClickElemsOnce(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ajaxSpider", "action", "setOptionClickElemsOnce", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the time to wait after an event (in milliseconds). For example: the wait delay after the
+     * cursor hovers over an element, in order for a menu to display, etc.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionEventWait(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ajaxSpider", "action", "setOptionEventWait", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the maximum depth that the crawler can reach.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionMaxCrawlDepth(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ajaxSpider", "action", "setOptionMaxCrawlDepth", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the maximum number of states that the crawler should crawl.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionMaxCrawlStates(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ajaxSpider", "action", "setOptionMaxCrawlStates", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * The maximum time that the crawler is allowed to run.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionMaxDuration(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ajaxSpider", "action", "setOptionMaxDuration", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the number of windows to be used by AJAX Spider.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionNumberOfBrowsers(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ajaxSpider", "action", "setOptionNumberOfBrowsers", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * When enabled, inserts random values into form fields.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionRandomInputs(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ajaxSpider", "action", "setOptionRandomInputs", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * Sets the time to wait after the page is loaded before interacting with it.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionReloadWait(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
