@@ -36,6 +36,20 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         this.api = api;
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse optionBrowserExtensions() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionBrowserExtensions", null);
+    }
+
+    /**
+     * Returns the current path to Chrome binary
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionChromeBinaryPath() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionChromeBinaryPath", null);
+    }
+
     /**
      * Returns the current path to ChromeDriver
      *
@@ -69,6 +83,11 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "view", "optionIeDriverPath", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse optionLastDirectory() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionLastDirectory", null);
+    }
+
     /**
      * Returns the current path to PhantomJS binary
      *
@@ -76,6 +95,17 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
      */
     public ApiResponse optionPhantomJsBinaryPath() throws ClientApiException {
         return api.callApi("selenium", "view", "optionPhantomJsBinaryPath", null);
+    }
+
+    /**
+     * Sets the current path to Chrome binary
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionChromeBinaryPath(String string) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("String", string);
+        return api.callApi("selenium", "action", "setOptionChromeBinaryPath", map);
     }
 
     /**
@@ -117,6 +147,13 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("selenium", "action", "setOptionIeDriverPath", map);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse setOptionLastDirectory(String string) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("String", string);
+        return api.callApi("selenium", "action", "setOptionLastDirectory", map);
     }
 
     /**

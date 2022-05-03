@@ -61,6 +61,7 @@ import org.zaproxy.clientapi.gen.Context;
 import org.zaproxy.clientapi.gen.Core;
 import org.zaproxy.clientapi.gen.Exportreport;
 import org.zaproxy.clientapi.gen.ForcedUser;
+import org.zaproxy.clientapi.gen.Graphql;
 import org.zaproxy.clientapi.gen.HttpSessions;
 import org.zaproxy.clientapi.gen.ImportLogFiles;
 import org.zaproxy.clientapi.gen.Importurls;
@@ -120,6 +121,7 @@ public class ClientApi {
     public Core core = new Core(this);
     public Exportreport exportreport = new Exportreport(this);
     public ForcedUser forcedUser = new ForcedUser(this);
+    public Graphql graphql = new Graphql(this);
     public HttpSessions httpSessions = new HttpSessions(this);
     public ImportLogFiles logImportFiles = new ImportLogFiles(this);
     public Importurls importurls = new Importurls(this);

@@ -48,4 +48,9 @@ public class Automation {
         map.put("filePath", filepath);
         return api.callApi("automation", "action", "runPlan", map);
     }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse endDelayJob() throws ClientApiException {
+        return api.callApi("automation", "action", "endDelayJob", null);
+    }
 }
