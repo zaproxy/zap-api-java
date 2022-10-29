@@ -132,7 +132,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Gets all the domains that are excluded from the outgoing proxy. For each domain the following
      * are shown: the index, the value (domain), if enabled, and if specified as a regex.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse proxyChainExcludedDomains() throws ClientApiException {
         return api.callApi("core", "view", "proxyChainExcludedDomains", null);
     }
@@ -265,66 +268,106 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Gets the user agent that ZAP should use when creating HTTP messages (for example, spider
      * messages or CONNECT requests to outgoing proxy).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse optionDefaultUserAgent() throws ClientApiException {
         return api.callApi("core", "view", "optionDefaultUserAgent", null);
     }
 
-    /** Gets the TTL (in seconds) of successful DNS queries. */
+    /**
+     * Gets the TTL (in seconds) of successful DNS queries.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse optionDnsTtlSuccessfulQueries() throws ClientApiException {
         return api.callApi("core", "view", "optionDnsTtlSuccessfulQueries", null);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse optionHttpState() throws ClientApiException {
         return api.callApi("core", "view", "optionHttpState", null);
     }
 
-    public ApiResponse optionProxyChainName() throws ClientApiException {
-        return api.callApi("core", "view", "optionProxyChainName", null);
-    }
-
-    public ApiResponse optionProxyChainPassword() throws ClientApiException {
-        return api.callApi("core", "view", "optionProxyChainPassword", null);
-    }
-
-    public ApiResponse optionProxyChainPort() throws ClientApiException {
-        return api.callApi("core", "view", "optionProxyChainPort", null);
-    }
-
-    public ApiResponse optionProxyChainRealm() throws ClientApiException {
-        return api.callApi("core", "view", "optionProxyChainRealm", null);
-    }
-
-    public ApiResponse optionProxyChainUserName() throws ClientApiException {
-        return api.callApi("core", "view", "optionProxyChainUserName", null);
-    }
-
-    /** Gets the connection time out (in seconds). */
-    public ApiResponse optionTimeoutInSecs() throws ClientApiException {
-        return api.callApi("core", "view", "optionTimeoutInSecs", null);
-    }
-
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse optionHttpStateEnabled() throws ClientApiException {
         return api.callApi("core", "view", "optionHttpStateEnabled", null);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse optionProxyChainName() throws ClientApiException {
+        return api.callApi("core", "view", "optionProxyChainName", null);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse optionProxyChainPassword() throws ClientApiException {
+        return api.callApi("core", "view", "optionProxyChainPassword", null);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse optionProxyChainPort() throws ClientApiException {
+        return api.callApi("core", "view", "optionProxyChainPort", null);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse optionProxyChainPrompt() throws ClientApiException {
         return api.callApi("core", "view", "optionProxyChainPrompt", null);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse optionProxyChainRealm() throws ClientApiException {
+        return api.callApi("core", "view", "optionProxyChainRealm", null);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse optionProxyChainUserName() throws ClientApiException {
+        return api.callApi("core", "view", "optionProxyChainUserName", null);
+    }
+
+    /** @deprecated Option no longer in effective use. */
+    @Deprecated
     public ApiResponse optionSingleCookieRequestHeader() throws ClientApiException {
         return api.callApi("core", "view", "optionSingleCookieRequestHeader", null);
     }
 
+    /**
+     * Gets the connection time out (in seconds).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
+    public ApiResponse optionTimeoutInSecs() throws ClientApiException {
+        return api.callApi("core", "view", "optionTimeoutInSecs", null);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse optionUseProxyChain() throws ClientApiException {
         return api.callApi("core", "view", "optionUseProxyChain", null);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse optionUseProxyChainAuth() throws ClientApiException {
         return api.callApi("core", "view", "optionUseProxyChainAuth", null);
     }
 
-    /** Gets whether or not the SOCKS proxy should be used. */
+    /**
+     * Gets whether or not the SOCKS proxy should be used.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse optionUseSocksProxy() throws ClientApiException {
         return api.callApi("core", "view", "optionUseSocksProxy", null);
     }
@@ -425,7 +468,12 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "setMode", map);
     }
 
-    /** Generates a new Root CA certificate for the local proxies. */
+    /**
+     * Generates a new Root CA certificate for the local proxies.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse generateRootCA() throws ClientApiException {
         return api.callApi("core", "action", "generateRootCA", null);
     }
@@ -471,7 +519,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
      * Adds a domain to be excluded from the outgoing proxy, using the specified value. Optionally
      * sets if the new entry is enabled (default, true) and whether or not the new value is
      * specified as a regex (default, false).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse addProxyChainExcludedDomain(String value, String isregex, String isenabled)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -489,7 +540,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
      * Modifies a domain excluded from the outgoing proxy. Allows to modify the value, if enabled or
      * if a regex. The domain is selected with its index, which can be obtained with the view
      * proxyChainExcludedDomains.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse modifyProxyChainExcludedDomain(
             String idx, String value, String isregex, String isenabled) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -509,19 +563,32 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Removes a domain excluded from the outgoing proxy, with the given index. The index can be
      * obtained with the view proxyChainExcludedDomains.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse removeProxyChainExcludedDomain(String idx) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("idx", idx);
         return api.callApi("core", "action", "removeProxyChainExcludedDomain", map);
     }
 
-    /** Enables all domains excluded from the outgoing proxy. */
+    /**
+     * Enables all domains excluded from the outgoing proxy.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse enableAllProxyChainExcludedDomains() throws ClientApiException {
         return api.callApi("core", "action", "enableAllProxyChainExcludedDomains", null);
     }
 
-    /** Disables all domains excluded from the outgoing proxy. */
+    /**
+     * Disables all domains excluded from the outgoing proxy.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse disableAllProxyChainExcludedDomains() throws ClientApiException {
         return api.callApi("core", "action", "disableAllProxyChainExcludedDomains", null);
     }
@@ -556,7 +623,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Enables use of a PKCS12 client certificate for the certificate with the given file system
      * path, password, and optional index.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse enablePKCS12ClientCertificate(String filepath, String password, String index)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -568,7 +638,12 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "enablePKCS12ClientCertificate", map);
     }
 
-    /** Disables the option for use of client certificates. */
+    /**
+     * Disables the option for use of client certificates.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse disableClientCertificate() throws ClientApiException {
         return api.callApi("core", "action", "disableClientCertificate", null);
     }
@@ -598,25 +673,70 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Sets the user agent that ZAP should use when creating HTTP messages (for example, spider
      * messages or CONNECT requests to outgoing proxy).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse setOptionDefaultUserAgent(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("core", "action", "setOptionDefaultUserAgent", map);
     }
 
+    /**
+     * Sets the TTL (in seconds) of successful DNS queries (applies after ZAP restart).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
+    public ApiResponse setOptionDnsTtlSuccessfulQueries(int i) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Integer", Integer.toString(i));
+        return api.callApi("core", "action", "setOptionDnsTtlSuccessfulQueries", map);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse setOptionHttpStateEnabled(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("core", "action", "setOptionHttpStateEnabled", map);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse setOptionProxyChainName(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("core", "action", "setOptionProxyChainName", map);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse setOptionProxyChainPassword(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("core", "action", "setOptionProxyChainPassword", map);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse setOptionProxyChainPort(int i) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Integer", Integer.toString(i));
+        return api.callApi("core", "action", "setOptionProxyChainPort", map);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
+    public ApiResponse setOptionProxyChainPrompt(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("core", "action", "setOptionProxyChainPrompt", map);
+    }
+
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse setOptionProxyChainRealm(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
@@ -635,44 +755,28 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "setOptionProxyChainSkipName", map);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse setOptionProxyChainUserName(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("core", "action", "setOptionProxyChainUserName", map);
     }
 
-    /** Sets the TTL (in seconds) of successful DNS queries (applies after ZAP restart). */
-    public ApiResponse setOptionDnsTtlSuccessfulQueries(int i) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("Integer", Integer.toString(i));
-        return api.callApi("core", "action", "setOptionDnsTtlSuccessfulQueries", map);
-    }
-
-    public ApiResponse setOptionHttpStateEnabled(boolean bool) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("Boolean", Boolean.toString(bool));
-        return api.callApi("core", "action", "setOptionHttpStateEnabled", map);
-    }
-
-    public ApiResponse setOptionProxyChainPort(int i) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("Integer", Integer.toString(i));
-        return api.callApi("core", "action", "setOptionProxyChainPort", map);
-    }
-
-    public ApiResponse setOptionProxyChainPrompt(boolean bool) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("Boolean", Boolean.toString(bool));
-        return api.callApi("core", "action", "setOptionProxyChainPrompt", map);
-    }
-
+    /** @deprecated Option no longer in effective use. */
+    @Deprecated
     public ApiResponse setOptionSingleCookieRequestHeader(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("core", "action", "setOptionSingleCookieRequestHeader", map);
     }
 
-    /** Sets the connection time out (in seconds). */
+    /**
+     * Sets the connection time out (in seconds).
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse setOptionTimeoutInSecs(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
@@ -682,35 +786,54 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Sets whether or not the outgoing proxy should be used. The address/hostname of the outgoing
      * proxy must be set to enable this option.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
      */
+    @Deprecated
     public ApiResponse setOptionUseProxyChain(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("core", "action", "setOptionUseProxyChain", map);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public ApiResponse setOptionUseProxyChainAuth(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("core", "action", "setOptionUseProxyChainAuth", map);
     }
 
-    /** Sets whether or not the SOCKS proxy should be used. */
+    /**
+     * Sets whether or not the SOCKS proxy should be used.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public ApiResponse setOptionUseSocksProxy(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("core", "action", "setOptionUseSocksProxy", map);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public byte[] proxypac() throws ClientApiException {
         return api.callApiOther("core", "other", "proxy.pac", null);
     }
 
-    /** Gets the Root CA certificate used by the local proxies. */
+    /**
+     * Gets the Root CA certificate used by the local proxies.
+     *
+     * @deprecated Use the API endpoints in the 'network' component instead.
+     */
+    @Deprecated
     public byte[] rootcert() throws ClientApiException {
         return api.callApiOther("core", "other", "rootcert", null);
     }
 
+    /** @deprecated Use the API endpoints in the 'network' component instead. */
+    @Deprecated
     public byte[] setproxy(String proxy) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("proxy", proxy);
@@ -757,7 +880,12 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApiOther("core", "other", "mdreport", null);
     }
 
-    /** Gets the message with the given ID in HAR format */
+    /**
+     * Gets the message with the given ID in HAR format
+     *
+     * @deprecated Use the API endpoints in the 'exim' add-on instead.
+     */
+    @Deprecated
     public byte[] messageHar(String id) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
@@ -767,7 +895,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
     /**
      * Gets the HTTP messages sent through/by ZAP, in HAR format, optionally filtered by URL and
      * paginated with 'start' position and 'count' of messages
+     *
+     * @deprecated Use the API endpoints in the 'exim' add-on instead.
      */
+    @Deprecated
     public byte[] messagesHar(String baseurl, String start, String count)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -783,7 +914,12 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApiOther("core", "other", "messagesHar", map);
     }
 
-    /** Gets the HTTP messages with the given IDs, in HAR format. */
+    /**
+     * Gets the HTTP messages with the given IDs, in HAR format.
+     *
+     * @deprecated Use the API endpoints in the 'exim' add-on instead.
+     */
+    @Deprecated
     public byte[] messagesHarById(String ids) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
@@ -795,7 +931,10 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
      * the request sent and response received and followed redirections, if any. The Mode is
      * enforced when sending the request (and following redirections), custom manual requests are
      * not allowed in 'Safe' mode nor in 'Protected' mode if out of scope.
+     *
+     * @deprecated Use the API endpoints in the 'exim' add-on instead.
      */
+    @Deprecated
     public byte[] sendHarRequest(String request, String followredirects) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("request", request);

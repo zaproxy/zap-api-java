@@ -5,10 +5,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add the APIs of the following add-ons:
+  - Import/Export version 0.3.0;
+  - Network version 0.3.0;
+  - Spider version 0.1.0.
+
 ### Changed
+- Update core APIs for 2.12.
 - Update the APIs of the following add-ons:
   - Automation Framework version 0.15.0;
   - Selenium version 15.8.0;
+  - Replacer version 11.
+
+### Deprecated
+- The following APIs were deprecated:
+  - `ImportLogFiles`;
+  - `Importurls`;
+  - `LocalProxies`.
 
 ### Fixed 
 - Add a graphql object to ClientApi.

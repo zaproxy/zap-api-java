@@ -36,6 +36,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         this.api = api;
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse status(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanid != null) {
@@ -44,6 +45,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "status", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse results(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanid != null) {
@@ -52,17 +54,23 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "results", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse fullResults(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scanId", scanid);
         return api.callApi("spider", "view", "fullResults", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse scans() throws ClientApiException {
         return api.callApi("spider", "view", "scans", null);
     }
 
-    /** Gets the regexes of URLs excluded from the spider scans. */
+    /**
+     * Gets the regexes of URLs excluded from the spider scans.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse excludedFromScan() throws ClientApiException {
         return api.callApi("spider", "view", "excludedFromScan", null);
     }
@@ -70,12 +78,18 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Returns a list of unique URLs from the history table based on HTTP messages added by the
      * Spider.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse allUrls() throws ClientApiException {
         return api.callApi("spider", "view", "allUrls", null);
     }
 
-    /** Returns a list of the names of the nodes added to the Sites tree by the specified scan. */
+    /**
+     * Returns a list of the names of the nodes added to the Sites tree by the specified scan.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse addedNodes(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanid != null) {
@@ -87,6 +101,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Gets all the domains that are always in scope. For each domain the following are shown: the
      * index, the value (domain), if enabled, and if specified as a regex.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse domainsAlwaysInScope() throws ClientApiException {
         return api.callApi("spider", "view", "domainsAlwaysInScope", null);
@@ -94,6 +110,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
 
     /**
      * Use view domainsAlwaysInScope instead.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      *
      * @deprecated
      */
@@ -105,6 +123,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Use view domainsAlwaysInScope instead.
      *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     *
      * @deprecated
      */
     @Deprecated
@@ -112,103 +132,127 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "optionDomainsAlwaysInScopeEnabled", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionHandleParameters() throws ClientApiException {
         return api.callApi("spider", "view", "optionHandleParameters", null);
     }
 
-    /** Gets the maximum number of child nodes (per node) that can be crawled, 0 means no limit. */
+    /**
+     * Gets the maximum number of child nodes (per node) that can be crawled, 0 means no limit.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxChildren() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxChildren", null);
     }
 
-    /** Gets the maximum depth the spider can crawl, 0 if unlimited. */
+    /**
+     * Gets the maximum depth the spider can crawl, 0 if unlimited.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxDepth() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxDepth", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionMaxDuration() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxDuration", null);
     }
 
-    /** Gets the maximum size, in bytes, that a response might have to be parsed. */
+    /**
+     * Gets the maximum size, in bytes, that a response might have to be parsed.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionMaxParseSizeBytes() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxParseSizeBytes", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionMaxScansInUI() throws ClientApiException {
         return api.callApi("spider", "view", "optionMaxScansInUI", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionRequestWaitTime() throws ClientApiException {
         return api.callApi("spider", "view", "optionRequestWaitTime", null);
     }
 
-    /** @deprecated Option no longer in effective use. */
-    @Deprecated
-    public ApiResponse optionScope() throws ClientApiException {
-        return api.callApi("spider", "view", "optionScope", null);
-    }
-
-    /** @deprecated Option no longer in effective use. */
-    @Deprecated
-    public ApiResponse optionScopeText() throws ClientApiException {
-        return api.callApi("spider", "view", "optionScopeText", null);
-    }
-
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionSkipURLString() throws ClientApiException {
         return api.callApi("spider", "view", "optionSkipURLString", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionThreadCount() throws ClientApiException {
         return api.callApi("spider", "view", "optionThreadCount", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionUserAgent() throws ClientApiException {
         return api.callApi("spider", "view", "optionUserAgent", null);
     }
 
-    /** Gets whether or not a spider process should accept cookies while spidering. */
+    /**
+     * Gets whether or not a spider process should accept cookies while spidering.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionAcceptCookies() throws ClientApiException {
         return api.callApi("spider", "view", "optionAcceptCookies", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionHandleODataParametersVisited() throws ClientApiException {
         return api.callApi("spider", "view", "optionHandleODataParametersVisited", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseComments() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseComments", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseGit() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseGit", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseRobotsTxt() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseRobotsTxt", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseSVNEntries() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseSVNEntries", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseSitemapXml() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseSitemapXml", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionPostForm() throws ClientApiException {
         return api.callApi("spider", "view", "optionPostForm", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionProcessForm() throws ClientApiException {
         return api.callApi("spider", "view", "optionProcessForm", null);
     }
 
-    /** Gets whether or not the 'Referer' header should be sent while spidering. */
+    /**
+     * Gets whether or not the 'Referer' header should be sent while spidering.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse optionSendRefererHeader() throws ClientApiException {
         return api.callApi("spider", "view", "optionSendRefererHeader", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionShowAdvancedDialog() throws ClientApiException {
         return api.callApi("spider", "view", "optionShowAdvancedDialog", null);
     }
@@ -219,6 +263,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
      * prevent the spider from seeding recursively, the parameter 'contextName' can be used to
      * constrain the scan to a Context and the parameter 'subtreeOnly' allows to restrict the spider
      * under a site's subtree (using the specified 'url').
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse scan(
             String url, String maxchildren, String recurse, String contextname, String subtreeonly)
@@ -245,6 +291,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Runs the spider from the perspective of a User, obtained using the given Context ID and User
      * ID. See 'scan' action for more details.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse scanAsUser(
             String contextid,
@@ -272,18 +320,21 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "scanAsUser", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse pause(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scanId", scanid);
         return api.callApi("spider", "action", "pause", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse resume(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scanId", scanid);
         return api.callApi("spider", "action", "resume", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse stop(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanid != null) {
@@ -292,34 +343,47 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "stop", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse removeScan(String scanid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scanId", scanid);
         return api.callApi("spider", "action", "removeScan", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse pauseAllScans() throws ClientApiException {
         return api.callApi("spider", "action", "pauseAllScans", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse resumeAllScans() throws ClientApiException {
         return api.callApi("spider", "action", "resumeAllScans", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse stopAllScans() throws ClientApiException {
         return api.callApi("spider", "action", "stopAllScans", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse removeAllScans() throws ClientApiException {
         return api.callApi("spider", "action", "removeAllScans", null);
     }
 
-    /** Clears the regexes of URLs excluded from the spider scans. */
+    /**
+     * Clears the regexes of URLs excluded from the spider scans.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse clearExcludedFromScan() throws ClientApiException {
         return api.callApi("spider", "action", "clearExcludedFromScan", null);
     }
 
-    /** Adds a regex of URLs that should be excluded from the spider scans. */
+    /**
+     * Adds a regex of URLs that should be excluded from the spider scans.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse excludeFromScan(String regex) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("regex", regex);
@@ -330,6 +394,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
      * Adds a new domain that's always in scope, using the specified value. Optionally sets if the
      * new entry is enabled (default, true) and whether or not the new value is specified as a regex
      * (default, false).
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse addDomainAlwaysInScope(String value, String isregex, String isenabled)
             throws ClientApiException {
@@ -348,6 +414,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
      * Modifies a domain that's always in scope. Allows to modify the value, if enabled or if a
      * regex. The domain is selected with its index, which can be obtained with the view
      * domainsAlwaysInScope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse modifyDomainAlwaysInScope(
             String idx, String value, String isregex, String isenabled) throws ClientApiException {
@@ -368,6 +436,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Removes a domain that's always in scope, with the given index. The index can be obtained with
      * the view domainsAlwaysInScope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse removeDomainAlwaysInScope(String idx) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -375,53 +445,57 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "removeDomainAlwaysInScope", map);
     }
 
-    /** Enables all domains that are always in scope. */
+    /**
+     * Enables all domains that are always in scope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse enableAllDomainsAlwaysInScope() throws ClientApiException {
         return api.callApi("spider", "action", "enableAllDomainsAlwaysInScope", null);
     }
 
-    /** Disables all domains that are always in scope. */
+    /**
+     * Disables all domains that are always in scope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse disableAllDomainsAlwaysInScope() throws ClientApiException {
         return api.callApi("spider", "action", "disableAllDomainsAlwaysInScope", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionHandleParameters(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("spider", "action", "setOptionHandleParameters", map);
     }
 
-    /**
-     * Use actions [add|modify|remove]DomainAlwaysInScope instead.
-     *
-     * @deprecated Option no longer in effective use.
-     */
-    @Deprecated
-    public ApiResponse setOptionScopeString(String string) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("String", string);
-        return api.callApi("spider", "action", "setOptionScopeString", map);
-    }
-
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionSkipURLString(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("spider", "action", "setOptionSkipURLString", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionUserAgent(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("spider", "action", "setOptionUserAgent", map);
     }
 
-    /** Sets whether or not a spider process should accept cookies while spidering. */
+    /**
+     * Sets whether or not a spider process should accept cookies while spidering.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionAcceptCookies(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionAcceptCookies", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionHandleODataParametersVisited(boolean bool)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -429,20 +503,29 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "setOptionHandleODataParametersVisited", map);
     }
 
-    /** Sets the maximum number of child nodes (per node) that can be crawled, 0 means no limit. */
+    /**
+     * Sets the maximum number of child nodes (per node) that can be crawled, 0 means no limit.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionMaxChildren(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("spider", "action", "setOptionMaxChildren", map);
     }
 
-    /** Sets the maximum depth the spider can crawl, 0 for unlimited depth. */
+    /**
+     * Sets the maximum depth the spider can crawl, 0 for unlimited depth.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionMaxDepth(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("spider", "action", "setOptionMaxDepth", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionMaxDuration(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
@@ -452,6 +535,8 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /**
      * Sets the maximum size, in bytes, that a response might have to be parsed. This allows the
      * spider to skip big responses/files.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse setOptionMaxParseSizeBytes(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -459,73 +544,88 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "setOptionMaxParseSizeBytes", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionMaxScansInUI(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("spider", "action", "setOptionMaxScansInUI", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionParseComments(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseComments", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionParseGit(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseGit", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionParseRobotsTxt(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseRobotsTxt", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionParseSVNEntries(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseSVNEntries", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionParseSitemapXml(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseSitemapXml", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionPostForm(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionPostForm", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionProcessForm(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionProcessForm", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionRequestWaitTime(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("spider", "action", "setOptionRequestWaitTime", map);
     }
 
-    /** Sets whether or not the 'Referer' header should be sent while spidering. */
+    /**
+     * Sets whether or not the 'Referer' header should be sent while spidering.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setOptionSendRefererHeader(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionSendRefererHeader", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionShowAdvancedDialog(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionShowAdvancedDialog", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse setOptionThreadCount(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));

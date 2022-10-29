@@ -24,14 +24,16 @@ import java.util.Map;
 import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
+import org.zaproxy.clientapi.gen.deprecated.ReplacerDeprecated;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class Replacer {
+public class Replacer extends ReplacerDeprecated {
 
     private final ClientApi api;
 
     public Replacer(ClientApi api) {
+        super(api);
         this.api = api;
     }
 
@@ -62,7 +64,8 @@ public class Replacer {
             String matchregex,
             String matchstring,
             String replacement,
-            String initiators)
+            String initiators,
+            String url)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("description", description);
@@ -75,6 +78,9 @@ public class Replacer {
         }
         if (initiators != null) {
             map.put("initiators", initiators);
+        }
+        if (url != null) {
+            map.put("url", url);
         }
         return api.callApi("replacer", "action", "addRule", map);
     }

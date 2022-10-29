@@ -25,8 +25,13 @@ import org.zaproxy.clientapi.core.ApiResponse;
 import org.zaproxy.clientapi.core.ClientApi;
 import org.zaproxy.clientapi.core.ClientApiException;
 
-/** This file was automatically generated. */
+/**
+ * This file was automatically generated.
+ *
+ * @deprecated Use {@link Exim} instead.
+ */
 @SuppressWarnings("javadoc")
+@Deprecated
 public class Importurls {
 
     private final ClientApi api;

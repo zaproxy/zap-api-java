@@ -59,13 +59,12 @@ import org.zaproxy.clientapi.gen.Autoupdate;
 import org.zaproxy.clientapi.gen.Break;
 import org.zaproxy.clientapi.gen.Context;
 import org.zaproxy.clientapi.gen.Core;
+import org.zaproxy.clientapi.gen.Exim;
 import org.zaproxy.clientapi.gen.Exportreport;
 import org.zaproxy.clientapi.gen.ForcedUser;
 import org.zaproxy.clientapi.gen.Graphql;
 import org.zaproxy.clientapi.gen.HttpSessions;
-import org.zaproxy.clientapi.gen.ImportLogFiles;
-import org.zaproxy.clientapi.gen.Importurls;
-import org.zaproxy.clientapi.gen.LocalProxies;
+import org.zaproxy.clientapi.gen.Network;
 import org.zaproxy.clientapi.gen.Openapi;
 import org.zaproxy.clientapi.gen.Params;
 import org.zaproxy.clientapi.gen.Pnh;
@@ -119,13 +118,25 @@ public class ClientApi {
     public Break brk = new Break(this);
     public Context context = new Context(this);
     public Core core = new Core(this);
+    public Exim exim = new Exim(this);
     public Exportreport exportreport = new Exportreport(this);
     public ForcedUser forcedUser = new ForcedUser(this);
     public Graphql graphql = new Graphql(this);
     public HttpSessions httpSessions = new HttpSessions(this);
-    public ImportLogFiles logImportFiles = new ImportLogFiles(this);
-    public Importurls importurls = new Importurls(this);
-    public LocalProxies localProxies = new LocalProxies(this);
+
+    @SuppressWarnings("deprecation")
+    public org.zaproxy.clientapi.gen.ImportLogFiles logImportFiles =
+            new org.zaproxy.clientapi.gen.ImportLogFiles(this);
+
+    @SuppressWarnings("deprecation")
+    public org.zaproxy.clientapi.gen.Importurls importurls =
+            new org.zaproxy.clientapi.gen.Importurls(this);
+
+    @SuppressWarnings("deprecation")
+    public org.zaproxy.clientapi.gen.LocalProxies localProxies =
+            new org.zaproxy.clientapi.gen.LocalProxies(this);
+
+    public Network network = new Network(this);
     public Openapi openapi = new Openapi(this);
     public Params params = new Params(this);
     public Pnh pnh = new Pnh(this);
