@@ -85,9 +85,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "excludedFromScan", null);
     }
 
-    /**
-     * Gets the scanners, optionally, of the given scan policy and/or scanner policy/category ID.
-     */
+    /** Gets the scan rules, optionally, of the given scan policy or scanner policy/category ID. */
     public ApiResponse scanners(String scanpolicyname, String policyid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (scanpolicyname != null) {
@@ -253,9 +251,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
     }
 
     /**
-     * Runs the active scanner against the given URL and/or Context. Optionally, the 'recurse'
-     * parameter can be used to scan URLs under the given URL, the parameter 'inScopeOnly' can be
-     * used to constrain the scan to URLs that are in scope (ignored if a Context is specified), the
+     * Runs the active scanner against the given URL or Context. Optionally, the 'recurse' parameter
+     * can be used to scan URLs under the given URL, the parameter 'inScopeOnly' can be used to
+     * constrain the scan to URLs that are in scope (ignored if a Context is specified), the
      * parameter 'scanPolicyName' allows to specify the scan policy (if none is given it uses the
      * default scan policy), the parameters 'method' and 'postData' allow to select a given request
      * in conjunction with the given URL.
@@ -385,7 +383,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
     }
 
     /**
-     * Enables all scanners of the scan policy with the given name, or the default if none given.
+     * Enables all scan rules of the scan policy with the given name, or the default if none given.
      */
     public ApiResponse enableAllScanners(String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -396,7 +394,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
     }
 
     /**
-     * Disables all scanners of the scan policy with the given name, or the default if none given.
+     * Disables all scan rules of the scan policy with the given name, or the default if none given.
      */
     public ApiResponse disableAllScanners(String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -407,8 +405,8 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
     }
 
     /**
-     * Enables the scanners with the given IDs (comma separated list of IDs) of the scan policy with
-     * the given name, or the default if none given.
+     * Enables the scan rules with the given IDs (comma separated list of IDs) of the scan policy
+     * with the given name, or the default if none given.
      */
     public ApiResponse enableScanners(String ids, String scanpolicyname) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -420,7 +418,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
     }
 
     /**
-     * Disables the scanners with the given IDs (comma separated list of IDs) of the scan policy
+     * Disables the scan rules with the given IDs (comma separated list of IDs) of the scan policy
      * with the given name, or the default if none given.
      */
     public ApiResponse disableScanners(String ids, String scanpolicyname)
@@ -485,10 +483,6 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
             map.put("scanPolicyName", scanpolicyname);
         }
         return api.callApi("ascan", "action", "setScannerAlertThreshold", map);
-    }
-
-    public ApiResponse addScanPolicy(String scanpolicyname) throws ClientApiException {
-        return addScanPolicy(scanpolicyname, null, null);
     }
 
     public ApiResponse addScanPolicy(

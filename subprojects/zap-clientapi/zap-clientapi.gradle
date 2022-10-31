@@ -1,7 +1,7 @@
 plugins {
     id "maven-publish"
     id "signing"
-    id "me.champeau.gradle.japicmp" version "0.2.9"
+    id "me.champeau.gradle.japicmp" version "0.4.1"
 }
 
 sourceSets { examples }
@@ -41,13 +41,15 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     group 'verification'
     description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
 
-    oldClasspath = files(clientapiJar(versionBC))
-    newClasspath = files(tasks.named(JavaPlugin.JAR_TASK_NAME).map { it.archivePath })
-    onlyBinaryIncompatibleModified = true
-    failOnModification = true
-    ignoreMissingClasses = true
-    htmlOutputFile = file("$buildDir/reports/japi.html")
+    oldClasspath.from(files(clientapiJar(versionBC)))
+    newClasspath.from(files(tasks.named(JavaPlugin.JAR_TASK_NAME).map { it.archivePath }))
+    onlyBinaryIncompatibleModified.set(true)
+    failOnModification.set(true)
+    ignoreMissingClasses.set(true)
+    htmlOutputFile.set(file("$buildDir/reports/japi.html"))
 }
+
+check.dependsOn(japicmp)
 
 task javadocJar(type: Jar) {
     classifier = 'javadoc'

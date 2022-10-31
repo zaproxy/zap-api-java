@@ -79,4 +79,14 @@ public class AcsrfDeprecated {
         map.put("hrefId", hrefid);
         return api.callApiOther("acsrf", "other", "genForm", map);
     }
+
+    /** Generate a form for testing lack of anti-CSRF tokens - typically invoked via ZAP */
+    public byte[] genFormWithUrl(String hrefid, String actionurl) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("hrefId", hrefid);
+        if (actionurl != null) {
+            map.put("actionUrl", actionurl);
+        }
+        return api.callApiOther("acsrf", "other", "genForm", map);
+    }
 }

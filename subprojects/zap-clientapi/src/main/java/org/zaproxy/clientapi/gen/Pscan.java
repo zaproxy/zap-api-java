@@ -48,14 +48,24 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         return api.callApi("pscan", "view", "recordsToScan", null);
     }
 
-    /** Lists all passive scanners with its ID, name, enabled state and alert threshold. */
+    /** Lists all passive scan rules with their ID, name, enabled state, and alert threshold. */
     public ApiResponse scanners() throws ClientApiException {
         return api.callApi("pscan", "view", "scanners", null);
     }
 
-    /** Show information about the passive scan rule currently being run (if any). */
+    /**
+     * Show information about the passive scan rule currently being run (if any).
+     *
+     * @deprecated Use the currentTasks view instead.
+     */
+    @Deprecated
     public ApiResponse currentRule() throws ClientApiException {
         return api.callApi("pscan", "view", "currentRule", null);
+    }
+
+    /** Show information about the passive scan tasks currently being run (if any). */
+    public ApiResponse currentTasks() throws ClientApiException {
+        return api.callApi("pscan", "view", "currentTasks", null);
     }
 
     /** Gets the maximum number of alerts a passive scan rule should raise. */
@@ -82,24 +92,24 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         return api.callApi("pscan", "action", "setScanOnlyInScope", map);
     }
 
-    /** Enables all passive scanners */
+    /** Enables all passive scan rules */
     public ApiResponse enableAllScanners() throws ClientApiException {
         return api.callApi("pscan", "action", "enableAllScanners", null);
     }
 
-    /** Disables all passive scanners */
+    /** Disables all passive scan rules */
     public ApiResponse disableAllScanners() throws ClientApiException {
         return api.callApi("pscan", "action", "disableAllScanners", null);
     }
 
-    /** Enables all passive scanners with the given IDs (comma separated list of IDs) */
+    /** Enables all passive scan rules with the given IDs (comma separated list of IDs) */
     public ApiResponse enableScanners(String ids) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
         return api.callApi("pscan", "action", "enableScanners", map);
     }
 
-    /** Disables all passive scanners with the given IDs (comma separated list of IDs) */
+    /** Disables all passive scan rules with the given IDs (comma separated list of IDs) */
     public ApiResponse disableScanners(String ids) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
@@ -133,5 +143,10 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
     /** Enables all passive scan tags. */
     public ApiResponse enableAllTags() throws ClientApiException {
         return api.callApi("pscan", "action", "enableAllTags", null);
+    }
+
+    /** Clears the passive scan queue. */
+    public ApiResponse clearQueue() throws ClientApiException {
+        return api.callApi("pscan", "action", "clearQueue", null);
     }
 }
