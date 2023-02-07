@@ -437,10 +437,7 @@ public class Alert {
         if (this == object) {
             return true;
         }
-        if (object == null) {
-            return false;
-        }
-        if (getClass() != object.getClass()) {
+        if (!(object instanceof Alert)) {
             return false;
         }
         Alert otherAlert = (Alert) object;
