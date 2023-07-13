@@ -117,8 +117,8 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
     }
 
     /**
-     * Sets the alert threshold of the passive scanner with the given ID, accepted values for alert
-     * threshold: OFF, DEFAULT, LOW, MEDIUM and HIGH
+     * Sets the alert threshold of the passive scan rule with the given ID, accepted values for
+     * alert threshold: OFF, DEFAULT, LOW, MEDIUM and HIGH
      */
     public ApiResponse setScannerAlertThreshold(String id, String alertthreshold)
             throws ClientApiException {

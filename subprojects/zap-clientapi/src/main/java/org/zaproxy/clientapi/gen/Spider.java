@@ -214,6 +214,11 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     }
 
     /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse optionParseDsStore() throws ClientApiException {
+        return api.callApi("spider", "view", "optionParseDsStore", null);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionParseGit() throws ClientApiException {
         return api.callApi("spider", "view", "optionParseGit", null);
     }
@@ -556,6 +561,13 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionParseComments", map);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse setOptionParseDsStore(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("spider", "action", "setOptionParseDsStore", map);
     }
 
     /** This component is optional and therefore the API will only work if it is installed */

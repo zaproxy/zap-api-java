@@ -4,9 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.12.0] - 2023-07-13
 ### Changed
 - Minimum Java version is now 11.
+- Update core APIs for 2.13.
+- Update the APIs of the following add-ons:
+  - AJAX Spider version 23.15.0;
+  - Alert Filters version 17;
+  - GraphQL Support version 0.18.0;
+  - Network version 0.10.0;
+  - Selenium version 15.13.0;
+  - Spider version 0.5.0.
 
 ## [1.11.0] - 2022-11-01
 ### Added
@@ -166,7 +174,7 @@ of the alert (zaproxy/zaproxy#1341), older methods were deprecated.
  - First version as "stand alone library", it was migrated from the [zaproxy repository](https://github.com/zaproxy/zaproxy)
  and released to Maven Central.
 
-[Unreleased]: https://github.com/zaproxy/zap-api-java/compare/v1.11.0...HEAD
+[1.12.0]: https://github.com/zaproxy/zap-api-java/compare/v1.11.0...v1.12.0
 [1.11.0]: https://github.com/zaproxy/zap-api-java/compare/v1.10.0...v1.11.0
 [1.10.0]: https://github.com/zaproxy/zap-api-java/compare/v1.9.0...v1.10.0
 [1.9.0]: https://github.com/zaproxy/zap-api-java/compare/v1.8.0...v1.9.0

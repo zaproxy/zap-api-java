@@ -146,6 +146,8 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "optionDefaultPolicy", null);
     }
 
+    /** @deprecated Option no longer in effective use. */
+    @Deprecated
     public ApiResponse optionDelayInMs() throws ClientApiException {
         return api.callApi("ascan", "view", "optionDelayInMs", null);
     }
@@ -156,6 +158,11 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
     public ApiResponse optionHostPerScan() throws ClientApiException {
         return api.callApi("ascan", "view", "optionHostPerScan", null);
+    }
+
+    /** Gets the maximum number of alerts that a rule can raise before being skipped. */
+    public ApiResponse optionMaxAlertsPerRule() throws ClientApiException {
+        return api.callApi("ascan", "view", "optionMaxAlertsPerRule", null);
     }
 
     public ApiResponse optionMaxChartTimeInMins() throws ClientApiException {
@@ -204,7 +211,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
     /**
      * Tells whether or not the active scanner should inject the HTTP request header X-ZAP-Scan-ID,
-     * with the ID of the scanner that's sending the requests.
+     * with the ID of the scan rule that's sending the requests.
      */
     public ApiResponse optionInjectPluginIdInHeader() throws ClientApiException {
         return api.callApi("ascan", "view", "optionInjectPluginIdInHeader", null);
@@ -576,7 +583,7 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "removeExcludedParam", map);
     }
 
-    /** Skips the scanner using the given IDs of the scan and the scanner. */
+    /** Skips the scan rule using the given IDs of the scan and the scan rule. */
     public ApiResponse skipScanner(String scanid, String scannerid) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("scanId", scanid);
@@ -612,6 +619,8 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "setOptionAllowAttackOnStart", map);
     }
 
+    /** @deprecated Option no longer in effective use. */
+    @Deprecated
     public ApiResponse setOptionDelayInMs(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
@@ -632,12 +641,19 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
 
     /**
      * Sets whether or not the active scanner should inject the HTTP request header X-ZAP-Scan-ID,
-     * with the ID of the scanner that's sending the requests.
+     * with the ID of the scan rule that's sending the requests.
      */
     public ApiResponse setOptionInjectPluginIdInHeader(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ascan", "action", "setOptionInjectPluginIdInHeader", map);
+    }
+
+    /** Sets the maximum number of alerts that a rule can raise before being skipped. */
+    public ApiResponse setOptionMaxAlertsPerRule(int i) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Integer", Integer.toString(i));
+        return api.callApi("ascan", "action", "setOptionMaxAlertsPerRule", map);
     }
 
     public ApiResponse setOptionMaxChartTimeInMins(int i) throws ClientApiException {

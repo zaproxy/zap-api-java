@@ -90,6 +90,15 @@ public class Graphql {
     }
 
     /**
+     * Returns whether the query generator is enabled.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionQueryGenEnabled() throws ClientApiException {
+        return api.callApi("graphql", "view", "optionQueryGenEnabled", null);
+    }
+
+    /**
      * Returns the current level for which a single query is generated.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -220,5 +229,16 @@ public class Graphql {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("graphql", "action", "setOptionOptionalArgsEnabled", map);
+    }
+
+    /**
+     * Sets whether the query generator is enabled.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionQueryGenEnabled(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("graphql", "action", "setOptionQueryGenEnabled", map);
     }
 }
