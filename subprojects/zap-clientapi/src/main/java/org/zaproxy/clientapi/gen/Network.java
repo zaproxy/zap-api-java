@@ -172,6 +172,15 @@ public class Network {
     }
 
     /**
+     * List of rate limit rules.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse getRateLimitRules() throws ClientApiException {
+        return api.callApi("network", "view", "getRateLimitRules", null);
+    }
+
+    /**
      * Generates a new Root CA certificate, used to issue server certificates.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -384,7 +393,7 @@ public class Network {
     }
 
     /**
-     * Removes a HTTP proxy exclusion.
+     * Removes an HTTP proxy exclusion.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
@@ -440,7 +449,7 @@ public class Network {
     }
 
     /**
-     * Sets whether or not a HTTP proxy exclusion is enabled.
+     * Sets whether or not an HTTP proxy exclusion is enabled.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
@@ -531,6 +540,53 @@ public class Network {
         Map<String, String> map = new HashMap<>();
         map.put("use", use);
         return api.callApi("network", "action", "setUseClientCertificate", map);
+    }
+
+    /**
+     * Adds a rate limit rule
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addRateLimitRule(
+            String description,
+            String enabled,
+            String matchregex,
+            String matchstring,
+            String requestspersecond,
+            String groupby)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        map.put("enabled", enabled);
+        map.put("matchRegex", matchregex);
+        map.put("matchString", matchstring);
+        map.put("requestsPerSecond", requestspersecond);
+        map.put("groupBy", groupby);
+        return api.callApi("network", "action", "addRateLimitRule", map);
+    }
+
+    /**
+     * Remove a rate limit rule
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeRateLimitRule(String description) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        return api.callApi("network", "action", "removeRateLimitRule", map);
+    }
+
+    /**
+     * Set enabled state for a rate limit rule.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setRateLimitRuleEnabled(String description, String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("description", description);
+        map.put("enabled", enabled);
+        return api.callApi("network", "action", "setRateLimitRuleEnabled", map);
     }
 
     /**

@@ -47,6 +47,18 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     }
 
     /**
+     * Gets the excluded elements. The excluded elements are not clicked during crawling, for
+     * example, to prevent logging out.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse excludedElements(String contextname) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        return api.callApi("ajaxSpider", "view", "excludedElements", map);
+    }
+
+    /**
      * Gets the current status of the crawler. Actual values are Stopped and Running.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -248,6 +260,97 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
             map.put("enabled", enabled);
         }
         return api.callApi("ajaxSpider", "action", "addAllowedResource", map);
+    }
+
+    /**
+     * Adds an excluded element to a context.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addExcludedElement(
+            String contextname,
+            String description,
+            String element,
+            String xpath,
+            String text,
+            String attributename,
+            String attributevalue,
+            String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        map.put("description", description);
+        map.put("element", element);
+        if (xpath != null) {
+            map.put("xpath", xpath);
+        }
+        if (text != null) {
+            map.put("text", text);
+        }
+        if (attributename != null) {
+            map.put("attributeName", attributename);
+        }
+        if (attributevalue != null) {
+            map.put("attributeValue", attributevalue);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("ajaxSpider", "action", "addExcludedElement", map);
+    }
+
+    /**
+     * Modifies an excluded element of a context.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse modifyExcludedElement(
+            String contextname,
+            String description,
+            String element,
+            String descriptionnew,
+            String xpath,
+            String text,
+            String attributename,
+            String attributevalue,
+            String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        map.put("description", description);
+        map.put("element", element);
+        if (descriptionnew != null) {
+            map.put("descriptionNew", descriptionnew);
+        }
+        if (xpath != null) {
+            map.put("xpath", xpath);
+        }
+        if (text != null) {
+            map.put("text", text);
+        }
+        if (attributename != null) {
+            map.put("attributeName", attributename);
+        }
+        if (attributevalue != null) {
+            map.put("attributeValue", attributevalue);
+        }
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("ajaxSpider", "action", "modifyExcludedElement", map);
+    }
+
+    /**
+     * Removes an excluded element from a context.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeExcludedElement(String contextname, String description)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("contextName", contextname);
+        map.put("description", description);
+        return api.callApi("ajaxSpider", "action", "removeExcludedElement", map);
     }
 
     /**

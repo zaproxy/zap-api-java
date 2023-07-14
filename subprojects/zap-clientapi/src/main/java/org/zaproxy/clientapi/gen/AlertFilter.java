@@ -27,7 +27,7 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class AlertFilter {
+public class AlertFilter extends org.zaproxy.clientapi.gen.deprecated.AlertFilterDeprecated {
 
     private final ClientApi api;
 
@@ -54,40 +54,13 @@ public class AlertFilter {
     public ApiResponse globalAlertFilterList() throws ClientApiException {
         return api.callApi("alertFilter", "view", "globalAlertFilterList", null);
     }
-    /**
-     * Adds a new alert filter for the context with the given ID.
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
-    public ApiResponse addAlertFilter(
-            String contextid,
-            String ruleid,
-            String newlevel,
-            String url,
-            String urlisregex,
-            String parameter,
-            String enabled)
-            throws ClientApiException {
-        return addAlertFilter(
-                contextid,
-                ruleid,
-                newlevel,
-                url,
-                urlisregex,
-                parameter,
-                enabled,
-                null,
-                null,
-                null,
-                null,
-                null);
-    }
 
     /**
      * Adds a new alert filter for the context with the given ID.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
+    @Override
     public ApiResponse addAlertFilter(
             String contextid,
             String ruleid,
@@ -100,7 +73,8 @@ public class AlertFilter {
             String attack,
             String attackisregex,
             String evidence,
-            String evidenceisregex)
+            String evidenceisregex,
+            String methods)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
@@ -132,6 +106,9 @@ public class AlertFilter {
         }
         if (evidenceisregex != null) {
             map.put("evidenceIsRegex", evidenceisregex);
+        }
+        if (methods != null) {
+            map.put("methods", methods);
         }
         return api.callApi("alertFilter", "action", "addAlertFilter", map);
     }
@@ -141,35 +118,7 @@ public class AlertFilter {
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse removeAlertFilter(
-            String contextid,
-            String ruleid,
-            String newlevel,
-            String url,
-            String urlisregex,
-            String parameter,
-            String enabled)
-            throws ClientApiException {
-        return removeAlertFilter(
-                contextid,
-                ruleid,
-                newlevel,
-                url,
-                urlisregex,
-                parameter,
-                enabled,
-                null,
-                null,
-                null,
-                null,
-                null);
-    }
-
-    /**
-     * Removes an alert filter from the context with the given ID.
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
+    @Override
     public ApiResponse removeAlertFilter(
             String contextid,
             String ruleid,
@@ -182,7 +131,8 @@ public class AlertFilter {
             String attack,
             String attackisregex,
             String evidence,
-            String evidenceisregex)
+            String evidenceisregex,
+            String methods)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("contextId", contextid);
@@ -215,6 +165,9 @@ public class AlertFilter {
         if (evidenceisregex != null) {
             map.put("evidenceIsRegex", evidenceisregex);
         }
+        if (methods != null) {
+            map.put("methods", methods);
+        }
         return api.callApi("alertFilter", "action", "removeAlertFilter", map);
     }
 
@@ -223,6 +176,7 @@ public class AlertFilter {
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
+    @Override
     public ApiResponse addGlobalAlertFilter(
             String ruleid,
             String newlevel,
@@ -234,7 +188,8 @@ public class AlertFilter {
             String attack,
             String attackisregex,
             String evidence,
-            String evidenceisregex)
+            String evidenceisregex,
+            String methods)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ruleId", ruleid);
@@ -266,6 +221,9 @@ public class AlertFilter {
         if (evidenceisregex != null) {
             map.put("evidenceIsRegex", evidenceisregex);
         }
+        if (methods != null) {
+            map.put("methods", methods);
+        }
         return api.callApi("alertFilter", "action", "addGlobalAlertFilter", map);
     }
 
@@ -274,6 +232,7 @@ public class AlertFilter {
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
+    @Override
     public ApiResponse removeGlobalAlertFilter(
             String ruleid,
             String newlevel,
@@ -285,7 +244,8 @@ public class AlertFilter {
             String attack,
             String attackisregex,
             String evidence,
-            String evidenceisregex)
+            String evidenceisregex,
+            String methods)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ruleId", ruleid);
@@ -316,6 +276,9 @@ public class AlertFilter {
         }
         if (evidenceisregex != null) {
             map.put("evidenceIsRegex", evidenceisregex);
+        }
+        if (methods != null) {
+            map.put("methods", methods);
         }
         return api.callApi("alertFilter", "action", "removeGlobalAlertFilter", map);
     }

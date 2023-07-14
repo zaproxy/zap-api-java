@@ -88,11 +88,8 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "view", "optionLastDirectory", null);
     }
 
-    /**
-     * Returns the current path to PhantomJS binary
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
+    /** This component is optional and therefore the API will only work if it is installed */
+    @Deprecated
     public ApiResponse optionPhantomJsBinaryPath() throws ClientApiException {
         return api.callApi("selenium", "view", "optionPhantomJsBinaryPath", null);
     }
@@ -156,11 +153,8 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "action", "setOptionLastDirectory", map);
     }
 
-    /**
-     * Sets the current path to PhantomJS binary
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
+    /** This component is optional and therefore the API will only work if it is installed */
+    @Deprecated
     public ApiResponse setOptionPhantomJsBinaryPath(String string) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
