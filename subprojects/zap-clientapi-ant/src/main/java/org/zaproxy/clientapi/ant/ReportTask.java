@@ -64,7 +64,7 @@ public class ReportTask extends ZapTask {
 
         byte[] reportContents;
         try {
-            switch (type.toLowerCase()) {
+            switch (type.toLowerCase(Locale.ROOT)) {
                 case MD_REPORT_TYPE:
                     reportContents = this.getClientApi().core.mdreport();
                     break;

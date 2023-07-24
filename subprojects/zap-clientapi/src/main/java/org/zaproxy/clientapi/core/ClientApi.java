@@ -33,6 +33,8 @@ import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -214,7 +216,7 @@ public class ClientApi {
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts)
             throws ClientApiException {
-        HashMap<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
+        Map<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
         verifyAlerts(results.get("requireAlerts"), results.get("reportAlerts"));
     }
 
@@ -250,7 +252,7 @@ public class ClientApi {
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts, File outputFile)
             throws ClientApiException {
-        HashMap<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
+        Map<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
         int alertsFound = results.get("reportAlerts").size();
         int alertsNotFound = results.get("requireAlerts").size();
         int alertsIgnored = results.get("ignoredAlerts").size();
@@ -289,7 +291,7 @@ public class ClientApi {
         return alerts;
     }
 
-    private HashMap<String, List<Alert>> checkForAlerts(
+    private Map<String, List<Alert>> checkForAlerts(
             List<Alert> ignoreAlerts, List<Alert> requireAlerts) throws ClientApiException {
         List<Alert> reportAlerts = new ArrayList<>();
         List<Alert> ignoredAlerts = new ArrayList<>();
@@ -334,7 +336,7 @@ public class ClientApi {
 
     private void accessUrlViaProxy(Proxy proxy, String apiurl) throws ClientApiException {
         try {
-            URL url = new URL(apiurl);
+            URL url = createUrl(apiurl);
             if (debug) {
                 debugStream.println("Open URL: " + apiurl);
             }
@@ -361,6 +363,10 @@ public class ClientApi {
         } catch (Exception e) {
             throw new ClientApiException(e);
         }
+    }
+
+    private static URL createUrl(String value) throws MalformedURLException, URISyntaxException {
+        return new URI(value).toURL();
     }
 
     public ApiResponse callApi(
@@ -461,10 +467,11 @@ public class ClientApi {
      * @param params the parameters for the endpoint.
      * @return the API request.
      * @throws MalformedURLException if an error occurred while building the URL.
+     * @throws URISyntaxException if an error occurred while building the URL.
      */
     private HttpRequest buildZapRequest(
             String format, String component, String type, String method, Map<String, String> params)
-            throws MalformedURLException {
+            throws MalformedURLException, URISyntaxException {
         StringBuilder sb = new StringBuilder();
         sb.append("http://zap/");
         sb.append(format);
@@ -498,7 +505,7 @@ public class ClientApi {
             sb.append(encodeQueryParam(apiKey));
         }
 
-        HttpRequest request = new HttpRequest(new URL(sb.toString()));
+        HttpRequest request = new HttpRequest(createUrl(sb.toString()));
         if (apiKey != null && !apiKey.isEmpty()) {
             request.addHeader(ZAP_API_KEY_HEADER, apiKey);
         }
@@ -613,7 +620,7 @@ public class ClientApi {
             ApiResponseElement urlList =
                     (ApiResponseElement) ((ApiResponseList) response).getItems().get(0);
             for (ApiResponse element : ((ApiResponseList) response).getItems()) {
-                URL url = new URL(((ApiResponseElement) element).getValue());
+                URL url = createUrl(((ApiResponseElement) element).getValue());
                 sessionUrls.add(url.getProtocol() + "://" + url.getHost() + url.getPath());
             }
             System.out.println(urlList);

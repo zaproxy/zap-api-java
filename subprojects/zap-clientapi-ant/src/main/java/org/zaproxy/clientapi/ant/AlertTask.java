@@ -24,7 +24,10 @@ import org.apache.tools.ant.Task;
 public class AlertTask extends Task {
     private String name;
     private String risk;
-    /** @deprecated Use of reliability has been deprecated in favour of using confidence */
+
+    /**
+     * @deprecated Use of reliability has been deprecated in favour of using confidence
+     */
     @Deprecated private String reliability;
 
     private String confidence;
@@ -81,6 +84,7 @@ public class AlertTask extends Task {
     public void setRisk(String risk) {
         this.risk = risk;
     }
+
     /**
      * @deprecated (2.4.0) {@link #getConfidence()}. Use of reliability has been deprecated in
      *     favour of using confidence.
@@ -89,6 +93,7 @@ public class AlertTask extends Task {
     public String getReliability() {
         return reliability;
     }
+
     /**
      * @deprecated (2.4.0) Replaced by {@link #setConfidence(String)} Use of reliability has been
      *     deprecated in favour of using confidence

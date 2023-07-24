@@ -35,7 +35,9 @@ public class ReplacerDeprecated {
         this.api = api;
     }
 
-    /** @deprecated (1.11.0) Use the method with the url. */
+    /**
+     * @deprecated (1.11.0) Use the method with the url.
+     */
     @Deprecated
     public ApiResponse addRule(
             String description,
