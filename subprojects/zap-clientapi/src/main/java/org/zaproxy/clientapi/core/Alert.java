@@ -27,6 +27,7 @@ public class Alert {
         Medium,
         High
     }
+
     /**
      * @deprecated (2.4.0) Replaced by {@link Confidence}. Use of reliability has been deprecated in
      *     favour of using confidence.
@@ -48,6 +49,7 @@ public class Alert {
     private String id;
     private String name;
     private Risk risk;
+
     /**
      * @deprecated (2.4.0) Replaced by {@link Confidence}. Use of reliability has been deprecated in
      *     favour of using confidence
@@ -285,6 +287,7 @@ public class Alert {
     public String getAlert() {
         return name;
     }
+
     /**
      * Sets the name of the alert.
      *
@@ -307,6 +310,7 @@ public class Alert {
     public void setRisk(String risk) {
         this.risk = Risk.valueOf(risk);
     }
+
     /**
      * @deprecated {@link #getConfidence()} Use of reliability has been deprecated in favour of
      *     using confidence
@@ -315,6 +319,7 @@ public class Alert {
     public Reliability getReliability() {
         return reliability;
     }
+
     /**
      * @deprecated {@link #setConfidence(Confidence)} Use of reliability has been deprecated in
      *     favour of using confidence
@@ -323,6 +328,7 @@ public class Alert {
     public void setReliability(Reliability reliability) {
         this.reliability = reliability;
     }
+
     /**
      * @deprecated {@link #setConfidence(String)} Use of reliability has been deprecated in favour
      *     of using confidence

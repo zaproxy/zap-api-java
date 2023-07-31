@@ -146,7 +146,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "optionDefaultPolicy", null);
     }
 
-    /** @deprecated Option no longer in effective use. */
+    /**
+     * @deprecated Option no longer in effective use.
+     */
     @Deprecated
     public ApiResponse optionDelayInMs() throws ClientApiException {
         return api.callApi("ascan", "view", "optionDelayInMs", null);
@@ -619,7 +621,9 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "setOptionAllowAttackOnStart", map);
     }
 
-    /** @deprecated Option no longer in effective use. */
+    /**
+     * @deprecated Option no longer in effective use.
+     */
     @Deprecated
     public ApiResponse setOptionDelayInMs(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();

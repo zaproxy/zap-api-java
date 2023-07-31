@@ -42,23 +42,28 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
     description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
 
     oldClasspath.from(files(clientapiJar(versionBC)))
-    newClasspath.from(files(tasks.named(JavaPlugin.JAR_TASK_NAME).map { it.archivePath }))
+    newClasspath.from(tasks.named(JavaPlugin.JAR_TASK_NAME))
     onlyBinaryIncompatibleModified.set(true)
     failOnModification.set(true)
     ignoreMissingClasses.set(true)
-    htmlOutputFile.set(file("$buildDir/reports/japi.html"))
+
+    richReport {
+        destinationDir.set(file("$buildDir/reports/"))
+        reportName.set("japi.html")
+        addDefaultRules.set(true)
+    }
 }
 
 check.dependsOn(japicmp)
 
 task javadocJar(type: Jar) {
-    classifier = 'javadoc'
+    archiveClassifier = 'javadoc'
     from javadoc
 }
 
 task sourcesJar(type: Jar) {
     from sourceSets.main.allJava
-    classifier "sources"
+    archiveClassifier = "sources"
 }
 
 task uberJar(type: Jar) {
