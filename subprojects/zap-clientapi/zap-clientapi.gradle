@@ -17,7 +17,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'OWASP ZAP API Client',
+        attributes 'Implementation-Title': 'ZAP API Client',
         'Implementation-Version': archiveVersion.get(),
         'Main-Class': 'org.zaproxy.clientapi.core.ClientApiMain',
         'Create-Date': new Date().format("yyyy-MM-dd")
@@ -107,23 +107,23 @@ publishing {
             artifact javadocJar
             
             pom {
-                name = 'OWASP ZAP API Client'
-                description = 'Java implementation to access OWASP ZAP API.'
+                name = 'ZAP API Client'
+                description = 'Java implementation to access ZAP API.'
                 url = 'https://github.com/zaproxy/zap-api-java'
 
                 organization {
-                    name = 'OWASP'
+                    name = 'ZAP'
                     url = 'https://www.zaproxy.org/'
                 }
 
                 mailingLists {
                     mailingList {
-                        name = 'OWASP ZAP User Group'
+                        name = 'ZAP User Group'
                         post = 'zaproxy-users@googlegroups.com'
                         archive = 'https://groups.google.com/group/zaproxy-users'
                     }
                     mailingList {
-                        name = 'OWASP ZAP Developer Group'
+                        name = 'ZAP Developer Group'
                         post = 'zaproxy-develop@googlegroups.com'
                         archive = 'https://groups.google.com/group/zaproxy-develop'
                     }
