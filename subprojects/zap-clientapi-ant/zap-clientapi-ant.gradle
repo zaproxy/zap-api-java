@@ -9,7 +9,7 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'OWASP ZAP Ant API Client',
+        attributes 'Implementation-Title': 'ZAP Ant API Client',
         'Implementation-Version': archiveVersion.get(),
         'Create-Date': new Date().format("yyyy-MM-dd")
     }

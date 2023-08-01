@@ -1,14 +1,14 @@
-# OWASP ZAP Java API
+# ZAP Java API
 
 [![Version](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.zaproxy/zap-clientapi/)
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![Known Vulnerabilities](https://snyk.io/test/github/zaproxy/zap-api-java/badge.svg)](https://snyk.io/test/github/zaproxy/zap-api-java)
 
-The Java implementation to access the [OWASP ZAP API](https://www.zaproxy.org/docs/api/). For more information
-about OWASP ZAP consult the (main) [OWASP ZAP project](https://github.com/zaproxy/zaproxy/).
+The Java implementation to access the [ZAP API](https://www.zaproxy.org/docs/api/). For more information
+about ZAP consult the (main) [ZAP project](https://github.com/zaproxy/zaproxy/).
 
 This project produces two libraries:
- * `zap-clientapi`, the library that contains the Java implementation to access the OWASP ZAP API;
+ * `zap-clientapi`, the library that contains the Java implementation to access the ZAP API;
  * `zap-clientapi-ant`, the library that contains [Ant](https://ant.apache.org/) tasks that wrap functionality
  provided by `zap-clientapi`. This library depends on `zap-clientapi` and Ant, both should be available at runtime.
 
@@ -27,14 +27,14 @@ Previous releases are also available, more details can be found in [Maven Centra
 
 ## Getting Help
 
-For help using OWASP ZAP API refer to:
+For help using ZAP API refer to:
   * [Examples](subprojects/zap-clientapi/src/examples/java/org/zaproxy/clientapi/examples) - collection of examples using the library;
   * [API Documentation](https://www.zaproxy.org/docs/api/)
-  * [OWASP ZAP User Group](https://groups.google.com/group/zaproxy-users) - for asking questions
+  * [ZAP User Group](https://groups.google.com/group/zaproxy-users) - for asking questions
   
 ## Issues
 
-To report issues related to OWASP ZAP API, bugs and enhancements requests, use the [issue tracker of the main OWASP ZAP project](https://github.com/zaproxy/zaproxy/issues).
+To report issues related to ZAP API, bugs and enhancements requests, use the [issue tracker of the main ZAP project](https://github.com/zaproxy/zaproxy/issues).
 
 ## Building
 
