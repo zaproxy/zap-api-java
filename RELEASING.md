@@ -79,5 +79,4 @@ Release in GitHub:
  2. Upload the libraries:
      - `zap-api-<version-to-release>.jar`
      - `zap-clientapi-<version-to-release>.jar`
-     - `zap-clientapi-ant-<version-to-release>.jar`
  3. Publish release.
