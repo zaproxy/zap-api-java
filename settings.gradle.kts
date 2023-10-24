@@ -1,5 +1,4 @@
 include("zap-clientapi")
-include("zap-clientapi-ant")
 
 rootProject.name = "zap-api-java"
 

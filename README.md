@@ -7,10 +7,7 @@
 The Java implementation to access the [ZAP API](https://www.zaproxy.org/docs/api/). For more information
 about ZAP consult the (main) [ZAP project](https://github.com/zaproxy/zaproxy/).
 
-This project produces two libraries:
- * `zap-clientapi`, the library that contains the Java implementation to access the ZAP API;
- * `zap-clientapi-ant`, the library that contains [Ant](https://ant.apache.org/) tasks that wrap functionality
- provided by `zap-clientapi`. This library depends on `zap-clientapi` and Ant, both should be available at runtime.
+This project produces the library `zap-clientapi`, which contains the Java implementation to access the ZAP API.
 
 ## How to Obtain
 
