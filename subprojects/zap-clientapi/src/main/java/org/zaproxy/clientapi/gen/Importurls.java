@@ -31,7 +31,7 @@ import org.zaproxy.clientapi.core.ClientApiException;
  * @deprecated Use {@link Exim} instead.
  */
 @SuppressWarnings("javadoc")
-@Deprecated
+@Deprecated(since = "1.11.0", forRemoval = true)
 public class Importurls {
 
     private final ClientApi api;

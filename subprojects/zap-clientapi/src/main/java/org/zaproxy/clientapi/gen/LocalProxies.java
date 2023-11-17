@@ -31,7 +31,7 @@ import org.zaproxy.clientapi.core.ClientApiException;
  * @deprecated Use {@link Network} instead.
  */
 @SuppressWarnings("javadoc")
-@Deprecated
+@Deprecated(since = "1.11.0", forRemoval = true)
 public class LocalProxies {
 
     private final ClientApi api;
