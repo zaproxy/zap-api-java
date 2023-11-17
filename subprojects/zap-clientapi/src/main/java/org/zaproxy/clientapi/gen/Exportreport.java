@@ -27,6 +27,7 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
+@Deprecated(since = "1.13.0", forRemoval = true)
 public class Exportreport {
 
     private final ClientApi api;
