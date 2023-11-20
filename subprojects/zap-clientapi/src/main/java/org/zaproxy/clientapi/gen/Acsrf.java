@@ -69,8 +69,16 @@ public class Acsrf extends org.zaproxy.clientapi.gen.deprecated.AcsrfDeprecated 
 
     /** Generate a form for testing lack of anti-CSRF tokens - typically invoked via ZAP */
     public byte[] genForm(String hrefid) throws ClientApiException {
+        return genFormActionUrl(hrefid, null);
+    }
+
+    /** Generate a form for testing lack of anti-CSRF tokens - typically invoked via ZAP */
+    public byte[] genFormActionUrl(String hrefid, String actionurl) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("hrefId", hrefid);
+        if (actionurl != null) {
+            map.put("actionUrl", actionurl);
+        }
         return api.callApiOther("acsrf", "other", "genForm", map);
     }
 }

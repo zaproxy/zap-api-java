@@ -51,6 +51,16 @@ public class Alert {
      */
     public ApiResponse alerts(String baseurl, String start, String count, String riskid)
             throws ClientApiException {
+        return alerts(baseurl, start, count, riskid, null);
+    }
+
+    /**
+     * Gets the alerts raised by ZAP, optionally filtering by URL or riskId, and paginating with
+     * 'start' position and 'count' of alerts
+     */
+    public ApiResponse alerts(
+            String baseurl, String start, String count, String riskid, String contextname)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (baseurl != null) {
             map.put("baseurl", baseurl);
@@ -63,6 +73,9 @@ public class Alert {
         }
         if (riskid != null) {
             map.put("riskId", riskid);
+        }
+        if (contextname != null) {
+            map.put("contextName", contextname);
         }
         return api.callApi("alert", "view", "alerts", map);
     }
@@ -119,6 +132,25 @@ public class Alert {
     /** Deletes all alerts of the current session. */
     public ApiResponse deleteAllAlerts() throws ClientApiException {
         return api.callApi("alert", "action", "deleteAllAlerts", null);
+    }
+
+    /**
+     * Deletes all the alerts optionally filtered by URL which fall within the Context with the
+     * provided name, risk, or base URL.
+     */
+    public ApiResponse deleteAlerts(String contextname, String baseurl, String riskid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (contextname != null) {
+            map.put("contextName", contextname);
+        }
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (riskid != null) {
+            map.put("riskId", riskid);
+        }
+        return api.callApi("alert", "action", "deleteAlerts", map);
     }
 
     /** Deletes the alert with the given ID. */

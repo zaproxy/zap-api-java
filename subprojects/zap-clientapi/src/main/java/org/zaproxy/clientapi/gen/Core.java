@@ -672,6 +672,13 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "action", "disableClientCertificate", null);
     }
 
+    /** Create a zip file of the ZAP core and add-on SBOMs */
+    public ApiResponse createSbomZip(String filepath) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("filePath", filepath);
+        return api.callApi("core", "action", "createSbomZip", map);
+    }
+
     /**
      * Deletes all alerts of the current session.
      *
@@ -988,5 +995,23 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
             map.put("followRedirects", followredirects);
         }
         return api.callApiOther("core", "other", "sendHarRequest", map);
+    }
+
+    /** Download a file from the transfer directory */
+    public byte[] fileDownload(String filename) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("fileName", filename);
+        return api.callApiOther("core", "other", "fileDownload", map);
+    }
+
+    /**
+     * Upload a file to the transfer directory. Only POST requests accepted with encodings of
+     * "multipart/form-data" or "application/x-www-form-urlencoded".
+     */
+    public byte[] fileUpload(String filename, String filecontents) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("fileName", filename);
+        map.put("fileContents", filecontents);
+        return api.callApiOther("POST", "core", "other", "fileUpload", map);
     }
 }
