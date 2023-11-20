@@ -92,7 +92,6 @@ public class ClientApi {
     private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;
 
     private static final String ZAP_API_KEY_HEADER = "X-ZAP-API-Key";
-    private static final String ZAP_API_KEY_PARAM = "apikey";
 
     private Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8090));
     private boolean debug = false;
@@ -486,10 +485,6 @@ public class ClientApi {
         sb.append(method);
         sb.append('/');
         if (params != null) {
-            if (apiKey != null && !apiKey.isEmpty()) {
-                params.put(ZAP_API_KEY_PARAM, apiKey);
-            }
-
             sb.append('?');
             for (Map.Entry<String, String> p : params.entrySet()) {
                 sb.append(encodeQueryParam(p.getKey()));
@@ -499,13 +494,6 @@ public class ClientApi {
                 }
                 sb.append('&');
             }
-        } else if (apiKey != null && !apiKey.isEmpty()) {
-            // Send the API key even if there are no parameters,
-            // older ZAP versions might need it as (query) parameter.
-            sb.append('?');
-            sb.append(encodeQueryParam(ZAP_API_KEY_PARAM));
-            sb.append('=');
-            sb.append(encodeQueryParam(apiKey));
         }
 
         HttpRequest request = new HttpRequest(createUrl(sb.toString()));
