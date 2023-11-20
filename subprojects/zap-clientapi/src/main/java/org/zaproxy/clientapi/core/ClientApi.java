@@ -25,6 +25,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -374,15 +375,30 @@ public class ClientApi {
     public ApiResponse callApi(
             String component, String type, String method, Map<String, String> params)
             throws ClientApiException {
-        Document dom = this.callApiDom(component, type, method, params);
+        return callApi(HttpRequest.GET_METHOD, component, type, method, params);
+    }
+
+    public ApiResponse callApi(
+            String requestMethod,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
+            throws ClientApiException {
+        Document dom = this.callApiDom(requestMethod, component, type, method, params);
         return ApiResponseFactory.getResponse(dom.getFirstChild());
     }
 
     private Document callApiDom(
-            String component, String type, String method, Map<String, String> params)
+            String requestMethod,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
             throws ClientApiException {
         try {
-            HttpRequest request = buildZapRequest("xml", component, type, method, params);
+            HttpRequest request =
+                    buildZapRequest(requestMethod, "xml", component, type, method, params);
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
@@ -422,6 +438,17 @@ public class ClientApi {
         for (Entry<String, String> header : request.getHeaders().entrySet()) {
             uc.setRequestProperty(header.getKey(), header.getValue());
         }
+        if (!isGetRequest(request.getMethod())) {
+            uc.setRequestMethod(request.getMethod());
+            String body = request.getBody();
+            if (body != null && !body.isEmpty()) {
+                uc.setDoOutput(true);
+                try (var os =
+                        new OutputStreamWriter(uc.getOutputStream(), StandardCharsets.UTF_8)) {
+                    os.write(request.getBody());
+                }
+            }
+        }
         uc.connect();
         if (uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
             return uc.getErrorStream();
@@ -432,8 +459,19 @@ public class ClientApi {
     public byte[] callApiOther(
             String component, String type, String method, Map<String, String> params)
             throws ClientApiException {
+        return callApiOther(HttpRequest.GET_METHOD, component, type, method, params);
+    }
+
+    public byte[] callApiOther(
+            String requestMethod,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
+            throws ClientApiException {
         try {
-            HttpRequest request = buildZapRequest("other", component, type, method, params);
+            HttpRequest request =
+                    buildZapRequest(requestMethod, "other", component, type, method, params);
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
@@ -462,6 +500,7 @@ public class ClientApi {
      * <p>As the API client proxies through ZAP the built API requests use a specific domain, {@code
      * zap}, to ensure that they are always handled by ZAP (and not forward).
      *
+     * @param requestMethod the HTTP request method.
      * @param format the desired format of the API response (e.g. XML, JSON, other).
      * @param component the API component (e.g. core, spider).
      * @param type the type of the API endpoint (e.g. action, view).
@@ -472,7 +511,12 @@ public class ClientApi {
      * @throws URISyntaxException if an error occurred while building the URL.
      */
     private HttpRequest buildZapRequest(
-            String format, String component, String type, String method, Map<String, String> params)
+            String requestMethod,
+            String format,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
             throws MalformedURLException, URISyntaxException {
         StringBuilder sb = new StringBuilder();
         sb.append("http://zap/");
@@ -484,23 +528,37 @@ public class ClientApi {
         sb.append('/');
         sb.append(method);
         sb.append('/');
+        String body = null;
         if (params != null) {
-            sb.append('?');
-            for (Map.Entry<String, String> p : params.entrySet()) {
-                sb.append(encodeQueryParam(p.getKey()));
-                sb.append('=');
-                if (p.getValue() != null) {
-                    sb.append(encodeQueryParam(p.getValue()));
-                }
-                sb.append('&');
+            if (isGetRequest(requestMethod)) {
+                sb.append('?');
+                appendParams(params, sb);
+            } else {
+                body = appendParams(params, new StringBuilder()).toString();
             }
         }
 
-        HttpRequest request = new HttpRequest(createUrl(sb.toString()));
+        HttpRequest request = new HttpRequest(requestMethod, createUrl(sb.toString()), body);
         if (apiKey != null && !apiKey.isEmpty()) {
             request.addHeader(ZAP_API_KEY_HEADER, apiKey);
         }
         return request;
+    }
+
+    private static boolean isGetRequest(String requestMethod) {
+        return HttpRequest.GET_METHOD.equals(requestMethod);
+    }
+
+    private static StringBuilder appendParams(Map<String, String> params, StringBuilder sb) {
+        for (Map.Entry<String, String> p : params.entrySet()) {
+            sb.append(encodeQueryParam(p.getKey()));
+            sb.append('=');
+            if (p.getValue() != null) {
+                sb.append(encodeQueryParam(p.getValue()));
+            }
+            sb.append('&');
+        }
+        return sb;
     }
 
     private static String encodeQueryParam(String param) {
@@ -748,12 +806,22 @@ public class ClientApi {
      */
     private static class HttpRequest {
 
+        private static final String GET_METHOD = "GET";
+
+        private final String method;
         private final URL requestUri;
         private final Map<String, String> headers;
+        private final String body;
 
-        public HttpRequest(URL url) {
+        public HttpRequest(String method, URL url, String body) {
+            this.method = method;
             this.requestUri = url;
             this.headers = new HashMap<>();
+            this.body = body;
+        }
+
+        public String getMethod() {
+            return method;
         }
 
         /**
@@ -785,6 +853,10 @@ public class ClientApi {
          */
         public Map<String, String> getHeaders() {
             return Collections.unmodifiableMap(headers);
+        }
+
+        public String getBody() {
+            return body;
         }
     }
 }

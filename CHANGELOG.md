@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Changed
 - Stop sending the API key as query parameter, not needed since ZAP 2.6.0.
+- Allow to call the ZAP API with custom HTTP method (e.g. file upload).
 
 ### Deprecated
 - The following APIs were deprecated:
