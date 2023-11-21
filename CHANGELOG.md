@@ -5,7 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add the APIs of the following add-on:
+  - Custom Payloads version 0.13.0.
+  
 ### Changed
+- Update core APIs for 2.14.
+- Update the APIs of the following add-on:
+  - Selenium version 15.16.0.
 - Stop sending the API key as query parameter, not needed since ZAP 2.6.0.
 - Allow to call the ZAP API with custom HTTP method (e.g. file upload).
 

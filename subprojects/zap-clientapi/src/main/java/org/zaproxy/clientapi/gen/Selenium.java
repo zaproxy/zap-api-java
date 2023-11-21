@@ -68,6 +68,11 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "view", "optionFirefoxBinaryPath", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse optionFirefoxDefaultProfile() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionFirefoxDefaultProfile", null);
+    }
+
     /**
      * Returns the current path to Firefox driver (geckodriver)
      *
@@ -92,6 +97,17 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
     @Deprecated
     public ApiResponse optionPhantomJsBinaryPath() throws ClientApiException {
         return api.callApi("selenium", "view", "optionPhantomJsBinaryPath", null);
+    }
+
+    /**
+     * Gets the browser arguments.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse getBrowserArguments(String browser) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("browser", browser);
+        return api.callApi("selenium", "view", "getBrowserArguments", map);
     }
 
     /**
@@ -127,6 +143,13 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         return api.callApi("selenium", "action", "setOptionFirefoxBinaryPath", map);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse setOptionFirefoxDefaultProfile(String string) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("String", string);
+        return api.callApi("selenium", "action", "setOptionFirefoxDefaultProfile", map);
+    }
+
     /**
      * Sets the current path to Firefox driver (geckodriver)
      *
@@ -159,5 +182,48 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("selenium", "action", "setOptionPhantomJsBinaryPath", map);
+    }
+
+    /**
+     * Adds a browser argument.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse addBrowserArgument(String browser, String argument, String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("browser", browser);
+        map.put("argument", argument);
+        if (enabled != null) {
+            map.put("enabled", enabled);
+        }
+        return api.callApi("selenium", "action", "addBrowserArgument", map);
+    }
+
+    /**
+     * Removes a browser argument.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse removeBrowserArgument(String browser, String argument)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("browser", browser);
+        map.put("argument", argument);
+        return api.callApi("selenium", "action", "removeBrowserArgument", map);
+    }
+
+    /**
+     * Sets whether or not a browser argument is enabled.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setBrowserArgumentEnabled(String browser, String argument, String enabled)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("browser", browser);
+        map.put("argument", argument);
+        map.put("enabled", enabled);
+        return api.callApi("selenium", "action", "setBrowserArgumentEnabled", map);
     }
 }
