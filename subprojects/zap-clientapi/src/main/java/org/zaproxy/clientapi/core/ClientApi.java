@@ -88,6 +88,7 @@ import org.zaproxy.clientapi.gen.Users;
 import org.zaproxy.clientapi.gen.Wappalyzer;
 import org.zaproxy.clientapi.gen.Websocket;
 
+@SuppressWarnings("this-escape")
 public class ClientApi {
 
     private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;

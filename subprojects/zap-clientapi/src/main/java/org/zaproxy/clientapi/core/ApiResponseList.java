@@ -37,7 +37,7 @@ public class ApiResponseList extends ApiResponse {
         this(node.getNodeName());
         Node child = node.getFirstChild();
         while (child != null) {
-            this.addItem(ApiResponseFactory.getResponse(child));
+            addItemImpl(ApiResponseFactory.getResponse(child));
             child = child.getNextSibling();
         }
     }
@@ -53,7 +53,7 @@ public class ApiResponseList extends ApiResponse {
                 while (child != null) {
                     Constructor<? extends ApiResponse> cons =
                             clazz.getConstructor(Node.class, ApiResponse.class);
-                    this.addItem(cons.newInstance(child, template.list.get(0)));
+                    addItemImpl(cons.newInstance(child, template.list.get(0)));
                     child = child.getNextSibling();
                 }
             }
@@ -76,7 +76,11 @@ public class ApiResponseList extends ApiResponse {
     }
 
     public void addItem(ApiResponse item) {
-        this.list.add(item);
+        addItemImpl(item);
+    }
+
+    private void addItemImpl(ApiResponse item) {
+        list.add(item);
     }
 
     public List<ApiResponse> getItems() {
