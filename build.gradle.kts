@@ -1,23 +1,21 @@
 import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
-    id("com.diffplug.spotless") version "6.20.0"
+    id("com.diffplug.spotless")
     id("net.ltgt.errorprone") version "3.1.0"
+    id("org.zaproxy.common")
 }
 
 subprojects {
     apply(plugin = "java-library")
     apply(plugin = "com.diffplug.spotless")
     apply(plugin = "net.ltgt.errorprone")
+    apply(plugin = "org.zaproxy.common")
 
     group = "org.zaproxy"
 
     version = "1.14.0-SNAPSHOT"
     extra["versionBC"] = "1.13.0"
-
-    repositories {
-        mavenCentral()
-    }
 
     java {
         val javaVersion = JavaVersion.VERSION_11
@@ -26,12 +24,6 @@ subprojects {
     }
 
     spotless {
-        java {
-            licenseHeaderFile("$rootDir/gradle/spotless/license.java")
-
-            googleJavaFormat("1.17.0").aosp()
-        }
-
         kotlin {
             ktlint()
         }
@@ -46,8 +38,6 @@ subprojects {
     }
 
     tasks.withType<JavaCompile> {
-        options.encoding = "utf-8"
-        options.compilerArgs = listOf("-Xlint:all", "-Werror")
         options.errorprone {
             disable("EmptyBlockTag", "InlineMeSuggester")
         }
