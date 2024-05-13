@@ -57,6 +57,27 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
     }
 
     /**
+     * Returns the URLs of the HTTP messages that match the given regular expression in their
+     * history Tags optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
+    public ApiResponse urlsByTagRegex(String regex, String baseurl, String start, String count)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (start != null) {
+            map.put("start", start);
+        }
+        if (count != null) {
+            map.put("count", count);
+        }
+        return api.callApi("search", "view", "urlsByTagRegex", map);
+    }
+
+    /**
      * Returns the URLs of the HTTP messages that match the given regular expression in the request
      * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
      */
@@ -138,6 +159,26 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
     }
 
     /**
+     * Returns the HTTP messages that match the given regular expression in their history Tags
+     * optionally filtered by URL and paginated with 'start' position and 'count' of messages.
+     */
+    public ApiResponse messagesByTagRegex(String regex, String baseurl, String start, String count)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (start != null) {
+            map.put("start", start);
+        }
+        if (count != null) {
+            map.put("count", count);
+        }
+        return api.callApi("search", "view", "messagesByTagRegex", map);
+    }
+
+    /**
      * Returns the HTTP messages that match the given regular expression in the request optionally
      * filtered by URL and paginated with 'start' position and 'count' of messages.
      */
@@ -215,6 +256,27 @@ public class Search extends org.zaproxy.clientapi.gen.deprecated.SearchDeprecate
             map.put("count", count);
         }
         return api.callApiOther("search", "other", "harByUrlRegex", map);
+    }
+
+    /**
+     * Returns the HTTP messages, in HAR format, that match the given regular expression in their
+     * history Tags optionally filtered by URL and paginated with 'start' position and 'count' of
+     * messages.
+     */
+    public byte[] harByTagRegex(String regex, String baseurl, String start, String count)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("regex", regex);
+        if (baseurl != null) {
+            map.put("baseurl", baseurl);
+        }
+        if (start != null) {
+            map.put("start", start);
+        }
+        if (count != null) {
+            map.put("count", count);
+        }
+        return api.callApiOther("search", "other", "harByTagRegex", map);
     }
 
     /**

@@ -389,7 +389,7 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
     }
 
     /**
-     * Sets whether or not the the AJAX Spider will only click on the default HTML elements.
+     * Sets whether or not the AJAX Spider will only click on the default HTML elements.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
