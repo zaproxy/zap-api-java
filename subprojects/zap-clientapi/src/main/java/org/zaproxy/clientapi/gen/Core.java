@@ -267,6 +267,15 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         return api.callApi("core", "view", "numberOfAlerts", map);
     }
 
+    /** The detailed logging config, optionally filtered based on a name (ex: starts with). */
+    public ApiResponse getLogLevel(String name) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        if (name != null) {
+            map.put("name", name);
+        }
+        return api.callApi("core", "view", "getLogLevel", map);
+    }
+
     /**
      * Gets the user agent that ZAP should use when creating HTTP messages (for example, spider
      * messages or CONNECT requests to outgoing proxy).
@@ -699,6 +708,14 @@ public class Core extends org.zaproxy.clientapi.gen.deprecated.CoreDeprecated {
         Map<String, String> map = new HashMap<>();
         map.put("id", id);
         return api.callApi("core", "action", "deleteAlert", map);
+    }
+
+    /** Sets the logging level for a given logger name. */
+    public ApiResponse setLogLevel(String name, String loglevel) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("name", name);
+        map.put("logLevel", loglevel);
+        return api.callApi("core", "action", "setLogLevel", map);
     }
 
     /**

@@ -14,7 +14,7 @@ subprojects {
 
     group = "org.zaproxy"
 
-    version = "1.14.0-SNAPSHOT"
+    version = "1.14.0"
     extra["versionBC"] = "1.13.0"
 
     java {
