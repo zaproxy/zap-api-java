@@ -2,7 +2,7 @@ import net.ltgt.gradle.errorprone.errorprone
 
 plugins {
     id("com.diffplug.spotless")
-    id("net.ltgt.errorprone") version "3.1.0"
+    id("net.ltgt.errorprone") version "4.0.0"
     id("org.zaproxy.common")
 }
 
@@ -34,7 +34,7 @@ subprojects {
     }
 
     dependencies {
-        "errorprone"("com.google.errorprone:error_prone_core:2.20.0")
+        "errorprone"("com.google.errorprone:error_prone_core:2.28.0")
     }
 
     tasks.withType<JavaCompile> {
