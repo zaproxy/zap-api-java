@@ -174,7 +174,12 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "view", "optionMaxScansInUI", null);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * This component is optional and therefore the API will only work if it is installed
+     *
+     * @deprecated
+     */
+    @Deprecated
     public ApiResponse optionRequestWaitTime() throws ClientApiException {
         return api.callApi("spider", "view", "optionRequestWaitTime", null);
     }
@@ -612,7 +617,12 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         return api.callApi("spider", "action", "setOptionProcessForm", map);
     }
 
-    /** This component is optional and therefore the API will only work if it is installed */
+    /**
+     * This component is optional and therefore the API will only work if it is installed
+     *
+     * @deprecated
+     */
+    @Deprecated
     public ApiResponse setOptionRequestWaitTime(int i) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));

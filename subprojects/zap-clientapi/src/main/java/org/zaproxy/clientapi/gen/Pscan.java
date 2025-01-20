@@ -38,37 +38,57 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
 
     /**
      * Tells whether or not the passive scan should be performed only on messages that are in scope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse scanOnlyInScope() throws ClientApiException {
         return api.callApi("pscan", "view", "scanOnlyInScope", null);
     }
 
-    /** The number of records the passive scanner still has to scan */
+    /**
+     * The number of records the passive scanner still has to scan.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse recordsToScan() throws ClientApiException {
         return api.callApi("pscan", "view", "recordsToScan", null);
     }
 
-    /** Lists all passive scan rules with their ID, name, enabled state, and alert threshold. */
+    /**
+     * Lists all passive scan rules with their ID, name, enabled state, and alert threshold.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse scanners() throws ClientApiException {
         return api.callApi("pscan", "view", "scanners", null);
     }
 
     /**
-     * Show information about the passive scan rule currently being run (if any).
+     * Shows information about the passive scan rule currently being run (if any).
      *
-     * @deprecated Use the currentTasks view instead.
+     * <p>This component is optional and therefore the API will only work if it is installed
+     *
+     * @deprecated
      */
     @Deprecated
     public ApiResponse currentRule() throws ClientApiException {
         return api.callApi("pscan", "view", "currentRule", null);
     }
 
-    /** Show information about the passive scan tasks currently being run (if any). */
+    /**
+     * Shows information about the passive scan tasks currently being run (if any).
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse currentTasks() throws ClientApiException {
         return api.callApi("pscan", "view", "currentTasks", null);
     }
 
-    /** Gets the maximum number of alerts a passive scan rule should raise. */
+    /**
+     * Gets the maximum number of alerts a passive scan rule should raise.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse maxAlertsPerRule() throws ClientApiException {
         return api.callApi("pscan", "view", "maxAlertsPerRule", null);
     }
@@ -76,6 +96,8 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
     /**
      * Sets whether or not the passive scanning is enabled (Note: the enabled state is not
      * persisted).
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse setEnabled(String enabled) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -85,6 +107,8 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
 
     /**
      * Sets whether or not the passive scan should be performed only on messages that are in scope.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse setScanOnlyInScope(String onlyinscope) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
@@ -92,24 +116,40 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         return api.callApi("pscan", "action", "setScanOnlyInScope", map);
     }
 
-    /** Enables all passive scan rules */
+    /**
+     * Enables all passive scan rules.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse enableAllScanners() throws ClientApiException {
         return api.callApi("pscan", "action", "enableAllScanners", null);
     }
 
-    /** Disables all passive scan rules */
+    /**
+     * Disables all passive scan rules.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse disableAllScanners() throws ClientApiException {
         return api.callApi("pscan", "action", "disableAllScanners", null);
     }
 
-    /** Enables all passive scan rules with the given IDs (comma separated list of IDs) */
+    /**
+     * Enables passive scan rules.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse enableScanners(String ids) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
         return api.callApi("pscan", "action", "enableScanners", map);
     }
 
-    /** Disables all passive scan rules with the given IDs (comma separated list of IDs) */
+    /**
+     * Disables passive scan rules.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse disableScanners(String ids) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("ids", ids);
@@ -117,8 +157,9 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
     }
 
     /**
-     * Sets the alert threshold of the passive scan rule with the given ID, accepted values for
-     * alert threshold: OFF, DEFAULT, LOW, MEDIUM and HIGH
+     * Sets the alert threshold of a passive scan rule.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
      */
     public ApiResponse setScannerAlertThreshold(String id, String alertthreshold)
             throws ClientApiException {
@@ -128,24 +169,40 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         return api.callApi("pscan", "action", "setScannerAlertThreshold", map);
     }
 
-    /** Sets the maximum number of alerts a passive scan rule should raise. */
+    /**
+     * Sets the maximum number of alerts a passive scan rule can raise.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse setMaxAlertsPerRule(String maxalerts) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("maxAlerts", maxalerts);
         return api.callApi("pscan", "action", "setMaxAlertsPerRule", map);
     }
 
-    /** Disables all passive scan tags. */
+    /**
+     * Disables all passive scan tags.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse disableAllTags() throws ClientApiException {
         return api.callApi("pscan", "action", "disableAllTags", null);
     }
 
-    /** Enables all passive scan tags. */
+    /**
+     * Enables all passive scan tags.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse enableAllTags() throws ClientApiException {
         return api.callApi("pscan", "action", "enableAllTags", null);
     }
 
-    /** Clears the passive scan queue. */
+    /**
+     * Clears the passive scan queue.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
     public ApiResponse clearQueue() throws ClientApiException {
         return api.callApi("pscan", "action", "clearQueue", null);
     }

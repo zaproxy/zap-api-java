@@ -41,7 +41,7 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importFile(String file, String target, String contextid)
+    public ApiResponse importFile(String file, String target, String contextid, String userid)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("file", file);
@@ -51,6 +51,9 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
         if (contextid != null) {
             map.put("contextId", contextid);
         }
+        if (userid != null) {
+            map.put("userId", userid);
+        }
         return api.callApi("openapi", "action", "importFile", map);
     }
 
@@ -59,7 +62,7 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse importUrl(String url, String hostoverride, String contextid)
+    public ApiResponse importUrl(String url, String hostoverride, String contextid, String userid)
             throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("url", url);
@@ -68,6 +71,9 @@ public class Openapi extends org.zaproxy.clientapi.gen.deprecated.OpenapiDepreca
         }
         if (contextid != null) {
             map.put("contextId", contextid);
+        }
+        if (userid != null) {
+            map.put("userId", userid);
         }
         return api.callApi("openapi", "action", "importUrl", map);
     }

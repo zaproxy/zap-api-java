@@ -201,6 +201,17 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
     }
 
     /**
+     * Launches a browser proxying through ZAP, for manual usage.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse launchBrowser(String browser) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("browser", browser);
+        return api.callApi("selenium", "action", "launchBrowser", map);
+    }
+
+    /**
      * Removes a browser argument.
      *
      * <p>This component is optional and therefore the API will only work if it is installed

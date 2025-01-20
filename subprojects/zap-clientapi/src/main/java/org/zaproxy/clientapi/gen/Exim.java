@@ -80,6 +80,28 @@ public class Exim {
     }
 
     /**
+     * Exports the Sites Tree in the Sites Tree YAML format.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse exportSitesTree(String filepath) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("filePath", filepath);
+        return api.callApi("exim", "action", "exportSitesTree", map);
+    }
+
+    /**
+     * Prunes the Sites Tree based on a file in the Sites Tree YAML format.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse pruneSitesTree(String filepath) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("filePath", filepath);
+        return api.callApi("exim", "action", "pruneSitesTree", map);
+    }
+
+    /**
      * Gets the HTTP messages sent through/by ZAP, in HAR format, optionally filtered by URL and
      * paginated with 'start' position and 'count' of messages
      *

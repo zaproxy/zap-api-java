@@ -4,7 +4,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.15.0] - 2025-01-20
+### Added
+- Add the API of the following add-on:
+  - OAST Support
+
+### Changed
+- Update core APIs for 2.16.
+- Update the APIs of the following add-ons:
+  - AJAX Spider
+  - Import/Export
+  - OpenAPI Support
+  - Passive Scanner
+  - Replacer
+  - Script Console
+  - Selenium
+  - Spider
 
 ## [1.14.0] - 2024-05-13
 ### Changed
@@ -199,7 +214,7 @@ of the alert (zaproxy/zaproxy#1341), older methods were deprecated.
  - First version as "stand alone library", it was migrated from the [zaproxy repository](https://github.com/zaproxy/zaproxy)
  and released to Maven Central.
 
-[Unreleased]: https://github.com/zaproxy/zap-api-java/compare/v1.14.0...HEAD
+[1.15.0]: https://github.com/zaproxy/zap-api-java/compare/v1.14.0...v1.15.0
 [1.14.0]: https://github.com/zaproxy/zap-api-java/compare/v1.13.0...v1.14.0
 [1.13.0]: https://github.com/zaproxy/zap-api-java/compare/v1.12.0...v1.13.0
 [1.12.0]: https://github.com/zaproxy/zap-api-java/compare/v1.11.0...v1.12.0
