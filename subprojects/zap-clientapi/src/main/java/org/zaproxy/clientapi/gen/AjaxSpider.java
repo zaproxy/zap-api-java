@@ -187,6 +187,11 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         return api.callApi("ajaxSpider", "view", "optionClickElemsOnce", null);
     }
 
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse optionEnableExtensions() throws ClientApiException {
+        return api.callApi("ajaxSpider", "view", "optionEnableExtensions", null);
+    }
+
     /**
      * Gets if the AJAX Spider will use random values in form fields when crawling, if set to true.
      *
@@ -409,6 +414,13 @@ public class AjaxSpider extends org.zaproxy.clientapi.gen.deprecated.AjaxSpiderD
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("ajaxSpider", "action", "setOptionClickElemsOnce", map);
+    }
+
+    /** This component is optional and therefore the API will only work if it is installed */
+    public ApiResponse setOptionEnableExtensions(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("ajaxSpider", "action", "setOptionEnableExtensions", map);
     }
 
     /**

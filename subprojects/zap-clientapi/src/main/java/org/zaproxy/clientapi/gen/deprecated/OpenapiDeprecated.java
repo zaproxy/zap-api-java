@@ -59,6 +59,24 @@ public class OpenapiDeprecated {
     }
 
     /**
+     * Imports an OpenAPI definition from a local file.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importFile(String file, String target, String contextid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("file", file);
+        if (target != null) {
+            map.put("target", target);
+        }
+        if (contextid != null) {
+            map.put("contextId", contextid);
+        }
+        return api.callApi("openapi", "action", "importFile", map);
+    }
+
+    /**
      * Imports an OpenAPI definition from a URL.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -68,6 +86,24 @@ public class OpenapiDeprecated {
         map.put("url", url);
         if (hostoverride != null) {
             map.put("hostOverride", hostoverride);
+        }
+        return api.callApi("openapi", "action", "importUrl", map);
+    }
+
+    /**
+     * Imports an OpenAPI definition from a URL.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse importUrl(String url, String hostoverride, String contextid)
+            throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("url", url);
+        if (hostoverride != null) {
+            map.put("hostOverride", hostoverride);
+        }
+        if (contextid != null) {
+            map.put("contextId", contextid);
         }
         return api.callApi("openapi", "action", "importUrl", map);
     }

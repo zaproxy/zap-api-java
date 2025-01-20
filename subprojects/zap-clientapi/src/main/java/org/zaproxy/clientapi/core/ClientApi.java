@@ -67,6 +67,7 @@ import org.zaproxy.clientapi.gen.ForcedUser;
 import org.zaproxy.clientapi.gen.Graphql;
 import org.zaproxy.clientapi.gen.HttpSessions;
 import org.zaproxy.clientapi.gen.Network;
+import org.zaproxy.clientapi.gen.Oast;
 import org.zaproxy.clientapi.gen.Openapi;
 import org.zaproxy.clientapi.gen.Params;
 import org.zaproxy.clientapi.gen.Pnh;
@@ -143,6 +144,7 @@ public class ClientApi {
             new org.zaproxy.clientapi.gen.LocalProxies(this);
 
     public Network network = new Network(this);
+    public Oast oast = new Oast(this);
     public Openapi openapi = new Openapi(this);
     public Params params = new Params(this);
     public Pnh pnh = new Pnh(this);
