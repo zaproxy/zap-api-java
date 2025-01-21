@@ -476,13 +476,12 @@ public class ClientApi {
     }
 
     public byte[] callApiJSON(
-            String requestMethod,
             String component,
             String type,
             String method,
             Map<String, String> params)
             throws ClientApiException {
-        return getBytes(requestMethod, "JSON", component, type, method, params);
+        return getBytes(HttpRequest.GET_METHOD, "JSON", component, type, method, params);
     }
 
     private byte[] getBytes(
