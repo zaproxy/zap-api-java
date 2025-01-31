@@ -472,9 +472,27 @@ public class ClientApi {
             String method,
             Map<String, String> params)
             throws ClientApiException {
+        return getBytes(requestMethod, "other", component, type, method, params);
+    }
+
+    public String callApiJson(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+        byte[] json = getBytes(HttpRequest.GET_METHOD, "JSON", component, type, method, params);
+        return new String(json, StandardCharsets.UTF_8);
+    }
+
+    private byte[] getBytes(
+            String requestMethod,
+            String format,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
+            throws ClientApiException {
         try {
             HttpRequest request =
-                    buildZapRequest(requestMethod, "other", component, type, method, params);
+                    buildZapRequest(requestMethod, format, component, type, method, params);
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
