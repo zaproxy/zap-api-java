@@ -14,8 +14,8 @@ subprojects {
 
     group = "org.zaproxy"
 
-    version = "1.16.0"
-    extra["versionBC"] = "1.15.0"
+    version = "1.17.0-SNAPSHOT"
+    extra["versionBC"] = "1.16.0"
 
     java {
         val javaVersion = JavaVersion.VERSION_11
