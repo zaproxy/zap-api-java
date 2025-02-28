@@ -18,9 +18,15 @@ subprojects {
     extra["versionBC"] = "1.16.0"
 
     java {
-        val javaVersion = JavaVersion.VERSION_11
-        sourceCompatibility = javaVersion
-        targetCompatibility = javaVersion
+        if (System.getenv("RELEASE") != null) {
+            toolchain {
+                languageVersion.set(JavaLanguageVersion.of(11))
+            }
+        } else {
+            val javaVersion = JavaVersion.VERSION_11
+            sourceCompatibility = javaVersion
+            targetCompatibility = javaVersion
+        }
     }
 
     spotless {
