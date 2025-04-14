@@ -38,8 +38,8 @@ File clientapiJar(version) {
 }
 
 task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
-    group 'verification'
-    description "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
+    group = 'verification'
+    description = "Checks artifacts' binary compatibility with latest (released) version '$versionBC'."
 
     oldClasspath.from(files(clientapiJar(versionBC)))
     newClasspath.from(tasks.named(JavaPlugin.JAR_TASK_NAME))
@@ -67,8 +67,8 @@ task sourcesJar(type: Jar) {
 }
 
 task uberJar(type: Jar) {
-    group 'build'
-    description 'Assembles a jar archive containing the main jar and its dependencies.'
+    group = 'build'
+    description = 'Assembles a jar archive containing the main jar and its dependencies.'
     archiveBaseName.set('zap-api')
     manifest.from jar.manifest
     from {
@@ -88,7 +88,7 @@ publishing {
         maven {
             def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
             def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-            url version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
+            url = version.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
 
             if (project.hasProperty('ossrhUsername') && project.hasProperty('ossrhPassword')) {
                 credentials {
