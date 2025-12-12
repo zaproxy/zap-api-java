@@ -61,6 +61,21 @@ public class Alert {
     public ApiResponse alerts(
             String baseurl, String start, String count, String riskid, String contextname)
             throws ClientApiException {
+        return alerts(baseurl, start, count, riskid, null, null);
+    }
+
+    /**
+     * Gets the alerts raised by ZAP, optionally filtering by URL or riskId, and paginating with
+     * 'start' position and 'count' of alerts
+     */
+    public ApiResponse alerts(
+            String baseurl,
+            String start,
+            String count,
+            String riskid,
+            String contextname,
+            String falsepositive)
+            throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         if (baseurl != null) {
             map.put("baseurl", baseurl);
@@ -76,6 +91,9 @@ public class Alert {
         }
         if (contextname != null) {
             map.put("contextName", contextname);
+        }
+        if (falsepositive != null) {
+            map.put("falsePositive", falsepositive);
         }
         return api.callApi("alert", "view", "alerts", map);
     }

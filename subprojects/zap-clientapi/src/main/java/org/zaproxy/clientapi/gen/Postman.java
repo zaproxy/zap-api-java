@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2021 The ZAP Development Team
+ * Copyright 2025 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,53 +27,33 @@ import org.zaproxy.clientapi.core.ClientApiException;
 
 /** This file was automatically generated. */
 @SuppressWarnings("javadoc")
-public class Automation {
+public class Postman {
 
     private final ClientApi api;
 
-    public Automation(ClientApi api) {
+    public Postman(ClientApi api) {
         this.api = api;
     }
 
     /**
-     * Returns the progress details for the specified planId
+     * Imports a Postman collection from a file.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse planProgress(String planid) throws ClientApiException {
+    public ApiResponse importFile(String file) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        map.put("planId", planid);
-        return api.callApi("automation", "view", "planProgress", map);
+        map.put("file", file);
+        return api.callApi("postman", "action", "importFile", map);
     }
 
     /**
-     * Loads and asynchronously runs the plan in the specified file, returning a planId
+     * Imports a Postman collection from a URL.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
-    public ApiResponse runPlan(String filepath) throws ClientApiException {
+    public ApiResponse importUrl(String url) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
-        map.put("filePath", filepath);
-        return api.callApi("automation", "action", "runPlan", map);
-    }
-
-    /**
-     * Stops the running plan identified by the planId
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
-    public ApiResponse stopPlan(String planid) throws ClientApiException {
-        Map<String, String> map = new HashMap<>();
-        map.put("planId", planid);
-        return api.callApi("automation", "action", "stopPlan", map);
-    }
-
-    /**
-     * Ends the currently running delay job, if any
-     *
-     * <p>This component is optional and therefore the API will only work if it is installed
-     */
-    public ApiResponse endDelayJob() throws ClientApiException {
-        return api.callApi("automation", "action", "endDelayJob", null);
+        map.put("url", url);
+        return api.callApi("postman", "action", "importUrl", map);
     }
 }

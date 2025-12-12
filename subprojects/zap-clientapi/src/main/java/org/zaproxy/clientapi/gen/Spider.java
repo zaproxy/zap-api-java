@@ -161,7 +161,7 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     }
 
     /**
-     * Gets the maximum size, in bytes, that a response might have to be parsed.
+     * Gets the maximum size, in bytes, that a response might have to be parsed, or 0 for unlimited.
      *
      * <p>This component is optional and therefore the API will only work if it is installed
      */
@@ -211,6 +211,15 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
     /** This component is optional and therefore the API will only work if it is installed */
     public ApiResponse optionHandleODataParametersVisited() throws ClientApiException {
         return api.callApi("spider", "view", "optionHandleODataParametersVisited", null);
+    }
+
+    /**
+     * Gets whether or not the spider should attempt to avoid logout related paths/functionality.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionLogoutAvoidance() throws ClientApiException {
+        return api.callApi("spider", "view", "optionLogoutAvoidance", null);
     }
 
     /** This component is optional and therefore the API will only work if it is installed */
@@ -511,6 +520,17 @@ public class Spider extends org.zaproxy.clientapi.gen.deprecated.SpiderDeprecate
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
         return api.callApi("spider", "action", "setOptionHandleODataParametersVisited", map);
+    }
+
+    /**
+     * Sets whether or not the Spider should attempt to avoid logout related paths/functionality.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionLogoutAvoidance(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("spider", "action", "setOptionLogoutAvoidance", map);
     }
 
     /**

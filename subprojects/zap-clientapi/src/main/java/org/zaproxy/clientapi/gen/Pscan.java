@@ -94,6 +94,15 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
     }
 
     /**
+     * Gets the maximum body size in bytes that the passive scanner will scan.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse maxBodySizeInBytes() throws ClientApiException {
+        return api.callApi("pscan", "view", "maxBodySizeInBytes", null);
+    }
+
+    /**
      * Sets whether or not the passive scanning is enabled (Note: the enabled state is not
      * persisted).
      *
@@ -178,6 +187,17 @@ public class Pscan extends org.zaproxy.clientapi.gen.deprecated.PscanDeprecated 
         Map<String, String> map = new HashMap<>();
         map.put("maxAlerts", maxalerts);
         return api.callApi("pscan", "action", "setMaxAlertsPerRule", map);
+    }
+
+    /**
+     * Sets the maximum body size in bytes that the passive scanner will scan.
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setMaxBodySizeInBytes(String maxsize) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("maxSize", maxsize);
+        return api.callApi("pscan", "action", "setMaxBodySizeInBytes", map);
     }
 
     /**

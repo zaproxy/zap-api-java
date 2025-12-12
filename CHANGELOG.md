@@ -5,6 +5,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased] 
+### Added
+- Add the APIs of the following add-ons:
+  - Client Side Integration version 0.20.0;
+  - Postman Support version 0.7.0.
+
+### Changed
+- Update core APIs for 2.17.
+- Update the APIs of the following add-ons:
+  - Automation Framework version 0.58.0;
+  - Passive Scanner version 0.6.0;
+  - Selenium version 15.43.0;
+  - Spider version 0.18.0.
 
 ## [1.16.0] - 2025-02-03
 ### Added
