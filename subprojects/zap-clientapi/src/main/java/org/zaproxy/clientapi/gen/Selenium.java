@@ -60,6 +60,24 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
     }
 
     /**
+     * Returns the current path to Edge binary
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionEdgeBinaryPath() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionEdgeBinaryPath", null);
+    }
+
+    /**
+     * Returns the current path to EdgeDriver
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse optionEdgeDriverPath() throws ClientApiException {
+        return api.callApi("selenium", "view", "optionEdgeDriverPath", null);
+    }
+
+    /**
      * Returns the current path to Firefox binary
      *
      * <p>This component is optional and therefore the API will only work if it is installed
@@ -130,6 +148,28 @@ public class Selenium extends org.zaproxy.clientapi.gen.deprecated.SeleniumDepre
         Map<String, String> map = new HashMap<>();
         map.put("String", string);
         return api.callApi("selenium", "action", "setOptionChromeDriverPath", map);
+    }
+
+    /**
+     * Sets the current path to Edge binary
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionEdgeBinaryPath(String string) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("String", string);
+        return api.callApi("selenium", "action", "setOptionEdgeBinaryPath", map);
+    }
+
+    /**
+     * Sets the current path to EdgeDriver
+     *
+     * <p>This component is optional and therefore the API will only work if it is installed
+     */
+    public ApiResponse setOptionEdgeDriverPath(String string) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("String", string);
+        return api.callApi("selenium", "action", "setOptionEdgeDriverPath", map);
     }
 
     /**

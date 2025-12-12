@@ -216,12 +216,25 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "view", "optionEncodeCookieValues", null);
     }
 
+    /** Tells whether or not the active scanner should exclude anti-csrf tokens from the scan. */
+    public ApiResponse optionExcludeAntiCsrfTokens() throws ClientApiException {
+        return api.callApi("ascan", "view", "optionExcludeAntiCsrfTokens", null);
+    }
+
     /**
      * Tells whether or not the active scanner should inject the HTTP request header X-ZAP-Scan-ID,
      * with the ID of the scan rule that's sending the requests.
      */
     public ApiResponse optionInjectPluginIdInHeader() throws ClientApiException {
         return api.callApi("ascan", "view", "optionInjectPluginIdInHeader", null);
+    }
+
+    /**
+     * Tells whether or not the temporary HTTP messages sent while active scanning should be
+     * persisted.
+     */
+    public ApiResponse optionPersistTemporaryMessages() throws ClientApiException {
+        return api.callApi("ascan", "view", "optionPersistTemporaryMessages", null);
     }
 
     public ApiResponse optionPromptInAttackMode() throws ClientApiException {
@@ -643,6 +656,13 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         return api.callApi("ascan", "action", "setOptionEncodeCookieValues", map);
     }
 
+    /** Sets whether or not the active scanner should exclude anti-csrf tokens from the scan. */
+    public ApiResponse setOptionExcludeAntiCsrfTokens(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("ascan", "action", "setOptionExcludeAntiCsrfTokens", map);
+    }
+
     public ApiResponse setOptionHandleAntiCSRFTokens(boolean bool) throws ClientApiException {
         Map<String, String> map = new HashMap<>();
         map.put("Boolean", Boolean.toString(bool));
@@ -700,6 +720,16 @@ public class Ascan extends org.zaproxy.clientapi.gen.deprecated.AscanDeprecated 
         Map<String, String> map = new HashMap<>();
         map.put("Integer", Integer.toString(i));
         return api.callApi("ascan", "action", "setOptionMaxScansInUI", map);
+    }
+
+    /**
+     * Sets whether or not the temporary HTTP messages sent while active scanning should be
+     * persisted.
+     */
+    public ApiResponse setOptionPersistTemporaryMessages(boolean bool) throws ClientApiException {
+        Map<String, String> map = new HashMap<>();
+        map.put("Boolean", Boolean.toString(bool));
+        return api.callApi("ascan", "action", "setOptionPersistTemporaryMessages", map);
     }
 
     public ApiResponse setOptionPromptInAttackMode(boolean bool) throws ClientApiException {
