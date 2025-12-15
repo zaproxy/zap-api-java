@@ -14,8 +14,8 @@ subprojects {
 
     group = "org.zaproxy"
 
-    version = "1.17.0"
-    extra["versionBC"] = "1.16.0"
+    version = "1.18.0-SNAPSHOT"
+    extra["versionBC"] = "1.17.0"
 
     java {
         if (System.getenv("RELEASE") != null) {
