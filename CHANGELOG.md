@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- Removed jdom dependency 
+  - Address XXE in JDOM SAXBuilder [CVE-2021-33813](https://github.com/advisories/GHSA-2363-cqg2-863c)
+  - Use w3c dom instead
+
 
 ## [1.17.0] - 2025-12-15
 ### Added
