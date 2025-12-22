@@ -9,9 +9,6 @@ sourceSets { examples }
 assemble.dependsOn examplesClasses
 
 dependencies {
-    // XXX Change to implementation (it's not exposed in public API) when bumping major version.
-    api 'org.jdom:jdom:1.1.3'
-
     examplesImplementation sourceSets.main.output
 }
 
