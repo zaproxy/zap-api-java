@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
@@ -34,7 +35,6 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import org.jdom.JDOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -65,7 +65,7 @@ public class AlertsFile {
             List<Alert> reportAlerts,
             List<Alert> ignoredAlerts,
             File outputFile)
-            throws JDOMException, IOException {
+            throws IOException {
 
         if (requireAlerts == null) {
             requireAlerts = new ArrayList<>();
@@ -118,7 +118,7 @@ public class AlertsFile {
             writeAlertsToFile(outputFile, alertsDocument);
 
         } catch (ParserConfigurationException | TransformerException e) {
-            throw new JDOMException("Failed to save alerts to file: " + outputFile, e);
+            throw new RuntimeException("Failed to save alerts to file: " + outputFile, e);
         }
     }
 
@@ -202,7 +202,7 @@ public class AlertsFile {
      * @return list of {@link Alert}s found inside the matching wrapper(s).
      */
     public static List<Alert> getAlertsFromFile(File file, String alertType)
-            throws JDOMException, IOException {
+            throws IOException {
 
         List<Alert> alerts = new ArrayList<>();
 
@@ -258,7 +258,7 @@ public class AlertsFile {
             }
 
         } catch (ParserConfigurationException | SAXException e) {
-            throw new JDOMException("Failed to read alerts from file: " + file, e);
+            throw new RemoteException("Failed to read alerts from file: " + file, e);
         }
 
         return alerts;
