@@ -43,21 +43,23 @@ import org.xml.sax.SAXException;
 public class AlertsFile {
 
     /**
-     * Writes the alerts into an XML file with the following structure:
+     * Writes alerts to an XML file. The file contains a root <alerts> element with the following
+     * wrapper elements:
      *
-     * <pre>
-     * &lt;alerts&gt;
-     *   &lt;alertsFound alertsFound="N"&gt;
-     *     &lt;alert .../&gt;
-     *   &lt;/alertsFound&gt;
-     *   &lt;alertsNotFound alertsNotFound="M"&gt;
-     *     &lt;alert .../&gt;
-     *   &lt;/alertsNotFound&gt;
-     *   &lt;ignoredAlertsFound ignoredAlertsFound="K"&gt;
-     *     &lt;alert .../&gt;
-     *   &lt;/ignoredAlertsFound&gt;
-     * &lt;/alerts&gt;
-     * </pre>
+     * <ul>
+     *   <li>"alertsFound" – alerts that were reported as found
+     *   <li>"alertsNotFound" – alerts that were required but not found
+     *   <li>"ignoredAlertsFound" – alerts that were found but ignored
+     * </ul>
+     *
+     * Each wrapper element includes an attribute indicating the number of alerts it contains and
+     * one or more {@link Alert} elements.
+     *
+     * @param requireAlerts Alerts that were required but not found.
+     * @param reportAlerts Alerts that were found.
+     * @param ignoredAlerts Alerts that were found but ignored.
+     * @param outputFile The XML file to write the alerts to.
+     * @throws IOException If an I/O error occurs while writing the file.
      */
     public static void saveAlertsToFile(
             List<Alert> requireAlerts,
@@ -200,8 +202,7 @@ public class AlertsFile {
      *
      * @return list of {@link Alert}s found inside the matching wrapper(s).
      */
-    public static List<Alert> getAlertsFromFile(File file, String alertType)
-            throws IOException {
+    public static List<Alert> getAlertsFromFile(File file, String alertType) throws IOException {
 
         List<Alert> alerts = new ArrayList<>();
 
@@ -210,9 +211,7 @@ public class AlertsFile {
             factory.setNamespaceAware(false);
             DocumentBuilder builder = factory.newDocumentBuilder();
             Document alertsDoc = builder.parse(file);
-
             Element root = alertsDoc.getDocumentElement();
-
             NodeList rootChildren = root.getChildNodes();
             for (int i = 0; i < rootChildren.getLength(); i++) {
                 Node wrapperNode = rootChildren.item(i);
