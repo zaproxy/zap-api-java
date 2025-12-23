@@ -23,6 +23,7 @@ import java.io.File;
 import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.List;
+import org.zaproxy.clientapi.service.AlertService;
 
 public class ClientApiMain {
 
@@ -96,7 +97,7 @@ public class ClientApiMain {
                     }
                     break;
                 case showAlerts:
-                    List<Alert> alerts = api.getAlerts(null, -1, -1);
+                    List<Alert> alerts = AlertService.getAlerts(null, -1, -1, null);
                     for (Alert alert : alerts) {
                         System.out.println(alert.toString());
                     }

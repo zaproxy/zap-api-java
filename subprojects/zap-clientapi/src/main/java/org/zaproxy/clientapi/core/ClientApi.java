@@ -27,7 +27,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
@@ -91,6 +90,8 @@ import org.zaproxy.clientapi.gen.Stats;
 import org.zaproxy.clientapi.gen.Users;
 import org.zaproxy.clientapi.gen.Wappalyzer;
 import org.zaproxy.clientapi.gen.Websocket;
+import org.zaproxy.clientapi.impl.DefaultAlertService;
+import org.zaproxy.clientapi.service.AlertService;
 
 @SuppressWarnings("this-escape")
 public class ClientApi {
@@ -103,10 +104,10 @@ public class ClientApi {
     private boolean debug = false;
     private PrintStream debugStream = System.out;
 
-    private final String zapAddress;
-    private final int zapPort;
+    private String zapAddress;
+    private int zapPort;
 
-    private final String apiKey;
+    private String apiKey;
 
     private DocumentBuilderFactory docBuilderFactory;
 
@@ -171,9 +172,11 @@ public class ClientApi {
     public Users users = new Users(this);
     public Wappalyzer wappalyzer = new Wappalyzer(this);
     public Websocket websocket = new Websocket(this);
+    private AlertService alertService;
 
     public ClientApi(String zapAddress, int zapPort) {
         this(zapAddress, zapPort, false);
+        this.alertService = new DefaultAlertService(this.alert);
     }
 
     /**
@@ -187,10 +190,12 @@ public class ClientApi {
      */
     public ClientApi(String zapAddress, int zapPort, String apiKey) {
         this(zapAddress, zapPort, apiKey, false);
+        this.alertService = new DefaultAlertService(this.alert);
     }
 
     public ClientApi(String zapAddress, int zapPort, boolean debug) {
         this(zapAddress, zapPort, null, debug);
+        this.alertService = new DefaultAlertService(this.alert);
     }
 
     /**
@@ -212,6 +217,7 @@ public class ClientApi {
         this.zapAddress = zapAddress;
         this.zapPort = zapPort;
         this.apiKey = apiKey;
+        this.alertService = new DefaultAlertService(this.alert);
     }
 
     public void setDebugStream(PrintStream debugStream) {
@@ -228,43 +234,15 @@ public class ClientApi {
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts)
             throws ClientApiException {
-        Map<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
-        verifyAlerts(results.get("requireAlerts"), results.get("reportAlerts"));
-    }
-
-    private void verifyAlerts(List<Alert> requireAlerts, List<Alert> reportAlerts)
-            throws ClientApiException {
-        StringBuilder sb = new StringBuilder();
-        if (reportAlerts.size() > 0) {
-            sb.append("Found ").append(reportAlerts.size()).append(" alerts\n");
-            for (Alert alert : reportAlerts) {
-                sb.append('\t');
-                sb.append(alert.toString());
-                sb.append('\n');
-            }
-        }
-        if (requireAlerts != null && requireAlerts.size() > 0) {
-            if (sb.length() > 0) {
-                sb.append('\n');
-            }
-            sb.append("Not found ").append(requireAlerts.size()).append(" alerts\n");
-            for (Alert alert : requireAlerts) {
-                sb.append('\t');
-                sb.append(alert.toString());
-                sb.append('\n');
-            }
-        }
-        if (sb.length() > 0) {
-            if (debug) {
-                debugStream.println("Failed: " + sb.toString());
-            }
-            throw new ClientApiException(sb.toString());
-        }
+        Map<String, List<Alert>> results =
+                alertService.checkAlerts(ignoreAlerts, requireAlerts, alert);
+        alertService.verifyAlerts(results.get("requireAlerts"), results.get("reportAlerts"));
     }
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts, File outputFile)
             throws ClientApiException {
-        Map<String, List<Alert>> results = checkForAlerts(ignoreAlerts, requireAlerts);
+        Map<String, List<Alert>> results =
+                alertService.checkAlerts(ignoreAlerts, requireAlerts, alert);
         int alertsFound = results.get("reportAlerts").size();
         int alertsNotFound = results.get("requireAlerts").size();
         int alertsIgnored = results.get("ignoredAlerts").size();
@@ -288,62 +266,6 @@ public class ClientApi {
                 debugStream.println("Check Alerts Passed!\n" + resultsString);
             }
         }
-    }
-
-    public List<Alert> getAlerts(String baseUrl, int start, int count) throws ClientApiException {
-        List<Alert> alerts = new ArrayList<>();
-        ApiResponse response =
-                alert.alerts(baseUrl, String.valueOf(start), String.valueOf(count), null);
-        if (response != null && response instanceof ApiResponseList) {
-            ApiResponseList alertList = (ApiResponseList) response;
-            for (ApiResponse resp : alertList.getItems()) {
-                alerts.add(new Alert((ApiResponseSet) resp));
-            }
-        }
-        return alerts;
-    }
-
-    private Map<String, List<Alert>> checkForAlerts(
-            List<Alert> ignoreAlerts, List<Alert> requireAlerts) throws ClientApiException {
-        List<Alert> reportAlerts = new ArrayList<>();
-        List<Alert> ignoredAlerts = new ArrayList<>();
-        List<Alert> alerts = getAlerts(null, -1, -1);
-        for (Alert alert : alerts) {
-            boolean ignore = false;
-            if (ignoreAlerts != null) {
-                for (Alert ignoreAlert : ignoreAlerts) {
-                    if (alert.matches(ignoreAlert)) {
-                        if (debug) {
-                            debugStream.println("Ignoring alert " + ignoreAlert);
-                        }
-                        ignoredAlerts.add(alert);
-                        ignore = true;
-                        break;
-                    }
-                }
-            }
-            if (!ignore) {
-                reportAlerts.add(alert);
-            }
-            if (requireAlerts != null) {
-                for (Alert requireAlert : requireAlerts) {
-                    if (alert.matches(requireAlert)) {
-                        if (debug) {
-                            debugStream.println("Found alert " + alert);
-                        }
-                        requireAlerts.remove(requireAlert);
-                        // Remove it from the not-ignored list as well
-                        reportAlerts.remove(alert);
-                        break;
-                    }
-                }
-            }
-        }
-        HashMap<String, List<Alert>> results = new HashMap<>();
-        results.put("reportAlerts", reportAlerts);
-        results.put("requireAlerts", requireAlerts);
-        results.put("ignoredAlerts", ignoredAlerts);
-        return results;
     }
 
     private void accessUrlViaProxy(Proxy proxy, String apiurl) throws ClientApiException {
@@ -502,17 +424,14 @@ public class ClientApi {
             if (debug) {
                 debugStream.println("Open URL: " + request.getRequestUri());
             }
-            InputStream in = getConnectionInputStream(request);
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             byte[] buffer = new byte[8 * 1024];
-            try {
+            try (InputStream in = getConnectionInputStream(request);
+                    out) {
                 int bytesRead;
                 while ((bytesRead = in.read(buffer)) != -1) {
                     out.write(buffer, 0, bytesRead);
                 }
-            } finally {
-                out.close();
-                in.close();
             }
             return out.toByteArray();
 
@@ -589,12 +508,7 @@ public class ClientApi {
     }
 
     private static String encodeQueryParam(String param) {
-        try {
-            return URLEncoder.encode(param, "UTF-8");
-        } catch (UnsupportedEncodingException ignore) {
-            // UTF-8 is a standard charset.
-        }
-        return param;
+        return URLEncoder.encode(param, StandardCharsets.UTF_8);
     }
 
     /**
@@ -692,7 +606,7 @@ public class ClientApi {
     private List<String> getSessionUrls() throws Exception {
         List<String> sessionUrls = new ArrayList<>();
         ApiResponse response = core.urls();
-        if (response != null && response instanceof ApiResponseList) {
+        if (response instanceof ApiResponseList) {
             ApiResponseElement urlList =
                     (ApiResponseElement) ((ApiResponseList) response).getItems().get(0);
             for (ApiResponse element : ((ApiResponseList) response).getItems()) {
@@ -742,7 +656,7 @@ public class ClientApi {
             status = statusToInt(ascan.status(""));
             if (debug) {
                 String format = "Scanning %s Progress: %d%%";
-                System.out.println(String.format(format, targetUrl, status));
+                System.out.printf(format + "%n", targetUrl, status);
             }
             try {
                 Thread.sleep(1000);
