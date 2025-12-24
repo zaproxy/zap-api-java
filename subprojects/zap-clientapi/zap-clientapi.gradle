@@ -9,9 +9,6 @@ sourceSets { examples }
 assemble.dependsOn examplesClasses
 
 dependencies {
-    // XXX Change to implementation (it's not exposed in public API) when bumping major version.
-    api 'org.jdom:jdom:1.1.3'
-
     examplesImplementation sourceSets.main.output
 }
 
@@ -53,8 +50,11 @@ task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
         addDefaultRules.set(true)
     }
 }
-
-check.dependsOn(japicmp)
+// TODO: Re-enable japicmp after releasing 2.0.0 and
+//       set versionBC = "2.0.0" as the new binary compatibility baseline.
+tasks.named("japicmp") {
+    onlyIf { false }
+}
 
 task javadocJar(type: Jar) {
     archiveClassifier = 'javadoc'

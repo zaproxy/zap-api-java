@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Refactor for clientapi 2.0.0.
+  - Extract alert logic into AlertService / DefaultAlertService
+  - Keep ClientApi as transport + gen API owner
+  - Simplify CLI orchestration (ClientApiMain)
+  - Disable japicmp for initial 2.x release
+  - Introduced internal workflows and services
+  - No functional changes intended
+
+### Removed
+- Removed `JDOM` dependency
+
 ## [1.17.0] - 2025-12-15
 ### Added
 - Add the APIs of the following add-ons:
