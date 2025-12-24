@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Keep ClientApi as transport + gen API owner
   - Simplify CLI orchestration (ClientApiMain)
   - Disable japicmp for initial 2.x release
+  - Introduced internal workflows and services
+  - No functional changes intended
 
 ### Removed
 - Removed `JDOM` dependency

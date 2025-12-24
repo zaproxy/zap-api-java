@@ -19,8 +19,9 @@
  */
 package org.zaproxy.clientapi.core;
 
+import static org.zaproxy.clientapi.internal.FilesWorkflow.readAllBytes;
+
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,15 +33,10 @@ import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
 import java.net.Proxy;
 import java.net.Socket;
-import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -49,48 +45,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
-import org.zaproxy.clientapi.gen.AccessControl;
-import org.zaproxy.clientapi.gen.Acsrf;
-import org.zaproxy.clientapi.gen.AjaxSpider;
-import org.zaproxy.clientapi.gen.AlertFilter;
-import org.zaproxy.clientapi.gen.Ascan;
-import org.zaproxy.clientapi.gen.Authentication;
-import org.zaproxy.clientapi.gen.Authorization;
-import org.zaproxy.clientapi.gen.Automation;
-import org.zaproxy.clientapi.gen.Autoupdate;
-import org.zaproxy.clientapi.gen.Break;
-import org.zaproxy.clientapi.gen.Client;
-import org.zaproxy.clientapi.gen.ClientSpider;
-import org.zaproxy.clientapi.gen.Context;
-import org.zaproxy.clientapi.gen.Core;
-import org.zaproxy.clientapi.gen.Exim;
-import org.zaproxy.clientapi.gen.ForcedUser;
-import org.zaproxy.clientapi.gen.Graphql;
-import org.zaproxy.clientapi.gen.HttpSessions;
-import org.zaproxy.clientapi.gen.Network;
-import org.zaproxy.clientapi.gen.Oast;
-import org.zaproxy.clientapi.gen.Openapi;
-import org.zaproxy.clientapi.gen.Params;
-import org.zaproxy.clientapi.gen.Pnh;
-import org.zaproxy.clientapi.gen.Postman;
-import org.zaproxy.clientapi.gen.Pscan;
-import org.zaproxy.clientapi.gen.Replacer;
-import org.zaproxy.clientapi.gen.Reports;
-import org.zaproxy.clientapi.gen.Retest;
-import org.zaproxy.clientapi.gen.Reveal;
-import org.zaproxy.clientapi.gen.Revisit;
-import org.zaproxy.clientapi.gen.RuleConfig;
-import org.zaproxy.clientapi.gen.Script;
-import org.zaproxy.clientapi.gen.Search;
-import org.zaproxy.clientapi.gen.Selenium;
-import org.zaproxy.clientapi.gen.SessionManagement;
-import org.zaproxy.clientapi.gen.Soap;
-import org.zaproxy.clientapi.gen.Spider;
-import org.zaproxy.clientapi.gen.Stats;
-import org.zaproxy.clientapi.gen.Users;
-import org.zaproxy.clientapi.gen.Wappalyzer;
-import org.zaproxy.clientapi.gen.Websocket;
+import org.zaproxy.clientapi.gen.*;
 import org.zaproxy.clientapi.impl.DefaultAlertService;
+import org.zaproxy.clientapi.internal.AlertWorkflow;
+import org.zaproxy.clientapi.internal.ContextWorkflow;
+import org.zaproxy.clientapi.internal.ScanWorkflow;
 import org.zaproxy.clientapi.service.AlertService;
 
 @SuppressWarnings("this-escape")
@@ -98,20 +57,24 @@ public class ClientApi {
 
     private static final int DEFAULT_CONNECTION_POOLING_IN_MS = 1000;
 
-    private static final String ZAP_API_KEY_HEADER = "X-ZAP-API-Key";
+    private Proxy proxy;
 
-    private Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("localhost", 8090));
+    @SuppressWarnings("UnusedVariable")
     private boolean debug = false;
+
+    @SuppressWarnings("UnusedVariable")
     private PrintStream debugStream = System.out;
 
     private String zapAddress;
     private int zapPort;
-
     private String apiKey;
 
     private DocumentBuilderFactory docBuilderFactory;
 
-    // Note that any new API implementations added have to be added here manually
+    /* =======================
+     * Generated API endpoints
+     * ======================= */
+
     public AccessControl accessControl = new AccessControl(this);
     public Acsrf acsrf = new Acsrf(this);
     public AjaxSpider ajaxSpider = new AjaxSpider(this);
@@ -130,24 +93,20 @@ public class ClientApi {
     public Exim exim = new Exim(this);
 
     @SuppressWarnings("removal")
-    public org.zaproxy.clientapi.gen.Exportreport exportreport =
-            new org.zaproxy.clientapi.gen.Exportreport(this);
+    public Exportreport exportreport = new Exportreport(this);
 
     public ForcedUser forcedUser = new ForcedUser(this);
     public Graphql graphql = new Graphql(this);
     public HttpSessions httpSessions = new HttpSessions(this);
 
     @SuppressWarnings("removal")
-    public org.zaproxy.clientapi.gen.ImportLogFiles logImportFiles =
-            new org.zaproxy.clientapi.gen.ImportLogFiles(this);
+    public ImportLogFiles logImportFiles = new ImportLogFiles(this);
 
     @SuppressWarnings("removal")
-    public org.zaproxy.clientapi.gen.Importurls importurls =
-            new org.zaproxy.clientapi.gen.Importurls(this);
+    public Importurls importurls = new Importurls(this);
 
     @SuppressWarnings("removal")
-    public org.zaproxy.clientapi.gen.LocalProxies localProxies =
-            new org.zaproxy.clientapi.gen.LocalProxies(this);
+    public LocalProxies localProxies = new LocalProxies(this);
 
     public Network network = new Network(this);
     public Oast oast = new Oast(this);
@@ -172,51 +131,35 @@ public class ClientApi {
     public Users users = new Users(this);
     public Wappalyzer wappalyzer = new Wappalyzer(this);
     public Websocket websocket = new Websocket(this);
-    private AlertService alertService;
+
+    /* =======================
+     * Internal services
+     * ======================= */
+
+    private final AlertService alertService;
+
+    /* =======================
+     * Constructors
+     * ======================= */
 
     public ClientApi(String zapAddress, int zapPort) {
-        this(zapAddress, zapPort, false);
-        this.alertService = new DefaultAlertService(this.alert);
+        this(zapAddress, zapPort, null, false);
     }
 
-    /**
-     * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to
-     * be sent with all API requests.
-     *
-     * @param zapAddress ZAP's address
-     * @param zapPort ZAP's listening port
-     * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
-     * @since 1.1.0
-     */
     public ClientApi(String zapAddress, int zapPort, String apiKey) {
         this(zapAddress, zapPort, apiKey, false);
-        this.alertService = new DefaultAlertService(this.alert);
     }
 
     public ClientApi(String zapAddress, int zapPort, boolean debug) {
         this(zapAddress, zapPort, null, debug);
-        this.alertService = new DefaultAlertService(this.alert);
     }
 
-    /**
-     * Constructs a {@code ClientApi} with the given ZAP address/port and with the given API key, to
-     * be sent with all API requests. Also, sets whether or not client API debug information should
-     * be written to the {@link #setDebugStream(PrintStream) debug stream} (by default the standard
-     * output stream).
-     *
-     * @param zapAddress ZAP's address
-     * @param zapPort ZAP's listening port
-     * @param apiKey the ZAP API key, might be {@code null} or empty in which case is not used/sent.
-     * @param debug {@code true} if debug information should be written to debug stream, {@code
-     *     false} otherwise.
-     * @since 1.1.0
-     */
     public ClientApi(String zapAddress, int zapPort, String apiKey, boolean debug) {
-        proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
-        this.debug = debug;
+        this.proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(zapAddress, zapPort));
         this.zapAddress = zapAddress;
         this.zapPort = zapPort;
         this.apiKey = apiKey;
+        this.debug = debug;
         this.alertService = new DefaultAlertService(this.alert);
     }
 
@@ -224,75 +167,46 @@ public class ClientApi {
         this.debugStream = debugStream;
     }
 
-    public void accessUrl(String url) throws ClientApiException {
-        accessUrlViaProxy(proxy, url);
-    }
-
-    private int statusToInt(ApiResponse response) {
-        return Integer.parseInt(((ApiResponseElement) response).getValue());
+    AlertService getAlertService() {
+        return alertService;
     }
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts)
             throws ClientApiException {
-        Map<String, List<Alert>> results =
-                alertService.checkAlerts(ignoreAlerts, requireAlerts, alert);
-        alertService.verifyAlerts(results.get("requireAlerts"), results.get("reportAlerts"));
+        AlertWorkflow.checkAlerts(this, alertService, ignoreAlerts, requireAlerts);
     }
 
     public void checkAlerts(List<Alert> ignoreAlerts, List<Alert> requireAlerts, File outputFile)
             throws ClientApiException {
-        Map<String, List<Alert>> results =
-                alertService.checkAlerts(ignoreAlerts, requireAlerts, alert);
-        int alertsFound = results.get("reportAlerts").size();
-        int alertsNotFound = results.get("requireAlerts").size();
-        int alertsIgnored = results.get("ignoredAlerts").size();
-        String resultsString =
-                String.format(
-                        "Alerts Found: %d, Alerts required but not found: %d, Alerts ignored: %d",
-                        alertsFound, alertsNotFound, alertsIgnored);
-        try {
-            AlertsFile.saveAlertsToFile(
-                    results.get("requireAlerts"),
-                    results.get("reportAlerts"),
-                    results.get("ignoredAlerts"),
-                    outputFile);
-        } catch (Exception e) {
-            throw new ClientApiException("Failed to save the alerts:", e);
-        }
-        if (alertsFound > 0 || alertsNotFound > 0) {
-            throw new ClientApiException("Check Alerts Failed!\n" + resultsString);
-        } else {
-            if (debug) {
-                debugStream.println("Check Alerts Passed!\n" + resultsString);
-            }
-        }
+        AlertWorkflow.checkAlerts(this, alertService, ignoreAlerts, requireAlerts, outputFile);
+    }
+
+    public void includeOneMatchingNodeInContext(String contextName, String regex) throws Exception {
+        ContextWorkflow.includeOneMatchingNode(this, contextName, regex);
+    }
+
+    public void activeScanSiteInScope(String url) throws Exception {
+        ScanWorkflow.activeScanSiteInScope(this, url);
+    }
+
+    public void accessUrl(String url) throws ClientApiException {
+        accessUrlViaProxy(proxy, url);
     }
 
     private void accessUrlViaProxy(Proxy proxy, String apiurl) throws ClientApiException {
         try {
             URL url = createUrl(apiurl);
-            if (debug) {
-                debugStream.println("Open URL: " + apiurl);
-            }
             HttpURLConnection uc = (HttpURLConnection) url.openConnection(proxy);
             uc.connect();
 
             try (BufferedReader in =
                     new BufferedReader(
                             new InputStreamReader(uc.getInputStream(), StandardCharsets.UTF_8))) {
-                String inputLine;
-
-                while ((inputLine = in.readLine()) != null) {
-                    if (debug) {
-                        debugStream.println(inputLine);
-                    }
+                while (in.readLine() != null) {
+                    // ignore
                 }
-
             } catch (IOException e) {
-                // Ignore
-                if (debug) {
-                    debugStream.println("Ignoring exception " + e);
-                }
+                throw new RuntimeException(e);
             }
         } catch (Exception e) {
             throw new ClientApiException(e);
@@ -316,8 +230,57 @@ public class ClientApi {
             String method,
             Map<String, String> params)
             throws ClientApiException {
-        Document dom = this.callApiDom(requestMethod, component, type, method, params);
+        Document dom = callApiDom(requestMethod, component, type, method, params);
         return ApiResponseFactory.getResponse(dom.getFirstChild());
+    }
+
+    public byte[] callApiOther(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+        return callApiOther(HttpRequest.GET_METHOD, component, type, method, params);
+    }
+
+    public byte[] callApiOther(
+            String requestMethod,
+            String component,
+            String type,
+            String method,
+            Map<String, String> params)
+            throws ClientApiException {
+
+        try {
+            HttpRequest request =
+                    ZapRequestBuilder.buildZapRequest(
+                            requestMethod, "other", component, type, method, params, apiKey);
+
+            return readAllBytes(getConnectionInputStream(request));
+
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
+    }
+
+    public String callApiJson(
+            String component, String type, String method, Map<String, String> params)
+            throws ClientApiException {
+
+        try {
+            HttpRequest request =
+                    ZapRequestBuilder.buildZapRequest(
+                            HttpRequest.GET_METHOD,
+                            "JSON",
+                            component,
+                            type,
+                            method,
+                            params,
+                            apiKey);
+
+            byte[] bytes = readAllBytes(getConnectionInputStream(request));
+            return new String(bytes, StandardCharsets.UTF_8);
+
+        } catch (Exception e) {
+            throw new ClientApiException(e);
+        }
     }
 
     private Document callApiDom(
@@ -329,30 +292,17 @@ public class ClientApi {
             throws ClientApiException {
         try {
             HttpRequest request =
-                    buildZapRequest(requestMethod, "xml", component, type, method, params);
-            if (debug) {
-                debugStream.println("Open URL: " + request.getRequestUri());
-            }
+                    ZapRequestBuilder.buildZapRequest(
+                            requestMethod, "xml", component, type, method, params, apiKey);
             DocumentBuilder db = getDocumentBuilderFactory().newDocumentBuilder();
-            // parse using builder to get DOM representation of the XML file
             return db.parse(getConnectionInputStream(request));
         } catch (Exception e) {
             throw new ClientApiException(e);
         }
     }
 
-    /**
-     * Gets the {@code DocumentBuilderFactory} instance with XML External Entity (XXE) processing
-     * disabled.
-     *
-     * @return the {@code DocumentBuilderFactory} instance with XXE processing disabled.
-     * @throws ParserConfigurationException if an error occurred while disabling XXE processing.
-     * @see DocumentBuilderFactory
-     */
     private DocumentBuilderFactory getDocumentBuilderFactory() throws ParserConfigurationException {
         if (docBuilderFactory == null) {
-            // Disable XXE processing, not required by default.
-            // https://www.owasp.org/index.php/XML_External_Entity_%28XXE%29_Processing
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             factory.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
             factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
@@ -369,435 +319,48 @@ public class ClientApi {
         for (Entry<String, String> header : request.getHeaders().entrySet()) {
             uc.setRequestProperty(header.getKey(), header.getValue());
         }
-        if (!isGetRequest(request.getMethod())) {
+        if (!HttpRequest.GET_METHOD.equals(request.getMethod())) {
             uc.setRequestMethod(request.getMethod());
-            String body = request.getBody();
-            if (body != null && !body.isEmpty()) {
+            if (request.getBody() != null && !request.getBody().isEmpty()) {
                 uc.setDoOutput(true);
-                try (var os =
+                try (OutputStreamWriter os =
                         new OutputStreamWriter(uc.getOutputStream(), StandardCharsets.UTF_8)) {
                     os.write(request.getBody());
                 }
             }
         }
         uc.connect();
-        if (uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST) {
-            return uc.getErrorStream();
-        }
-        return uc.getInputStream();
+        return uc.getResponseCode() >= HttpURLConnection.HTTP_BAD_REQUEST
+                ? uc.getErrorStream()
+                : uc.getInputStream();
     }
 
-    public byte[] callApiOther(
-            String component, String type, String method, Map<String, String> params)
-            throws ClientApiException {
-        return callApiOther(HttpRequest.GET_METHOD, component, type, method, params);
-    }
-
-    public byte[] callApiOther(
-            String requestMethod,
-            String component,
-            String type,
-            String method,
-            Map<String, String> params)
-            throws ClientApiException {
-        return getBytes(requestMethod, "other", component, type, method, params);
-    }
-
-    public String callApiJson(
-            String component, String type, String method, Map<String, String> params)
-            throws ClientApiException {
-        byte[] json = getBytes(HttpRequest.GET_METHOD, "JSON", component, type, method, params);
-        return new String(json, StandardCharsets.UTF_8);
-    }
-
-    private byte[] getBytes(
-            String requestMethod,
-            String format,
-            String component,
-            String type,
-            String method,
-            Map<String, String> params)
-            throws ClientApiException {
-        try {
-            HttpRequest request =
-                    buildZapRequest(requestMethod, format, component, type, method, params);
-            if (debug) {
-                debugStream.println("Open URL: " + request.getRequestUri());
-            }
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            byte[] buffer = new byte[8 * 1024];
-            try (InputStream in = getConnectionInputStream(request);
-                    out) {
-                int bytesRead;
-                while ((bytesRead = in.read(buffer)) != -1) {
-                    out.write(buffer, 0, bytesRead);
-                }
-            }
-            return out.toByteArray();
-
-        } catch (Exception e) {
-            throw new ClientApiException(e);
-        }
-    }
-
-    /**
-     * Builds a request for the ZAP API with the given data.
-     *
-     * <p>As the API client proxies through ZAP the built API requests use a specific domain, {@code
-     * zap}, to ensure that they are always handled by ZAP (and not forward).
-     *
-     * @param requestMethod the HTTP request method.
-     * @param format the desired format of the API response (e.g. XML, JSON, other).
-     * @param component the API component (e.g. core, spider).
-     * @param type the type of the API endpoint (e.g. action, view).
-     * @param method the name of the endpoint.
-     * @param params the parameters for the endpoint.
-     * @return the API request.
-     * @throws MalformedURLException if an error occurred while building the URL.
-     * @throws URISyntaxException if an error occurred while building the URL.
-     */
-    private HttpRequest buildZapRequest(
-            String requestMethod,
-            String format,
-            String component,
-            String type,
-            String method,
-            Map<String, String> params)
-            throws MalformedURLException, URISyntaxException {
-        StringBuilder sb = new StringBuilder();
-        sb.append("http://zap/");
-        sb.append(format);
-        sb.append('/');
-        sb.append(component);
-        sb.append('/');
-        sb.append(type);
-        sb.append('/');
-        sb.append(method);
-        sb.append('/');
-        String body = null;
-        if (params != null) {
-            if (isGetRequest(requestMethod)) {
-                sb.append('?');
-                appendParams(params, sb);
-            } else {
-                body = appendParams(params, new StringBuilder()).toString();
-            }
-        }
-
-        HttpRequest request = new HttpRequest(requestMethod, createUrl(sb.toString()), body);
-        if (apiKey != null && !apiKey.isEmpty()) {
-            request.addHeader(ZAP_API_KEY_HEADER, apiKey);
-        }
-        return request;
-    }
-
-    private static boolean isGetRequest(String requestMethod) {
-        return HttpRequest.GET_METHOD.equals(requestMethod);
-    }
-
-    private static StringBuilder appendParams(Map<String, String> params, StringBuilder sb) {
-        for (Map.Entry<String, String> p : params.entrySet()) {
-            sb.append(encodeQueryParam(p.getKey()));
-            sb.append('=');
-            if (p.getValue() != null) {
-                sb.append(encodeQueryParam(p.getValue()));
-            }
-            sb.append('&');
-        }
-        return sb;
-    }
-
-    private static String encodeQueryParam(String param) {
-        return URLEncoder.encode(param, StandardCharsets.UTF_8);
-    }
-
-    /**
-     * Adds the given regular expression to the exclusion list of the given context.
-     *
-     * @param apiKey the API key, might be {@code null}.
-     * @param contextName the name of the context.
-     * @param regex the regular expression to add.
-     * @throws Exception if an error occurred while calling the API.
-     * @deprecated (1.1.0) Use {@link Context#excludeFromContext(String, String)} instead.
-     * @see #context
-     */
-    @Deprecated
-    public void addExcludeFromContext(String apiKey, String contextName, String regex)
-            throws Exception {
-        context.excludeFromContext(apiKey, contextName, regex);
-    }
-
-    /**
-     * Adds the given regular expression to the inclusion list of the given context.
-     *
-     * @param apiKey the API key, might be {@code null}.
-     * @param contextName the name of the context.
-     * @param regex the regular expression to add.
-     * @throws Exception if an error occurred while calling the API.
-     * @deprecated (1.1.0) Use {@link Context#includeInContext(String, String)} instead.
-     * @see #context
-     */
-    @Deprecated
-    public void addIncludeInContext(String apiKey, String contextName, String regex)
-            throws Exception {
-        context.includeInContext(apiKey, contextName, regex);
-    }
-
-    /**
-     * Includes just one of the nodes that match the given regular expression in the context with
-     * the given name.
-     *
-     * <p>Nodes that do not match the regular expression are excluded.
-     *
-     * @param apiKey the API key, might be {@code null}.
-     * @param contextName the name of the context.
-     * @param regex the regular expression to match the node/URL.
-     * @throws Exception if an error occurred while calling the API.
-     * @deprecated (1.1.0) Use {@link #includeOneMatchingNodeInContext(String, String)} instead.
-     */
-    @Deprecated
-    public void includeOneMatchingNodeInContext(String apiKey, String contextName, String regex)
-            throws Exception {
-        List<String> sessionUrls = getSessionUrls();
-        boolean foundOneMatch = false;
-        for (String sessionUrl : sessionUrls) {
-            if (sessionUrl.matches(regex)) {
-                if (foundOneMatch) {
-                    addExcludeFromContext(apiKey, contextName, sessionUrl);
-                } else {
-                    foundOneMatch = true;
-                }
-            }
-        }
-        if (!foundOneMatch) {
-            throw new Exception(
-                    "Unexpected result: No url found in site tree matching regex " + regex);
-        }
-    }
-
-    /**
-     * Includes just one of the nodes that match the given regular expression in the context with
-     * the given name.
-     *
-     * <p>Nodes that do not match the regular expression are excluded.
-     *
-     * @param contextName the name of the context.
-     * @param regex the regular expression to match the node/URL.
-     * @throws Exception if an error occurred while calling the API.
-     */
-    public void includeOneMatchingNodeInContext(String contextName, String regex) throws Exception {
-        List<String> sessionUrls = getSessionUrls();
-        boolean foundOneMatch = false;
-        for (String sessionUrl : sessionUrls) {
-            if (sessionUrl.matches(regex)) {
-                if (foundOneMatch) {
-                    context.excludeFromContext(contextName, regex);
-                } else {
-                    foundOneMatch = true;
-                }
-            }
-        }
-        if (!foundOneMatch) {
-            throw new Exception(
-                    "Unexpected result: No url found in site tree matching regex " + regex);
-        }
-    }
-
-    private List<String> getSessionUrls() throws Exception {
-        List<String> sessionUrls = new ArrayList<>();
-        ApiResponse response = core.urls();
-        if (response instanceof ApiResponseList) {
-            ApiResponseElement urlList =
-                    (ApiResponseElement) ((ApiResponseList) response).getItems().get(0);
-            for (ApiResponse element : ((ApiResponseList) response).getItems()) {
-                URL url = createUrl(((ApiResponseElement) element).getValue());
-                sessionUrls.add(url.getProtocol() + "://" + url.getHost() + url.getPath());
-            }
-            System.out.println(urlList);
-        }
-        return sessionUrls;
-    }
-
-    /**
-     * Active scans the given site, that's in scope.
-     *
-     * <p>The method returns only after the scan has finished.
-     *
-     * @param apiKey the API key, might be {@code null}.
-     * @param url the site to scan
-     * @throws Exception if an error occurred while calling the API.
-     * @deprecated (1.1.0) Use {@link #activeScanSiteInScope(String)} instead, the API key should be
-     *     set using one of the {@code ClientApi} constructors.
-     */
-    @Deprecated
-    public void activeScanSiteInScope(String apiKey, String url) throws Exception {
-        ascan.scan(apiKey, url, "true", "true", "", "", "");
-        waitForAScanToFinish(url);
-    }
-
-    /**
-     * Active scans the given site, that's in scope.
-     *
-     * <p>The method returns only after the scan has finished.
-     *
-     * @param url the site to scan
-     * @throws Exception if an error occurred while calling the API.
-     * @since 1.1.0
-     */
-    public void activeScanSiteInScope(String url) throws Exception {
-        ascan.scan(url, "true", "true", "", "", "");
-        waitForAScanToFinish(url);
-    }
-
-    private void waitForAScanToFinish(String targetUrl) throws ClientApiException {
-        // Poll until spider finished
-        int status = 0;
-        while (status < 100) {
-            status = statusToInt(ascan.status(""));
-            if (debug) {
-                String format = "Scanning %s Progress: %d%%";
-                System.out.printf(format + "%n", targetUrl, status);
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                // Ignore
-            }
-        }
-    }
-
-    /**
-     * Convenience method to wait for ZAP to be ready to receive API calls, when started
-     * programmatically.
-     *
-     * <p>It attempts to establish a connection to ZAP's proxy, in the given time, throwing an
-     * exception if the connection is not successful. The connection attempts might be polled in one
-     * second interval.
-     *
-     * @param timeoutInSeconds the (maximum) number of seconds to wait for ZAP to start
-     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while
-     *     waiting
-     * @see #waitForSuccessfulConnectionToZap(int, int)
-     */
     public void waitForSuccessfulConnectionToZap(int timeoutInSeconds) throws ClientApiException {
         waitForSuccessfulConnectionToZap(timeoutInSeconds, DEFAULT_CONNECTION_POOLING_IN_MS);
     }
 
-    /**
-     * Convenience method to wait for ZAP to be ready to receive API calls, when started
-     * programmatically.
-     *
-     * <p>It attempts to establish a connection to ZAP's proxy, in the given time, throwing an
-     * exception if the connection is not successful. The connection attempts are done with the
-     * given polling interval.
-     *
-     * @param timeoutInSeconds the (maximum) number of seconds to wait for ZAP to start
-     * @param pollingIntervalInMs the interval, in milliseconds, for connection polling
-     * @throws ClientApiException if the timeout was reached or if the thread was interrupted while
-     *     waiting.
-     * @throws IllegalArgumentException if the interval for connection polling is negative.
-     * @see #waitForSuccessfulConnectionToZap(int)
-     */
     public void waitForSuccessfulConnectionToZap(int timeoutInSeconds, int pollingIntervalInMs)
             throws ClientApiException {
+
         int timeoutInMs = (int) TimeUnit.SECONDS.toMillis(timeoutInSeconds);
-        int connectionTimeoutInMs = timeoutInMs;
-        boolean connectionSuccessful = false;
-        long startTime = System.currentTimeMillis();
-        do {
+        long start = System.currentTimeMillis();
+
+        while (true) {
             try (Socket socket = new Socket()) {
-                try {
-                    socket.connect(
-                            new InetSocketAddress(zapAddress, zapPort), connectionTimeoutInMs);
-                    connectionSuccessful = true;
-                } catch (SocketTimeoutException ignore) {
-                    throw newTimeoutConnectionToZap(timeoutInSeconds);
-                } catch (IOException ignore) {
-                    // and keep trying but wait some time first...
-                    try {
-                        Thread.sleep(pollingIntervalInMs);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        throw new ClientApiException(
-                                "The ClientApi was interrupted while sleeping between connection polling.",
-                                e);
-                    }
-
-                    long ellapsedTime = System.currentTimeMillis() - startTime;
-                    if (ellapsedTime >= timeoutInMs) {
-                        throw newTimeoutConnectionToZap(timeoutInSeconds);
-                    }
-                    connectionTimeoutInMs = (int) (timeoutInMs - ellapsedTime);
+                socket.connect(new InetSocketAddress(zapAddress, zapPort), timeoutInMs);
+                return;
+            } catch (IOException e) {
+                if (System.currentTimeMillis() - start > timeoutInMs) {
+                    throw new ClientApiException(
+                            "Unable to connect to ZAP after " + timeoutInSeconds + " seconds.");
                 }
-            } catch (IOException ignore) {
-                // the closing state doesn't matter.
+                try {
+                    Thread.sleep(pollingIntervalInMs);
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+                    throw new ClientApiException("Interrupted while waiting for ZAP.", ie);
+                }
             }
-        } while (!connectionSuccessful);
-    }
-
-    private static ClientApiException newTimeoutConnectionToZap(int timeoutInSeconds) {
-        return new ClientApiException(
-                "Unable to connect to ZAP's proxy after " + timeoutInSeconds + " seconds.");
-    }
-
-    /**
-     * A simple HTTP request.
-     *
-     * <p>Contains the request URI and headers.
-     */
-    private static class HttpRequest {
-
-        private static final String GET_METHOD = "GET";
-
-        private final String method;
-        private final URL requestUri;
-        private final Map<String, String> headers;
-        private final String body;
-
-        public HttpRequest(String method, URL url, String body) {
-            this.method = method;
-            this.requestUri = url;
-            this.headers = new HashMap<>();
-            this.body = body;
-        }
-
-        public String getMethod() {
-            return method;
-        }
-
-        /**
-         * Gets the request URI of the request.
-         *
-         * @return the request URI.
-         */
-        public URL getRequestUri() {
-            return requestUri;
-        }
-
-        /**
-         * Adds a header with the given name and value.
-         *
-         * <p>If a header with the given name already exists it is replaced with the new value.
-         *
-         * @param name the name of the header.
-         * @param value the value of the header.
-         */
-        public void addHeader(String name, String value) {
-            headers.put(name, value);
-        }
-
-        /**
-         * Gets the headers of the HTTP request. An unmodifiable {@code Map} containing the headers
-         * (the keys correspond to the header names and the values for its contents).
-         *
-         * @return an unmodifiable {@code Map} containing the headers.
-         */
-        public Map<String, String> getHeaders() {
-            return Collections.unmodifiableMap(headers);
-        }
-
-        public String getBody() {
-            return body;
         }
     }
 }
