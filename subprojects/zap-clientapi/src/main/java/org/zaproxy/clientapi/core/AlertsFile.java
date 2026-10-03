@@ -3,7 +3,7 @@
  *
  * ZAP is an HTTP/HTTPS proxy for assessing web application security.
  *
- * Copyright 2012 The ZAP Development Team
+ * Copyright 2025 The ZAP Development Team
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,110 +25,244 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.JDOMException;
-import org.jdom.input.SAXBuilder;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 public class AlertsFile {
+
+    /**
+     * Writes alerts to an XML file. The file contains a root <alerts> element with the following
+     * wrapper elements:
+     *
+     * <ul>
+     *   <li>"alertsFound" – alerts that were reported as found
+     *   <li>"alertsNotFound" – alerts that were required but not found
+     *   <li>"ignoredAlertsFound" – alerts that were found but ignored
+     * </ul>
+     *
+     * Each wrapper element includes an attribute indicating the number of alerts it contains and
+     * one or more {@link Alert} elements.
+     *
+     * @param requireAlerts Alerts that were required but not found.
+     * @param reportAlerts Alerts that were found.
+     * @param ignoredAlerts Alerts that were found but ignored.
+     * @param outputFile The XML file to write the alerts to.
+     * @throws IOException If an I/O error occurs while writing the file.
+     */
     public static void saveAlertsToFile(
             List<Alert> requireAlerts,
             List<Alert> reportAlerts,
             List<Alert> ignoredAlerts,
             File outputFile)
-            throws JDOMException, IOException {
-        Element alerts = new Element("alerts");
-        Document alertsDocument = new Document(alerts);
-        alertsDocument.setRootElement(alerts);
-        if (reportAlerts.size() > 0) {
-            Element alertsFound = new Element("alertsFound");
-            alertsFound.setAttribute("alertsFound", Integer.toString(reportAlerts.size()));
-            for (Alert alert : reportAlerts) {
-                createAlertXMLElements(alertsFound, alert);
-            }
-            alertsDocument.getRootElement().addContent(alertsFound);
+            throws IOException {
+
+        if (requireAlerts == null) {
+            requireAlerts = new ArrayList<>();
+        }
+        if (reportAlerts == null) {
+            reportAlerts = new ArrayList<>();
+        }
+        if (ignoredAlerts == null) {
+            ignoredAlerts = new ArrayList<>();
         }
 
-        if (requireAlerts.size() > 0) {
-            Element alertsNotFound = new Element("alertsNotFound");
-            alertsNotFound.setAttribute("alertsNotFound", Integer.toString(requireAlerts.size()));
-            for (Alert alert : requireAlerts) {
-                createAlertXMLElements(alertsNotFound, alert);
-            }
-            alertsDocument.getRootElement().addContent(alertsNotFound);
-        }
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document alertsDocument = builder.newDocument();
 
-        if (ignoredAlerts.size() > 0) {
-            Element ignoredAlertsFound = new Element("ignoredAlertsFound");
-            ignoredAlertsFound.setAttribute(
-                    "ignoredAlertsFound", Integer.toString(ignoredAlerts.size()));
-            for (Alert alert : ignoredAlerts) {
-                createAlertXMLElements(ignoredAlertsFound, alert);
-            }
-            alertsDocument.getRootElement().addContent(ignoredAlertsFound);
-        }
+            Element root = alertsDocument.createElement("alerts");
+            alertsDocument.appendChild(root);
 
-        writeAlertsToFile(outputFile, alertsDocument);
+            if (!reportAlerts.isEmpty()) {
+                Element alertsFound = alertsDocument.createElement("alertsFound");
+                alertsFound.setAttribute("alertsFound", Integer.toString(reportAlerts.size()));
+                for (Alert alert : reportAlerts) {
+                    createAlertXMLElements(alertsDocument, alertsFound, alert);
+                }
+                root.appendChild(alertsFound);
+            }
+
+            if (!requireAlerts.isEmpty()) {
+                Element alertsNotFound = alertsDocument.createElement("alertsNotFound");
+                alertsNotFound.setAttribute(
+                        "alertsNotFound", Integer.toString(requireAlerts.size()));
+                for (Alert alert : requireAlerts) {
+                    createAlertXMLElements(alertsDocument, alertsNotFound, alert);
+                }
+                root.appendChild(alertsNotFound);
+            }
+
+            if (!ignoredAlerts.isEmpty()) {
+                Element ignoredAlertsFound = alertsDocument.createElement("ignoredAlertsFound");
+                ignoredAlertsFound.setAttribute(
+                        "ignoredAlertsFound", Integer.toString(ignoredAlerts.size()));
+                for (Alert alert : ignoredAlerts) {
+                    createAlertXMLElements(alertsDocument, ignoredAlertsFound, alert);
+                }
+                root.appendChild(ignoredAlertsFound);
+            }
+
+            writeAlertsToFile(outputFile, alertsDocument);
+
+        } catch (ParserConfigurationException | TransformerException e) {
+            throw new RuntimeException("Failed to save alerts to file: " + outputFile, e);
+        }
     }
 
-    private static void writeAlertsToFile(File outputFile, Document doc) throws IOException {
+    private static void writeAlertsToFile(File outputFile, Document doc)
+            throws IOException, TransformerException {
 
-        XMLOutputter xmlOutput = new XMLOutputter();
+        TransformerFactory tf = TransformerFactory.newInstance();
+        Transformer transformer = tf.newTransformer();
 
-        xmlOutput.setFormat(Format.getPrettyFormat());
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+
         try (OutputStream os = Files.newOutputStream(outputFile.toPath())) {
-            xmlOutput.output(doc, os);
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(os);
+            transformer.transform(source, result);
             System.out.println("alert xml report saved to: " + outputFile.getAbsolutePath());
         }
     }
 
-    private static void createAlertXMLElements(Element alertsFound, Alert alert) {
-        Element alertElement = new Element("alert");
+    private static void createAlertXMLElements(Document doc, Element alertsParent, Alert alert) {
+
+        Element alertElement = doc.createElement("alert");
+
         if (alert.getName() != null) {
             alertElement.setAttribute("name", alert.getName());
             // TODO Remove once alert attribute is no longer supported.
             alertElement.setAttribute("alert", alert.getName());
         }
-        if (alert.getRisk() != null) alertElement.setAttribute("risk", alert.getRisk().name());
-        if (alert.getUrl() != null)
+
+        if (alert.getRisk() != null) {
+            alertElement.setAttribute("risk", alert.getRisk().name());
+        }
+
+        if (alert.getConfidence() != null) {
             alertElement.setAttribute("confidence", alert.getConfidence().name());
-        if (alert.getUrl() != null) alertElement.setAttribute("url", alert.getUrl());
-        if (alert.getParam() != null) alertElement.setAttribute("param", alert.getParam());
-        if (alert.getOther() != null) alertElement.setAttribute("other", alert.getOther());
-        if (alert.getAttack() != null) alertElement.setAttribute("attack", alert.getAttack());
-        if (alert.getDescription() != null)
+        }
+
+        if (alert.getUrl() != null) {
+            alertElement.setAttribute("url", alert.getUrl());
+        }
+
+        if (alert.getParam() != null) {
+            alertElement.setAttribute("param", alert.getParam());
+        }
+
+        if (alert.getOther() != null) {
+            alertElement.setAttribute("other", alert.getOther());
+        }
+
+        if (alert.getAttack() != null) {
+            alertElement.setAttribute("attack", alert.getAttack());
+        }
+
+        if (alert.getDescription() != null) {
             alertElement.setAttribute("description", alert.getDescription());
-        if (alert.getSolution() != null) alertElement.setAttribute("solution", alert.getSolution());
-        if (alert.getReference() != null)
+        }
+
+        if (alert.getSolution() != null) {
+            alertElement.setAttribute("solution", alert.getSolution());
+        }
+
+        if (alert.getReference() != null) {
             alertElement.setAttribute("reference", alert.getReference());
-        alertsFound.addContent(alertElement);
+        }
+
+        alertsParent.appendChild(alertElement);
     }
 
-    public static List<Alert> getAlertsFromFile(File file, String alertType)
-            throws JDOMException, IOException {
+    /**
+     * Reads alerts of a given type from the file.
+     *
+     * @param file The XML file previously written by {@link #saveAlertsToFile}.
+     * @param alertType The wrapper element name under &lt;alerts&gt;:
+     *     <ul>
+     *       <li>"alertsFound"
+     *       <li>"alertsNotFound"
+     *       <li>"ignoredAlertsFound"
+     *     </ul>
+     *
+     * @return list of {@link Alert}s found inside the matching wrapper(s).
+     */
+    public static List<Alert> getAlertsFromFile(File file, String alertType) throws IOException {
+
         List<Alert> alerts = new ArrayList<>();
-        SAXBuilder parser = new SAXBuilder();
-        Document alertsDoc = parser.build(file);
-        @SuppressWarnings("unchecked")
-        List<Element> alertElements = alertsDoc.getRootElement().getChildren(alertType);
-        for (Element element : alertElements) {
-            String name = element.getAttributeValue("name");
-            if (name == null) {
-                // TODO Remove once alert attribute is no longer supported.
-                name = element.getAttributeValue("alert");
+
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            factory.setNamespaceAware(false);
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document alertsDoc = builder.parse(file);
+            Element root = alertsDoc.getDocumentElement();
+            NodeList rootChildren = root.getChildNodes();
+            for (int i = 0; i < rootChildren.getLength(); i++) {
+                Node wrapperNode = rootChildren.item(i);
+                if (wrapperNode.getNodeType() != Node.ELEMENT_NODE) {
+                    continue;
+                }
+
+                Element wrapperElem = (Element) wrapperNode;
+                if (!alertType.equals(wrapperElem.getTagName())) {
+                    continue;
+                }
+
+                NodeList childNodes = wrapperElem.getChildNodes();
+                for (int j = 0; j < childNodes.getLength(); j++) {
+                    Node node = childNodes.item(j);
+                    if (node.getNodeType() != Node.ELEMENT_NODE) {
+                        continue;
+                    }
+
+                    Element element = (Element) node;
+                    if (!"alert".equals(element.getTagName())) {
+                        continue;
+                    }
+
+                    String name = element.getAttribute("name");
+                    if (name.isEmpty()) {
+                        // TODO Remove once alert attribute is no longer supported.
+                        name = element.getAttribute("alert");
+                    }
+
+                    Alert alert =
+                            new Alert(
+                                    emptyToNull(element.getAttribute("url")),
+                                    emptyToNull(element.getAttribute("risk")),
+                                    emptyToNull(element.getAttribute("confidence")),
+                                    emptyToNull(element.getAttribute("param")),
+                                    emptyToNull(element.getAttribute("other")),
+                                    name);
+
+                    alerts.add(alert);
+                }
             }
-            Alert alert =
-                    new Alert(
-                            name,
-                            element.getAttributeValue("url"),
-                            element.getAttributeValue("risk"),
-                            element.getAttributeValue("confidence"),
-                            element.getAttributeValue("param"),
-                            element.getAttributeValue("other"));
-            alerts.add(alert);
+
+        } catch (ParserConfigurationException | SAXException e) {
+            throw new RuntimeException("Failed to read alerts from file: " + file, e);
         }
+
         return alerts;
+    }
+
+    private static String emptyToNull(String value) {
+        return (value == null || value.isEmpty()) ? null : value;
     }
 }
